@@ -74,6 +74,9 @@ export default class Jobs extends Component {
   }
 
   handleFinish = async (id) => {
+     console.log(id);
+     
+
      const response = await endJob(id) ;
      console.log(response);
      

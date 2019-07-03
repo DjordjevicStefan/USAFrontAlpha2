@@ -22,6 +22,13 @@ export default function WorkOrderJobs(props) {
   
   console.log("jobs arrey",sortJobs);
   
+  const formatDate = (date) => {
+    if (date) {
+      return date.substring(0,10);
+   } else {
+      return "" ;
+    }
+  }
 
   return (
     <>
@@ -74,7 +81,7 @@ export default function WorkOrderJobs(props) {
                   <input 
                     type="date"
                     // disabled ={(job.assignmentDate !== "" ) ? true : false}
-                    value = {job.assignmentDate}
+                    value = {formatDate(job.assignmentDate)}
                     onChange={onDateChange}
                     className="form-control form-control-sm"
                   /> 
