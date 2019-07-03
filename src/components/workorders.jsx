@@ -340,13 +340,10 @@ class Workorders extends Form {
             onFinishedButton={this.handleFinishedButton}
           />
           <div className="rooms border text-center">
-            <h1 className="lead m-3">All workorders</h1>
-            {/* <button
-              onClick={() => this.handleBackButton()}
-              className="btn btn-warning m-3"
-            >
-              ⏎ Home
-            </button> */}
+            <h1 className="lead m-2">
+              All {this.props.match.params.i} workorders
+            </h1>
+
             <SearchBox value={searchQuery} onChange={this.handleSearch} />
             <table className="table">
               <thead>
