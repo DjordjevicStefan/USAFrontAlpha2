@@ -1,0 +1,228 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+/* custom bootstrap colors and mine custom bootstrpa css  */
+
+.padding-bottom-1rem {
+  padding-bottom: 1rem ;
+}
+
+.p-display-inline {
+  display: inline ;
+}
+
+.reset-right-padding {
+  padding-right: 0 !important ;
+}
+
+.reset-bottom-margin {
+  margin-bottom: 0 !important ;
+}
+
+.pagination-custom {
+  margin-bottom: 0;
+  box-shadow: 0 3px 3px black;
+}
+
+.login {
+  padding: 30px;
+  background-color: #eeeeee;
+  box-shadow: 0 0 8px #5a6abf;
+}
+
+.login h1 {
+  text-align: center;
+  color: #5a6abf;
+}
+
+.th-text-align {
+  text-align: -webkit-center;
+}
+
+.reset-mb {
+  margin-bottom: 0 !important;
+}
+
+.form-items {
+  margin-top: 0.8rem;
+}
+
+.padding-b {
+  padding-bottom: 0 !important ;
+  /* padding-top: 1rem  !important; */
+}
+
+.item-table-show {
+  display: none;
+}
+
+.error-row {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-adj {
+  margin-top: -0.8rem;
+}
+
+.form-adj-last {
+  margin-bottom: 0;
+}
+
+.my-nav {
+  background-color: #26418f !important ;
+}
+
+.my-nav-link {
+  color: #ffffff;
+}
+
+.logo-color {
+  color: #ffff74;
+}
+
+.jumbotron {
+  max-height: 7rem;
+  padding: 0;
+  padding-bottom: 5px;
+  background-color: #5c6bc0;
+  color: #ffffff;
+}
+
+.table-name {
+  background-color: #eeeeee;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.click-th {
+  cursor: pointer;
+}
+
+.container-bg {
+  background-color: #eeeeee;
+}
+
+.endDate {
+  color: red;
+}
+
+.form-container {
+  width: 70vw;
+  background-color: #eeeeee;
+  color: black;
+  height: auto;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.form-css {
+  margin-bottom: -1rem;
+}
+
+.border-b {
+  border-bottom: 2px solid black;
+}
+
+.print-btn {
+  margin-bottom: 1.5rem ;
+}
+
+.table-border-bottom {
+  border-bottom: 0.8rem solid black;
+  box-shadow: 0px 2px 2px black;
+}
+
+.div-status {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.green-status {
+  color: #068317;
+}
+
+.padding-jobs {
+  padding-top: 0.2rem;
+}
+
+/* custom buttons  */
+
+.btn-line-hight {
+  line-height: 0 !important ;
+}
+
+.mdc-button {
+  background-color: #ffd740;
+  color: #000000;
+}
+
+.btn-table-end {
+  background-color: #5c6bc0;
+  color: #ffffff;
+  border-radius: 5px;
+  height: 2rem;
+  text-align: center;
+  line-height: 2rem;
+}
+
+.btn-dsp-block {
+  display: block;
+}
+
+.btn-table-end:hover {
+  cursor: pointer;
+}
+
+.btn-form-submit {
+  background-color: #5c6bc0;
+  color: #ffffff;
+  border-radius: 5px;
+  height: 2rem;
+  text-align: center;
+  /* line-height: 2rem ; */
+  width: 100%;
+  display: block;
+}
+
+/* custom navbar links  */
+
+.clicableA {
+  cursor: pointer;
+}
+
+.my-nav a:hover,
+a:active {
+  color: #ffff74;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,21 @@
+.rooms {
+  /* font-size: 1.5em; */
+  /* color: #23408e; */
+}
+.rooms h1 {
+  font-size: 2em;
+  color: #23408e;
+}
+
+.check-box {
+  width: 40px;
+  border-radius: 5px;
+}
+.check-box:hover {
+  cursor: pointer;
+}
+
+.quantity {
+  width: 40px;
+  border-radius: 5px;
+}

@@ -1,0 +1,11 @@
+.card img {
+  width: 100px !important;
+  height: 100px !important;
+}
+
+/* .main-page {
+  padding: 1.5em;
+} */
+.main-page {
+  background-color: #eee !important;
+}
