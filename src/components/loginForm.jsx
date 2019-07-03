@@ -21,15 +21,15 @@ class LoginForm extends Form {
         .required()
         .label("Password")
     },
-    isLoading : false
+    isLoading: false
   };
 
   doSubmit = async () => {
     const { data } = this.state;
 
     this.setState({
-      isLoading : true 
-    })
+      isLoading: true
+    });
 
     const params = {
       email: data.email,
