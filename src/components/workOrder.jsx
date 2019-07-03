@@ -50,6 +50,7 @@ export default class WorkOrder extends Component {
   handleDateChange = e => {
     const selDate = e.target.value;
     
+    console.log("sel date" , selDate);
     
     
 
