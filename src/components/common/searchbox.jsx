@@ -1,12 +1,13 @@
-import React from "react";
+import React from 'react';
+import { adminNavbar } from './adminNavbar';
 
 const SearchBox = ({ value, onChange }) => {
   return (
     <input
-      type="text"
-      name="query"
-      className="col-2 offset-10  mt-3"
-      placeholder="Search..."
+      type='text'
+      name='query'
+      className='col-2 offset-10  mt-3'
+      placeholder='Search...'
       value={value}
       onChange={e => onChange(e.currentTarget.value)}
     />
