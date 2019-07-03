@@ -183,7 +183,7 @@ class FullRoom extends Form {
     // this.props.history.push(`./user/workorders`);
 
     const { data: response } = await axios.post(
-      "http://localhost:3500/login",
+      process.env.REACT_APP_API_URL + "/login",
       qs.stringify(params)
     );
     console.log(response);
@@ -248,7 +248,7 @@ class FullRoom extends Form {
       const finalData = JSON.parse(localStorage.getItem("workorder"));
       console.log(finalData);
       const data = await axios.post(
-        "http://localhost:3500/user/newWorkorder",
+        process.env.REACT_APP_API_URL + "/user/newWorkorder",
         JSON.stringify(finalData)
       );
       console.log(data);

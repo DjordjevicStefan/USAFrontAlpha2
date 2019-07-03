@@ -38,13 +38,13 @@ class NavBar extends Component {
       // this.props.history.push(`./user/workorders`);
 
       const data = await axios.get(
-        ` http://localhost:3500/user/latestWorkorder/${user._id}`
+        process.env.REACT_APP_API_URL + `/user/latestWorkorder/${user._id}`
       );
       console.log(data);
       let work = JSON.parse(localStorage.getItem("workorders"));
       work.push(data.data.jobs[0]);
       localStorage.setItem("workorders", JSON.stringify(work));
-      // await axios.get("http://localhost:3500")
+      // await axios.get(process.env.REACT_APP_API_URL)
       // event.persist();
       // localStorage.setItem("workorders", JSON.stringify(response.workorders));
       window.location = `/user/workorders/${e.target.value}`;

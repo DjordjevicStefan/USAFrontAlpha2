@@ -29,7 +29,7 @@ import Jobs from "./components/jobs";
 class App extends Component {
   state = {};
   async componentDidMount() {
-    const response = await axios.get("http://localhost:3500");
+    const response = await axios.get(process.env.REACT_APP_API_URL);
     const allItems = response.data.items;
     const buildings = response.data.buildings;
     localStorage.setItem("allItems", JSON.stringify(allItems));

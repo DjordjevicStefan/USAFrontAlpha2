@@ -32,7 +32,7 @@ class LoginForm extends Form {
     };
 
     const { data: response } = await axios.post(
-      "http://localhost:3500/login",
+      process.env.REACT_APP_API_URL + "/login",
       qs.stringify(params)
     );
 
