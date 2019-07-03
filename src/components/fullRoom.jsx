@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import NavBar from "./navBar.jsx";
-import { Link } from "react-router-dom";
-import Joi from "joi-browser";
-import Form from "./common/form";
-import Checkbox from "./checkbox.jsx";
-import _ from "lodash";
-import "../css/fullroom.css";
-import { getRooms } from "../services/fakeRoomService";
-import axios from "axios";
-import SearchBox from "./common/searchbox";
+import React, { Component } from 'react';
+import NavBar from './navBar.jsx';
+import { Link } from 'react-router-dom';
+import Joi from 'joi-browser';
+import Form from './common/form';
+import Checkbox from './checkbox.jsx';
+import _ from 'lodash';
+import '../css/fullroom.css';
+import { getRooms } from '../services/fakeRoomService';
+import axios from 'axios';
+import SearchBox from './common/searchBox';
 // import getAllUsers from "../services/users";
-import qs from "qs";
+import qs from 'qs';
 class FullRoom extends Form {
   state = {
     data: {},
@@ -40,24 +40,24 @@ class FullRoom extends Form {
     return this.props.match.params.id;
   };
   handleBackButton = () => {
-    this.props.history.push("/rooms/" + this.props.match.params.m);
+    this.props.history.push('/rooms/' + this.props.match.params.m);
   };
   handlelogOut() {
-    const answer = window.confirm("Are you sure you want to log out?");
+    const answer = window.confirm('Are you sure you want to log out?');
     if (answer) {
-      localStorage.removeItem("jobs");
+      localStorage.removeItem('jobs');
       window.location = `/`;
     }
   }
   handleFinishedButton = () => {
     // console.log(this.props.match);
     this.props.history.push(
-      "/rooms/" + this.props.match.params.id + "/work-order"
+      '/rooms/' + this.props.match.params.id + '/work-order'
     );
-    const work = JSON.parse(localStorage.getItem("workorder"));
+    const work = JSON.parse(localStorage.getItem('workorder'));
     const date = new Date();
     work.workorder.completedTime = date;
-    localStorage.setItem("workorder", JSON.stringify(work));
+    localStorage.setItem('workorder', JSON.stringify(work));
   };
 
   handleChangeArea = ({ currentTarget: input }) => {
@@ -71,7 +71,7 @@ class FullRoom extends Form {
 
     rooms.comment = this.state.value[input.name];
 
-    localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
+    localStorage.setItem('allItems', JSON.stringify(this.state.allItems));
   };
 
   validate = () => {
@@ -109,7 +109,7 @@ class FullRoom extends Form {
 
     rooms.quantity = data[input.name];
 
-    localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
+    localStorage.setItem('allItems', JSON.stringify(this.state.allItems));
 
     // schema = {
     //   [input.name]: Joi.number().label("quantity")
@@ -132,15 +132,15 @@ class FullRoom extends Form {
   };
   handleInput = e => {
     const { showing } = this.state;
-    const buildNumber = JSON.parse(localStorage.getItem("workorder")).workorder
+    const buildNumber = JSON.parse(localStorage.getItem('workorder')).workorder
       .buildingNumber;
 
-    const buildings = JSON.parse(localStorage.getItem("buildings")).find(
+    const buildings = JSON.parse(localStorage.getItem('buildings')).find(
       m => m.number == buildNumber
     );
 
     // element.value = element.number + " (" + element.zip + ")";
-    const adress = buildings.adress + " (" + buildings.zip + ")";
+    const adress = buildings.adress + ' (' + buildings.zip + ')';
     // console.log(buildings);
     this.setState({ adress });
   };
@@ -157,43 +157,43 @@ class FullRoom extends Form {
       checked[e.currentTarget.name] = e.target.checked;
       rooms.checked = false;
 
-      localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
-      localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
+      localStorage.setItem('allItems', JSON.stringify(this.state.allItems));
+      localStorage.setItem('jobs', JSON.stringify(this.state.allItems));
       this.setState({ checked });
     } else {
       checked[e.currentTarget.name] = e.target.checked;
       rooms.checked = true;
-      localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
-      localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
+      localStorage.setItem('allItems', JSON.stringify(this.state.allItems));
+      localStorage.setItem('jobs', JSON.stringify(this.state.allItems));
 
       this.setState({ checked });
     }
   };
   handleWorkorders = async e => {
     e.preventDefault();
-    console.log("work");
-    console.log("sta");
-    localStorage.removeItem("jobs");
+    console.log('work');
+    console.log('sta');
+    localStorage.removeItem('jobs');
     // window.location.reload();
     const params = {
-      email: "roxana@benleedsproperties.com",
+      email: 'roxana@benleedsproperties.com',
       password: 123
     };
-    console.log("radiiiiiiiiiiiiiiiiiiiii");
+    console.log('radiiiiiiiiiiiiiiiiiiiii');
     // this.props.history.push(`./user/workorders`);
 
     const { data: response } = await axios.post(
-      process.env.REACT_APP_API_URL + "/login",
+      process.env.REACT_APP_API_URL + '/login',
       qs.stringify(params)
     );
     console.log(response);
 
-    localStorage.setItem("workorders", JSON.stringify(response.workorders));
-    window.location = "/user/workorders";
+    localStorage.setItem('workorders', JSON.stringify(response.workorders));
+    window.location = '/user/workorders';
   };
   handleNewWorkorders() {
-    localStorage.removeItem("jobs");
-    window.location = "/rooms/new-workorder";
+    localStorage.removeItem('jobs');
+    window.location = '/rooms/new-workorder';
   }
 
   // handleChange1(e) {
@@ -209,10 +209,10 @@ class FullRoom extends Form {
     // const workOrder = JSON.parse(localStorage.getItem("workorder"));
 
     let prompt = window.confirm(
-      "Are you sure you want to save this workorder?"
+      'Are you sure you want to save this workorder?'
     );
     if (prompt) {
-      const allItems = JSON.parse(localStorage.getItem("allItems"));
+      const allItems = JSON.parse(localStorage.getItem('allItems'));
       console.log(allItems);
       const copyItems = [...allItems].filter(item => {
         return item.checked;
@@ -230,30 +230,30 @@ class FullRoom extends Form {
         };
       });
       console.log(finalItems);
-      const work = JSON.parse(localStorage.getItem("workorder"));
+      const work = JSON.parse(localStorage.getItem('workorder'));
       work.jobs = finalItems;
       if (!work.workorder._id) {
-        work.workorder.id = "";
+        work.workorder.id = '';
       } else {
         work.workorder.id = work.workorder._id;
       }
       // console.log(wor);
-      work.workorder.status = "saved";
+      work.workorder.status = 'saved';
       work.workorder.totalPrice = 0;
       // work.workorder.adress =;
-      work.workorder.comment = "Saved";
+      work.workorder.comment = 'Saved';
       work.workorder.sendTime = new Date();
       work.workorder.completedTime = new Date();
-      localStorage.setItem("workorder", JSON.stringify(work));
-      const finalData = JSON.parse(localStorage.getItem("workorder"));
+      localStorage.setItem('workorder', JSON.stringify(work));
+      const finalData = JSON.parse(localStorage.getItem('workorder'));
       console.log(finalData);
       const data = await axios.post(
-        process.env.REACT_APP_API_URL + "/user/newWorkorder",
+        process.env.REACT_APP_API_URL + '/user/newWorkorder',
         JSON.stringify(finalData)
       );
       console.log(data);
-      localStorage.removeItem("jobs");
-      this.props.history.push("/rooms/" + this.props.match.params.m);
+      localStorage.removeItem('jobs');
+      this.props.history.push('/rooms/' + this.props.match.params.m);
       // window.location.reload();
     } else {
       return;
@@ -268,13 +268,13 @@ class FullRoom extends Form {
     const checked = {};
     const rooms = getRooms();
     let renderedItems = [];
-    let room0 = "";
-    let room = "";
+    let room0 = '';
+    let room = '';
     // const allItems = [];
     let allItems = [];
-    if (JSON.parse(localStorage.getItem("jobs"))) {
-      const jobs = JSON.parse(localStorage.getItem("jobs"));
-      allItems = JSON.parse(localStorage.getItem("allItems"));
+    if (JSON.parse(localStorage.getItem('jobs'))) {
+      const jobs = JSON.parse(localStorage.getItem('jobs'));
+      allItems = JSON.parse(localStorage.getItem('allItems'));
       // jobs.filter(j => allItems.filter(m => (j.checked = true)));
 
       let kurac = jobs.filter(j => allItems.filter(m => m.name == j.name));
@@ -291,7 +291,7 @@ class FullRoom extends Form {
         renderedItems.map(item => (checked[item.name] = false));
       }
     } else {
-      allItems = JSON.parse(localStorage.getItem("allItems"));
+      allItems = JSON.parse(localStorage.getItem('allItems'));
       room = this.props.match.params.m;
 
       room0 = rooms.filter(m => m.id == this.props.match.params.id);
@@ -307,10 +307,10 @@ class FullRoom extends Form {
     let items = renderedItems;
 
     {
-      items.map(item => (schema[item.name] = Joi.number().label("quantity")));
+      items.map(item => (schema[item.name] = Joi.number().label('quantity')));
     }
 
-    const buildings = JSON.parse(localStorage.getItem("buildings")).filter(
+    const buildings = JSON.parse(localStorage.getItem('buildings')).filter(
       m => m.region === this.props.match.params.m
     );
 
@@ -332,12 +332,12 @@ class FullRoom extends Form {
     // const allItems = [];
     // this.state = { data };
 
-    const workorder = JSON.parse(localStorage.getItem("workorder"));
+    const workorder = JSON.parse(localStorage.getItem('workorder'));
     const build1 = [];
     build1.push(workorder.workorder.buildingNumber);
     build.push(build1);
     const adress = [];
-    const searchQuery = "";
+    const searchQuery = '';
 
     // console.log(build);
     this.state = {
@@ -360,9 +360,9 @@ class FullRoom extends Form {
     console.log(this.state.renderedItems);
 
     console.log(this.state.allItems);
-    let allItems = JSON.parse(localStorage.getItem("allItems"));
+    let allItems = JSON.parse(localStorage.getItem('allItems'));
     // jobs.filter(j => allItems.filter(m => (j.checked = true)));
-    const jobs = JSON.parse(localStorage.getItem("jobs"));
+    const jobs = JSON.parse(localStorage.getItem('jobs'));
     // let kurac = jobs.filter(j => allItems.filter(m => m.name == j.name));
     // // console.log(kurac);
     // let jebise = jobs.map(j => j).map(m => m.name);
@@ -374,13 +374,13 @@ class FullRoom extends Form {
     const showing = true;
     // const adress = [];
     if (
-      !JSON.parse(localStorage.getItem("workorder")).workorder.buildingNumber
+      !JSON.parse(localStorage.getItem('workorder')).workorder.buildingNumber
     ) {
     }
-    const buildNumber = JSON.parse(localStorage.getItem("workorder")).workorder
+    const buildNumber = JSON.parse(localStorage.getItem('workorder')).workorder
       .buildingNumber;
 
-    const building = JSON.parse(localStorage.getItem("buildings")).find(
+    const building = JSON.parse(localStorage.getItem('buildings')).find(
       m => m.number == buildNumber
     );
 
@@ -388,7 +388,7 @@ class FullRoom extends Form {
 
     // const { data, errors, checked, renderedItems } = this.state;
 
-    const adress = building.adress + " (" + building.zip + ")";
+    const adress = building.adress + ' (' + building.zip + ')';
 
     // console.log(this.state.room0[0].name);
     // console.log(this.state.room0[0].name);
@@ -428,28 +428,28 @@ class FullRoom extends Form {
       );
     }
 
-    let title = "";
+    let title = '';
     if (datas[0] == undefined) {
-      title = "Not found";
+      title = 'Not found';
     } else {
       title = datas[0].room;
     }
     // console.log(datas);
 
-    const workorder = JSON.parse(localStorage.getItem("workorder"));
+    const workorder = JSON.parse(localStorage.getItem('workorder'));
     const value = workorder.workorder.apartmentNumber;
     // const { adress } = this.state;
     // console.log(adress);
 
     return (
       <React.Fragment>
-        <div className="container mainPage">
+        <div className='container mainPage'>
           <NavBar
             {...this.props}
             value={value}
             adress={adress}
             showing={showing}
-            classs="disabled"
+            classs='disabled'
             build={this.state.build}
             // onHandleInput={this.handleInput}
             // build={build}
@@ -459,24 +459,24 @@ class FullRoom extends Form {
             onBackButton={this.handleBackButton}
             onFinishedButton={this.handleFinishedButton}
           />
-          <div className="buttons">
-            <div className="col-6">
+          <div className='buttons'>
+            <div className='col-6'>
               <button
                 onClick={() => this.handleBackButton()}
-                className="btn btn-warning m-3"
+                className='btn btn-warning m-3'
               >
                 ⏎ Home
               </button>
 
               <button
                 onClick={() => this.handleWorkOrder()}
-                className="btn btn-success m-3"
+                className='btn btn-success m-3'
               >
                 Save
               </button>
               <button
                 onClick={() => this.handleFinishedButton()}
-                className="btn btn-primary m-3"
+                className='btn btn-primary m-3'
               >
                 Complete All
               </button>
@@ -497,15 +497,15 @@ class FullRoom extends Form {
             </Link> */}
             <button
               onClick={() => this.handlelogOut()}
-              className="btn btn-danger m-3"
+              className='btn btn-danger m-3'
             >
               &#x2716; Logout
             </button>
           </div>
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
-          <div className="rooms border text-center">
-            <h1 className="lead m-3">{title}</h1>
-            <table className="table">
+          <div className='rooms border text-center'>
+            <h1 className='lead m-3'>{title}</h1>
+            <table className='table'>
               <thead>
                 <tr>
                   <th>Item</th>
@@ -531,14 +531,14 @@ class FullRoom extends Form {
                       <input
                         disabled={item.checked}
                         name={item.name}
-                        label="quantity"
+                        label='quantity'
                         onChange={this.handleChange}
                         value={item.quantity}
-                        className="quantity"
-                        type="number"
-                        min="0"
+                        className='quantity'
+                        type='number'
+                        min='0'
                         id={item._id}
-                      />{" "}
+                      />{' '}
                     </td>
                     {/* {NaN ? $0 : } */}
 
@@ -550,8 +550,8 @@ class FullRoom extends Form {
                     </td>
                     <td>
                       <textarea
-                        cols="38"
-                        rows="2"
+                        cols='38'
+                        rows='2'
                         disabled={item.checked}
                         onChange={this.handleChangeArea}
                         name={item.name}
@@ -560,12 +560,12 @@ class FullRoom extends Form {
                       />
                     </td>
                     <td>
-                      <Link to="#">Link</Link>
+                      <Link to='#'>Link</Link>
                     </td>
                     <td>
                       <Checkbox
-                        type="checkbox"
-                        className="form-control"
+                        type='checkbox'
+                        className='form-control'
                         name={item.name}
                         id={item._id}
                         checked={item.checked}
