@@ -28,7 +28,7 @@ class Form extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-
+    
     const errors = this.validate();
     this.setState({ errors: errors || {} });
     if (errors) return;
@@ -49,10 +49,17 @@ class Form extends Component {
     this.setState({ data, errors });
   };
 
-  renderButton(label) {
+  renderButton(label, isLoading) {
     return (
       <button disabled={this.validate()} className="btn btn-warning">
-        {label}
+        {label} <br />
+        {isLoading ? (
+          <span
+            class="mr-1 spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+          />
+        ) : null}
       </button>
     );
   }

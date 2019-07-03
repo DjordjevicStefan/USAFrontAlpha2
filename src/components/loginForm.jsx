@@ -20,11 +20,16 @@ class LoginForm extends Form {
       password: Joi.string()
         .required()
         .label("Password")
-    }
+    },
+    isLoading : false
   };
 
   doSubmit = async () => {
     const { data } = this.state;
+
+    this.setState({
+      isLoading : true 
+    })
 
     const params = {
       email: data.email,
@@ -107,9 +112,13 @@ class LoginForm extends Form {
 
     return (
       <div className="row">
-        <div className="col-5 mx-auto m-5  text-center login">
+        <div className="col-sm-5 mx-auto m-5  text-center login">
           <div className="m-5">
-            <img src={logo} alt="Ben Leeds Logo" />
+            <img
+              src={logo}
+              className="img-fluid logo-img"
+              alt="Ben Leeds Logo"
+            />
           </div>
           <h1 className="p-3">Login</h1>
           <form
@@ -118,7 +127,7 @@ class LoginForm extends Form {
           >
             {this.renderInput("email", "Email")}
             {this.renderInput("password", "Password", "password")}
-            {this.renderButton("Login")}
+            {this.renderButton("Login", this.state.isLoading)}
             {/* <button class="btn btn-primary" type="button" enabled>
               <span
                 class="spinner-grow spinner-grow-sm"

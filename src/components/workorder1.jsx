@@ -68,8 +68,9 @@ class Wo extends Component {
       const work = JSON.parse(localStorage.getItem("workorder"));
       work.jobs = finalItems;
       if (!work.workorder._id) {
+        work.workorder.id = "" ;
       } else {
-        work.workorder._id = work.workorder._id;
+        work.workorder.id = work.workorder._id;
       }
       work.workorder.totalPrice = total;
       work.workorder.comment = woComment;
@@ -77,7 +78,7 @@ class Wo extends Component {
       work.workorder.status = "pending";
       localStorage.setItem("workorder", JSON.stringify(work));
       const finalData = JSON.parse(localStorage.getItem("workorder"));
-      console.log(finalData);
+      console.log("final data",finalData);
       const data = await axios.post(
         process.env.REACT_APP_API_URL + "/user/newWorkorder",
         JSON.stringify(finalData)
