@@ -1,5 +1,4 @@
 import React from 'react';
-import { adminNavbar } from './adminNavbar';
 
 const SearchBox = ({ value, onChange }) => {
   return (

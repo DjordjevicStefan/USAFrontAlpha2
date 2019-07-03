@@ -6,7 +6,7 @@ import Form from "./common/form";
 import _ from "lodash";
 import "../css/fullroom.css";
 import axios from "axios";
-import SearchBox from "./common/searchBox";
+import SearchBox from "./common/searchbox";
 class Workorders extends Form {
   state = {
     data: {},

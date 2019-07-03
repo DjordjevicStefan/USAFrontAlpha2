@@ -8,7 +8,7 @@ import _ from 'lodash';
 import '../css/fullroom.css';
 import { getRooms } from '../services/fakeRoomService';
 import axios from 'axios';
-import SearchBox from './common/searchBox';
+import SearchBox from './common/searchbox';
 // import getAllUsers from "../services/users";
 import qs from 'qs';
 class FullRoom extends Form {
