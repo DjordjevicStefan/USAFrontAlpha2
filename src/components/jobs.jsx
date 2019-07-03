@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { getAllVendors } from "../services/vendor";
 import { getJobs, getAllWorkorders } from "../services/jobs";
-import {  ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import {endJob} from "../services/workOrders" ;
 
 import AdminNavbar from "./common/adminNavbar";
@@ -75,13 +75,27 @@ export default class Jobs extends Component {
 
   handleFinish = async (id) => {
      console.log(id);
+     const jobs = [...this.state.jobs] ;
+     console.log("jobs arrery", jobs );
+      
+     let jobsWithoutDeleted = jobs.filter(job => job._id !== id) ;
+    //  console.log(jobsWithoutDeleted);
      
+     const response = await endJob(id) ;      
 
-     const response = await endJob(id) ;
-     console.log(response);
+     if (response.data.success) {
+       toast.success("Job finished!"); 
+       this.setState({
+        jobs : jobsWithoutDeleted
+      })
+     } else {
+       toast.error("Error in database")
+      this.setState({
+        jobs : jobs
+     });
      
-     
-  }
+      }
+  }  
   
   print = () => {
     window.print();

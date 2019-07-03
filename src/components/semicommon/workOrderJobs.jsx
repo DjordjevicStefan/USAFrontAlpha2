@@ -65,7 +65,7 @@ export default function WorkOrderJobs(props) {
                 
                 Select vendor:
                
-                  <select  onChange={onVendorChange} className="form-control form-control-sm">
+                  <select disabled={(job.status=== "finished") ? true : false } onChange={onVendorChange} className="form-control form-control-sm">
                   <option>Select vendor</option>
                   {sortVendors.map(vendor=> (
                     <option value={vendor._id} key={vendor._id}> {`Name: ${vendor.name} | ` } { `Profession: ${vendor.profession}`   } </option>
@@ -80,7 +80,7 @@ export default function WorkOrderJobs(props) {
                  
                   <input 
                     type="date"
-                    // disabled ={(job.assignmentDate !== "" ) ? true : false}
+                    disabled={(job.status=== "finished") ? true : false }
                     value = {formatDate(job.assignmentDate)}
                     onChange={onDateChange}
                     className="form-control form-control-sm"

@@ -6,6 +6,7 @@ export default function JobsTable(props) {
    
   let filteredJobsArrey = jobs.filter(job => job.status === jobStateSelect);
 
+  console.log("provera da li ima finished",filteredJobsArrey);
   
  
   if (filteredJobsArrey.length === 0) {
