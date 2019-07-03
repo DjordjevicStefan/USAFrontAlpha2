@@ -3,14 +3,10 @@ import NavBar from "./navBar.jsx";
 import { Link } from "react-router-dom";
 import Joi from "joi-browser";
 import Form from "./common/form";
-import Checkbox from "./checkbox.jsx";
 import _ from "lodash";
 import "../css/fullroom.css";
-import { getRooms } from "../services/fakeRoomService";
 import axios from "axios";
-import qs from "qs";
-import SearchBox from "./common/searchbox";
-import getAllUsers from "../services/users";
+import SearchBox from "./common/searchBox";
 class Workorders extends Form {
   state = {
     data: {},
