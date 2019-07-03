@@ -9,7 +9,7 @@ import "../css/fullroom.css";
 import { getRooms } from "../services/fakeRoomService";
 import axios from "axios";
 import SearchBox from "./common/searchbox";
-import getAllUsers from "../services/users";
+// import getAllUsers from "../services/users";
 import qs from "qs";
 class FullRoom extends Form {
   state = {

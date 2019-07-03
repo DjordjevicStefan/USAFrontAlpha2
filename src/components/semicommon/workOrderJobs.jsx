@@ -59,7 +59,7 @@ export default function WorkOrderJobs(props) {
                 Select vendor:
                
                   <select  onChange={onVendorChange} className="form-control form-control-sm">
-                  <option>df</option>
+                  <option>Select vendor</option>
                   {sortVendors.map(vendor=> (
                     <option value={vendor._id} key={vendor._id}> {`Name: ${vendor.name} | ` } { `Profession: ${vendor.profession}`   } </option>
                   ))}

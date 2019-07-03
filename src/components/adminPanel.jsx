@@ -33,6 +33,8 @@ class AdminPanel extends Component {
 
       const { data: orders } = await getAllWorkorders();
       
+      console.log(orders);
+      
       
       this.setState({ orders: orders });
 

@@ -186,6 +186,8 @@ export default class WorkOrder extends Component {
   
 
     const { data } = await assignJob(clickBtnId, job, vendor, workorder);
+    console.log("posle assigne",data);
+    
     if (data.success) {
       const woAndJobs = this.state.workorder;
       const statusToEdit = woAndJobs.jobs.filter(job => job._id === clickBtnId);
