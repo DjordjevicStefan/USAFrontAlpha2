@@ -42,7 +42,7 @@ class NavBar extends Component {
       );
       console.log(data);
       let work = JSON.parse(localStorage.getItem("workorders"));
-      work.push(data.data.jobs[0]);
+      work.push(data.data);
       localStorage.setItem("workorders", JSON.stringify(work));
       // await axios.get(process.env.REACT_APP_API_URL)
       // event.persist();
