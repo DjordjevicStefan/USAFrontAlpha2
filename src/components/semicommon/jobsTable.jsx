@@ -41,10 +41,15 @@ export default function JobsTable(props) {
     // const day = assignmentDate.substring(8,10);
   
     // const formatedSelDate = month + "/" + day +"/" + year ;
-    const  formatedSelDate = assignmentDate.substring(0,16);
-    return formatedSelDate ;
+    let d = new Date(assignmentDate).toLocaleString();
+    return d;
+    
+    
       
   }
+
+
+  
 
   return (
     <>
@@ -66,7 +71,7 @@ export default function JobsTable(props) {
              <td>{job.workorder.buildingNumber}</td>
              <td>{job.workorder.apartmentNumber}</td>
              <td>{(job.vendor) ?  job.vendor.name  : "not selected or deleted"}</td>
-             <td>{(job.assignmentDate === null || job.assignmentDate === "" ) ?  "not assigned" : formatDate(job.assignmentDate)} </td>
+             <td>{(job.assignmentDate) ?  formatDate(job.assignmentDate): "not assigned" } </td>
            </tr>
            <tr className={ (job.vendor) ? "" : "table-border-bottom"}>
              <th colSpan="4">Room: <span className="font-weight-normal mr-5"> {job.room} </span>
