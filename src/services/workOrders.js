@@ -54,7 +54,8 @@ export function assignJob(jobId, job, vendor, workorder){
          id : vendor._id ,
          name : vendor.name ,
          email : vendor.email ,
-         profession : vendor.profession, 
+         profession : vendor.profession,
+         status : vendor.status  
        },
       workorder : {
         id : workorder._id ,

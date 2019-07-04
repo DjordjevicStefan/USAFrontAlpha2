@@ -50,7 +50,7 @@ export default class WorkOrder extends Component {
   handleDateChange = e => {
     const selDate = e.target.value;
     
-    console.log("sel date" , selDate);
+    // console.log("sel date" , selDate);
     
     
 
@@ -62,7 +62,7 @@ export default class WorkOrder extends Component {
     // console.log("filterovan arrey" , editDate);
 
     editDate[0].assignmentDate = selDate;
-    console.log("dodat datum", editDate[0]);
+    // console.log("dodat datum", editDate[0]);
 
     const workorderCopy = { ...this.state.workorder };
     workorderCopy.jobs = jobsArrey;
@@ -139,7 +139,7 @@ export default class WorkOrder extends Component {
     ////data i need to populate assign function
 
     const workorder = this.state.workorder.workorder;
-    console.log("pre funkcje wo" , workorder );
+    // console.log("pre funkcje wo" , workorder );
     //// check to see if all jobs wrom this wo are sent ,checking for wo change status
     const woStatusCheck = (workorder) => {
      let check = jobsArrey.filter(job => (
@@ -152,7 +152,7 @@ export default class WorkOrder extends Component {
     }
     } ;
     woStatusCheck(workorder);
-    console.log("oosle funckije wo" , workorder );
+    // console.log("oosle funckije wo" , workorder );
     
     //// curent job to submit on button click
     const job = jobsArrey.find(job => job._id === clickBtnId);
@@ -218,6 +218,7 @@ export default class WorkOrder extends Component {
       <div>
         <AdminNavbar pageName="Work order" />
         <ToastContainer />
+        {console.log("vendors",this.state.vendors) }
 
         <WorkOrderTable
           workorder={this.state.workorder}

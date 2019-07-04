@@ -41,6 +41,7 @@ export default class workOrderTable extends Component {
 
     return (
       <div>
+        {console.log("vendors table", vendors)}
         <div className="container container-bg">
           <div className="row">
             <div className="col-sm-3">

@@ -5,7 +5,19 @@ import _ from "lodash" ;
 export default function WorkOrderJobs(props) {
   const { jobs, onDateChange, onVendorChange , vendors, handleId, onOk, searchOption, searchQuery , okTriger } = props;
    
-  let sortJobs = _.orderBy(jobs, ['name'],['asc']) ;
+
+  //// sort jobs and vendors
+  let sortJobs = _.orderBy(jobs, [item => item.name.toLowerCase()],['asc']) ;
+  const sortVendors = _.orderBy(vendors, ['profession'],['asc']) ;
+   
+
+  console.log("jobs" , jobs);
+  console.log("vendors jobs table" , vendors);
+  
+  
+
+  
+
 
   //// search jobs arrey 
   let searchedArrey = null ; 
@@ -16,13 +28,7 @@ export default function WorkOrderJobs(props) {
     
   }
   
- 
-
-  const sortVendors = _.orderBy(vendors, ['profession'],['asc']) ;
-  
-  console.log("jobs arrey",sortJobs);
-  
-  const formatDate = (date) => {
+ const formatDate = (date) => {
     if (date) {
       return date.substring(0,10);
    } else {
@@ -30,8 +36,22 @@ export default function WorkOrderJobs(props) {
     }
   }
 
+  const checkVendorId =(vendorId) => {
+    if (vendorId) {
+      let vendorSelected = vendors.find(vendor => vendor._id === vendorId) ;
+      console.log(vendorSelected);
+      
+      return  `Name: ${vendorSelected.name} | ` + `Profession: ${vendorSelected.profession}` ;
+    } else {
+      console.log("ne ulazi u if");
+      
+      return "Select vendor"
+    }
+  }
+
   return (
     <>
+    
       {sortJobs.map(job => (
         <table key={job._id} className="table table-bordered table-border-bottom">
           <thead>
@@ -66,7 +86,7 @@ export default function WorkOrderJobs(props) {
                 Select vendor:
                
                   <select disabled={(job.status=== "finished") ? true : false } onChange={onVendorChange} className="form-control form-control-sm">
-                  <option>Select vendor</option>
+                  <option>{checkVendorId(job.vendorId)}</option>
                   {sortVendors.map(vendor=> (
                     <option value={vendor._id} key={vendor._id}> {`Name: ${vendor.name} | ` } { `Profession: ${vendor.profession}`   } </option>
                   ))}
@@ -93,11 +113,10 @@ export default function WorkOrderJobs(props) {
                 Status:   {(job.status==="sent") ? <p className="green-status font-weight-bold">{job.status}</p> : <p>{job.status}</p> }  
               </th>
               <th className="th-text-align">
-                Confirm:
+              {(job.vendorId) ? "Edit" : "Confirm" }
                 <span className="">
-                  
                   <button type="button" onClick={(e) => onOk(e, job._id)} className="btn btn-sm mdc-button btn-dsp-block">
-                    Ok
+                    {(job.vendorId) ? "Edit" : "Ok" }
                   </button>
                 </span>
               </th>
