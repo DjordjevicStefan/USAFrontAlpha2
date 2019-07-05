@@ -1,16 +1,17 @@
 import React from "react";
-import DatePicker from "react-datepicker";
+
 import _ from "lodash" ;
 
 export default function WorkOrderJobs(props) {
-  const { jobs, onDateChange, onVendorChange , vendors, handleId, onOk, searchOption, searchQuery , okTriger } = props;
+  const { jobs, onDateChange, onVendorChange , vendors, handleId, onOk, searchOption, searchQuery , onProfessionChange, professions, vendorsWhitSamePro } = props;
    
 
   //// sort jobs and vendors
   let sortJobs = _.orderBy(jobs, [item => item.name.toLowerCase()],['asc']) ;
-  const sortVendors = _.orderBy(vendors, ['profession'],['asc']) ;
-   
+  const sortVendors = _.orderBy(vendorsWhitSamePro, ['profession'],['asc']) ;
+  const sortProfessions =  _.orderBy(professions, [item => item.toLowerCase()],['asc']);
 
+  
   console.log("jobs" , jobs);
   console.log("vendors jobs table" , vendors);
   
@@ -39,11 +40,11 @@ export default function WorkOrderJobs(props) {
   const checkVendorId =(vendorId) => {
     if (vendorId) {
       let vendorSelected = vendors.find(vendor => vendor._id === vendorId) ;
-      console.log(vendorSelected);
+      // console.log(vendorSelected);
       
       return  `Name: ${vendorSelected.name} | ` + `Profession: ${vendorSelected.profession}` ;
     } else {
-      console.log("ne ulazi u if");
+      // console.log("ne ulazi u if");
       
       return "Select vendor"
     }
@@ -81,6 +82,15 @@ export default function WorkOrderJobs(props) {
             </tr>
 
             <tr>
+              <th>Select profession:
+              <select onChange={onProfessionChange} className="form-control form-control-sm">
+                  <option>Select profession</option>
+                  {sortProfessions.map(pro=> (
+                    <option> {pro} </option>
+                  ))}
+               </select>
+
+              </th>
               <th id={job._id}>
                 
                 Select vendor:
@@ -105,9 +115,7 @@ export default function WorkOrderJobs(props) {
                     onChange={onDateChange}
                     className="form-control form-control-sm"
                   /> 
-
-                 
-                </div>
+             </div>
               </th>
               <th>
                 Status:   {(job.status==="sent") ? <p className="green-status font-weight-bold">{job.status}</p> : <p>{job.status}</p> }  

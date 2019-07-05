@@ -16,10 +16,13 @@ export default class WorkOrder extends Component {
     workorder: null,
     vendors: null,
     users: null,
+    vendorsWhitSamePro : null ,
     jobForSendArrey: [],
     selectedId: "",
-    load: false,
-    jobIdFromDate: ""
+    // selProfession : "all",
+    professions : null ,
+    jobIdFromDate: "",
+    load: false
   };
 
   async componentDidMount() {
@@ -29,6 +32,11 @@ export default class WorkOrder extends Component {
     const vendorsWithoutDisabled = vendors.filter(
       vendor => vendor.status === "active"
     );
+
+    const professions = vendorsWithoutDisabled.map(pro => pro.profession) ;
+    let professionsArrey  = [...new Set(professions)] ;
+    
+    
 
     const { data: users } = await getAllUsers();
 
@@ -40,7 +48,9 @@ export default class WorkOrder extends Component {
     this.setState(() => ({
       workorder: workorder,
       vendors: vendorsWithoutDisabled,
+      vendorsWhitSamePro : vendorsWithoutDisabled,
       users: users,
+      professions : professionsArrey,
       okTriger: false,
       load: true
     }));
@@ -79,6 +89,25 @@ export default class WorkOrder extends Component {
       jobIdFromDate: id
     });
   };
+
+  handleProfessionChange = (e) => {
+    const selProfession = e.target.value;
+    const vendorsCopy = [...this.state.vendors] ;
+    
+     if (selProfession === "Select profession") {
+         this.setState({
+         vendorsWhitSamePro : vendorsCopy 
+      })
+     } else {
+      const vendorsWhitSamePro = vendorsCopy.filter(vendor=> vendor.profession === selProfession ) ;
+      this.setState({
+        vendorsWhitSamePro : vendorsWhitSamePro 
+     })
+  
+     }
+      
+  
+  }
 
   handleVendorChange = e => {
     const selVendorId = e.target.value;
@@ -178,13 +207,10 @@ export default class WorkOrder extends Component {
 
   submitDateAndVendor = async (clickBtnId, job, vendor, workorder) => {
 
-    
     console.log("jobid", clickBtnId);
     console.log("wo", workorder);
     console.log("job", job);
     console.log("jvendor", vendor);
-
-  
 
     const { data } = await assignJob(clickBtnId, job, vendor, workorder);
     console.log("posle assigne",data);
@@ -218,7 +244,7 @@ export default class WorkOrder extends Component {
       <div>
         <AdminNavbar pageName="Work order" />
         <ToastContainer />
-        {console.log("vendors",this.state.vendors) }
+        
 
         <WorkOrderTable
           workorder={this.state.workorder}
@@ -231,6 +257,10 @@ export default class WorkOrder extends Component {
           returnVendorId={this.handleVendorId}
           onOk={this.handleOkButton}
           okTriger={this.state.okTriger}
+          onProfessionChange={this.handleProfessionChange}
+          professions={this.state.professions}
+          selProfession={this.state.selProfession}
+          vendorsWhitSamePro={this.state.vendorsWhitSamePro}
         />
       </div>
     );
