@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import AdminNavbar from "./common/adminNavbar";
 import TableName from "./common/tableName";
 import WorkOrderTable from "../components/semicommon/workOrderTable";
+import { getJobs } from "../services/jobs";
 
 import { getAllVendors } from "../services/vendor";
 import { getWorkOrder, assignJob, endJob } from "../services/workOrders";
@@ -13,6 +14,7 @@ import { async } from "q";
 
 export default class WorkOrder extends Component {
   state = {
+    allSentJobs : null ,
     workorder: null,
     vendors: null,
     users: null,
@@ -26,6 +28,7 @@ export default class WorkOrder extends Component {
   };
 
   async componentDidMount() {
+    const { data: jobs } = await getJobs();
     const { data: workorder } = await getWorkOrder(this.props.match.params.id);
     const { data: vendors } = await getAllVendors();
 
@@ -45,7 +48,10 @@ export default class WorkOrder extends Component {
       delete vendorsWithoutDisabled[i].calendar;
     }
 
+    let allSentJoobs = jobs.filter(job=> job.status === "sent")
+
     this.setState(() => ({
+      allSentJoobs : allSentJoobs,
       workorder: workorder,
       vendors: vendorsWithoutDisabled,
       vendorsWhitSamePro : vendorsWithoutDisabled,
@@ -227,6 +233,8 @@ export default class WorkOrder extends Component {
     }
   };
 
+
+  
   render() {
     const { load } = this.state;
 
@@ -250,8 +258,7 @@ export default class WorkOrder extends Component {
           workorder={this.state.workorder}
           users={this.state.users}
           onVendorChange={this.handleVendorChange}
-          onDateChange={this.handleDateChange}
-          calendarTest={this.state.calendarTest}
+          onDateChange={this.handleDateChange} 
           handleId={this.handleId}
           vendors={this.state.vendors}
           returnVendorId={this.handleVendorId}
@@ -261,6 +268,8 @@ export default class WorkOrder extends Component {
           professions={this.state.professions}
           selProfession={this.state.selProfession}
           vendorsWhitSamePro={this.state.vendorsWhitSamePro}
+          allSentJoobs={this.state.allSentJoobs}
+         
         />
       </div>
     );

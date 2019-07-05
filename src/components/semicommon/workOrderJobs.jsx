@@ -1,9 +1,10 @@
 import React from "react";
+import ModalMy2 from "../common/modal2/modal2"
 
 import _ from "lodash" ;
 
 export default function WorkOrderJobs(props) {
-  const { jobs, onDateChange, onVendorChange , vendors, handleId, onOk, searchOption, searchQuery , onProfessionChange, professions, vendorsWhitSamePro } = props;
+  const { jobs, onDateChange, onVendorChange , vendors, handleId, onOk, searchOption, searchQuery , onProfessionChange, professions, vendorsWhitSamePro , allSentJoobs } = props;
    
 
   //// sort jobs and vendors
@@ -12,13 +13,9 @@ export default function WorkOrderJobs(props) {
   const sortProfessions =  _.orderBy(professions, [item => item.toLowerCase()],['asc']);
 
   
-  console.log("jobs" , jobs);
-  console.log("vendors jobs table" , vendors);
+  // console.log("jobs" , jobs);
+  // console.log("vendors jobs table" , vendors);
   
-  
-
-  
-
 
   //// search jobs arrey 
   let searchedArrey = null ; 
@@ -52,10 +49,12 @@ export default function WorkOrderJobs(props) {
 
   return (
     <>
-    
+      
       {sortJobs.map(job => (
+         
         <table key={job._id} className="table table-bordered table-border-bottom">
           <thead>
+          
             <tr>
               <th>
                 Name:  <span className="font-weight-normal">{job.name}</span>{" "}
@@ -101,9 +100,18 @@ export default function WorkOrderJobs(props) {
                     <option value={vendor._id} key={vendor._id}> {`Name: ${vendor.name} | ` } { `Profession: ${vendor.profession}`   } </option>
                   ))}
                 </select>
-              
+    
                 
-              </th>
+                <ModalMy2
+                    // workOrders ={this.getUserWorkOrders(id)}
+                    // user ={this.state.user}
+                    allSentJoobs={allSentJoobs}
+                    vendors={vendors}
+                    selVendorId={job.vendorId}
+                    
+               />
+               </th>
+               
               <th>
                 Pick start date:
                 <div onClick={() => handleId(job._id)} className="btn-dsp-block">
@@ -121,10 +129,10 @@ export default function WorkOrderJobs(props) {
                 Status:   {(job.status==="sent") ? <p className="green-status font-weight-bold">{job.status}</p> : <p>{job.status}</p> }  
               </th>
               <th className="th-text-align">
-              {(job.vendorId) ? "Edit" : "Confirm" }
+              {(job.status==="sent") ? "Edit" : "Confirm" }
                 <span className="">
                   <button type="button" onClick={(e) => onOk(e, job._id)} className="btn btn-sm mdc-button btn-dsp-block">
-                    {(job.vendorId) ? "Edit" : "Ok" }
+                    {(job.status==="sent") ? "Edit" : "Ok" }
                   </button>
                 </span>
               </th>
