@@ -37,7 +37,10 @@ class Wo extends Component {
   };
   handleBackButton = url => {
     // console.log(this.props.match.params.m);
-    this.props.history.push("/rooms/" + this.props.match.params.m);
+    const region = JSON.parse(localStorage.getItem("currentUser")).region;
+    this.props.history.push(
+      "/rooms/" + this.props.match.params.m + "/" + region
+    );
   };
 
   handlePrintButton = () => {
@@ -48,8 +51,8 @@ class Wo extends Component {
       "Are you sure you want to save this workorder?"
     );
     if (prompt) {
-      const allItems = JSON.parse(localStorage.getItem("allItems"));
-      const copyItems = [...allItems].filter(item => {
+      const jobs = JSON.parse(localStorage.getItem("jobs"));
+      const copyItems = [...jobs].filter(item => {
         return item.checked;
       });
       const finalItems = copyItems.map(item => {
@@ -67,11 +70,7 @@ class Wo extends Component {
       // console.log(woComment);
       const work = JSON.parse(localStorage.getItem("workorder"));
       work.jobs = finalItems;
-      // if (!work.workorder._id) {
-      //   // work.workorder.id = "";
-      // } else {
-      work.workorder.id = "";
-      // }
+
       work.workorder.totalPrice = total;
       work.workorder.comment = woComment;
       work.workorder.sendTime = new Date();
@@ -85,10 +84,6 @@ class Wo extends Component {
       );
       console.log(data);
       if (data.statusText === "OK") {
-        // console.log("radi");
-        // window.location = `/`;
-        // console.log(this.props);
-
         const work = JSON.parse(localStorage.getItem("workorder"));
         work.workorder.buildingNumber = "";
         work.workorder.apartmentNumber = "";
@@ -97,6 +92,7 @@ class Wo extends Component {
         localStorage.setItem("workorder", JSON.stringify(work));
         this.props.history.push("/rooms/" + this.props.match.params.m);
         window.location.reload();
+        // localStorage.removeItem("workorder");
         localStorage.removeItem("jobs");
       }
     } else {
@@ -109,23 +105,27 @@ class Wo extends Component {
     let woComment = "";
     // let allItems = JSON.parse(localStorage.getItem("allItems"));
 
-    let allItems = JSON.parse(localStorage.getItem("allItems")).filter(
+    let jobs = JSON.parse(localStorage.getItem("jobs")).filter(
       m => m.checked == true
     );
-    for (let i = 0; i < allItems.length; i++) {
-      total += Math.ceil(allItems[i].quantity * allItems[i].price);
+    for (let i = 0; i < jobs.length; i++) {
+      total += Math.ceil(jobs[i].quantity * jobs[i].price);
     }
     // console.log(total);
     this.state = {
       total,
-      allItems,
+
       woComment
     };
   }
   render() {
     // console.log(this.state.woComment);
     let total = this.state.total;
+    let jobs = JSON.parse(localStorage.getItem("jobs"));
     // console.log(total);
+    jobs = JSON.parse(localStorage.getItem("jobs")).filter(
+      m => m.checked == true
+    );
     const showing = true;
     const adress = JSON.parse(localStorage.getItem("workorder")).workorder
       .adress;
@@ -158,7 +158,7 @@ class Wo extends Component {
                 <tr>
                   <th>Room</th>
                   <th>Item</th>
-                  <th>Subcat</th>
+                  <th>SubCategory</th>
                   <th>Quantity</th>
                   <th>Price</th>
                   <th>Total Price</th>
@@ -166,7 +166,7 @@ class Wo extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.allItems.map(item => (
+                {jobs.map(item => (
                   <tr>
                     <td>{item.room}</td>
                     <td>{item.name}</td>

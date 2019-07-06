@@ -6,8 +6,6 @@ import logo from "../img/ben-leeds-logo.png";
 import Joi from "joi-browser";
 import Form from "./common/form";
 
-import Room from "./rooms.jsx";
-
 class LoginForm extends Form {
   state = {
     data: { email: "", password: "" },
@@ -42,19 +40,18 @@ class LoginForm extends Form {
     );
 
     localStorage.setItem("workorders", JSON.stringify(response.workorders));
-    // console.log(response.user.email);
-    // const response=
+
     console.log(response);
 
     if (response.error === "no email" || response.error === "bad password") {
       const errors = { ...this.state.errors };
       if (response.error === "no email") {
-        errors.email = "No email found";
-        this.setState({ errors });
+        errors.email = "Email not found";
+        this.setState({ errors, isLoading: false });
       }
       if (response.error === "bad password") {
         errors.password = "Wrong password";
-        this.setState({ errors });
+        this.setState({ errors, isLoading: false });
       }
     } else {
       if (response === "admin") {
@@ -77,8 +74,7 @@ class LoginForm extends Form {
             apartmentNumber: "",
             sendTime: "",
             userId: user,
-            buildingNumber: "",
-            id: ""
+            buildingNumber: ""
           },
           jobs: {},
           user: response.user
@@ -86,31 +82,11 @@ class LoginForm extends Form {
         localStorage.setItem("workorder", JSON.stringify(workorder));
         const { state } = this.props.location;
         this.props.history.push(`./rooms/${response.user.region}`);
-
-        // window.location = state
-        //   ? state.from.pathname
-        //   : `./rooms/${response.region}`;
       }
     }
-
-    // {
-    //   "email": "johndoe@gmail.com",
-    //     "password": "11"
-    // }
-    // console.log(data.username, data.password);
-    // console.log(data);
-
-    // (email : {data.username}, password : {data.password} )
-
-    // const response = await axios.post("http://localhost:3100/login", (
-    //   email: `${data.username}`,
-    //   password: `${data.password}`
-    // ));
   };
 
   render() {
-    // if (auth.getCurrentUser()) return <Redirect to="/" />;
-
     return (
       <div className="row">
         <div className="col-sm-5 mx-auto m-5  text-center login">

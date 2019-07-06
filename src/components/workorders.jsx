@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import NavBar from "./navBar.jsx";
 import { Link } from "react-router-dom";
-// import Joi from "joi-browser";
+
 import Form from "./common/form";
 
 import _ from "lodash";
 import "../css/fullroom.css";
-// import { getRooms } from "../services/fakeRoomService";
-// import axios from "axios";
 
 import SearchBox from "./common/searchbox";
 
@@ -341,6 +339,12 @@ class Workorders extends Form {
             onFinishedButton={this.handleFinishedButton}
           />
           <div className="rooms border text-center">
+            <button
+              onClick={() => this.handlelogOut()}
+              className="btn btn-danger m-3"
+            >
+              Logout
+            </button>
             <h1 className="lead m-2">
               All {this.props.match.params.i} workorders
             </h1>
@@ -356,7 +360,7 @@ class Workorders extends Form {
 
                   <th>Status</th>
 
-                  <th>Link</th>
+                  {/* <th>Link</th> */}
                 </tr>
               </thead>
 
@@ -368,9 +372,8 @@ class Workorders extends Form {
                     <td>{item.apartmentNumber}</td>
                     <td>{item.adress}</td>
                     <td>{item.status}</td>
-
-                    <td>
-                      <Link
+                    {/* <td>
+                      {/* <Link
                         to={{
                           pathname: `/rooms/${region}`,
                           state: {
@@ -382,8 +385,8 @@ class Workorders extends Form {
                         }}
                       >
                         Resume to Workorder
-                      </Link>
-                    </td>
+                      </Link> */}
+                    {/* </td> */} */}
                   </tr>
                 ))}
               </tbody>
