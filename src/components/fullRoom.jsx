@@ -145,9 +145,9 @@ class FullRoom extends Form {
     this.setState({ adress });
   };
   handleCheckboxChange = e => {
-    console.log(e.target.checked);
+    // console.log(e.target.checked);
     const checked = { ...this.state.checked };
-    console.log(this.state.allItems);
+
     const rooms = this.state.allItems.find(
       room => room._id === e.currentTarget.id
     );
@@ -156,45 +156,45 @@ class FullRoom extends Form {
     if (e.target.checked === false) {
       checked[e.currentTarget.name] = e.target.checked;
       rooms.checked = false;
-
-      localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
       localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
+      localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
+
       this.setState({ checked });
     } else {
       checked[e.currentTarget.name] = e.target.checked;
       rooms.checked = true;
-      localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
       localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
+      localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
 
       this.setState({ checked });
     }
   };
-  handleWorkorders = async e => {
-    e.preventDefault();
-    console.log("work");
-    console.log("sta");
-    localStorage.removeItem("jobs");
-    // window.location.reload();
-    const params = {
-      email: "roxana@benleedsproperties.com",
-      password: 123
-    };
-    console.log("radiiiiiiiiiiiiiiiiiiiii");
-    // this.props.history.push(`./user/workorders`);
+  // handleWorkorders = async e => {
+  //   e.preventDefault();
+  //   console.log("work");
+  //   console.log("sta");
+  //   localStorage.removeItem("jobs");
+  //   // window.location.reload();
+  //   const params = {
+  //     email: "roxana@benleedsproperties.com",
+  //     password: 123
+  //   };
+  //   console.log("radiiiiiiiiiiiiiiiiiiiii");
+  //   // this.props.history.push(`./user/workorders`);
 
-    const { data: response } = await axios.post(
-      process.env.REACT_APP_API_URL + "/login",
-      qs.stringify(params)
-    );
-    console.log(response);
+  //   const { data: response } = await axios.post(
+  //     process.env.REACT_APP_API_URL + "/login",
+  //     qs.stringify(params)
+  //   );
+  //   console.log(response);
 
-    localStorage.setItem("workorders", JSON.stringify(response.workorders));
-    window.location = "/user/workorders";
-  };
-  handleNewWorkorders() {
-    localStorage.removeItem("jobs");
-    window.location = "/rooms/new-workorder";
-  }
+  //   localStorage.setItem("workorders", JSON.stringify(response.workorders));
+  //   window.location = "/user/workorders";
+  // };
+  // handleNewWorkorders() {
+  //   localStorage.removeItem("jobs");
+  //   window.location = "/rooms/new-workorder";
+  // }
 
   // handleChange1(e) {
   //   const building1 = e.target.value;
@@ -213,12 +213,18 @@ class FullRoom extends Form {
     );
     if (prompt) {
       const allItems = JSON.parse(localStorage.getItem("allItems"));
-      console.log(allItems);
+      // console.log(allItems);
       const copyItems = [...allItems].filter(item => {
         return item.checked;
       });
-      console.log(copyItems);
+      // console.log(copyItems);
       const finalItems = copyItems.map(item => {
+        let id = "";
+        if (item._id) {
+          id = item._id;
+        } else {
+          id = item.id;
+        }
         return {
           checked: true,
           name: item.name,
@@ -226,18 +232,22 @@ class FullRoom extends Form {
           room: item.room,
           subCategory: item.subCategory,
           quantity: item.quantity,
-          comment: item.comment
+          comment: item.comment,
+          _id: id
         };
       });
       console.log(finalItems);
       const work = JSON.parse(localStorage.getItem("workorder"));
       work.jobs = finalItems;
+      console.log(work.workorder);
       if (!work.workorder._id) {
         work.workorder.id = "";
       } else {
-        work.workorder.id = work.workorder._id;
+        work.workorder.id = work.workorder;
       }
-      // console.log(wor);
+      console.log(work.workorder.id);
+      // console.log(work.workorder.id);
+      // console.log(work);
       work.workorder.status = "saved";
       work.workorder.totalPrice = 0;
       // work.workorder.adress =;
@@ -245,6 +255,7 @@ class FullRoom extends Form {
       work.workorder.sendTime = new Date();
       work.workorder.completedTime = new Date();
       localStorage.setItem("workorder", JSON.stringify(work));
+      console.log(work);
       const finalData = JSON.parse(localStorage.getItem("workorder"));
       console.log(finalData);
       const data = await axios.post(
@@ -252,7 +263,28 @@ class FullRoom extends Form {
         JSON.stringify(finalData)
       );
       console.log(data);
+      // localStorage.removeItem("jobs");
+      //drugi deo pozivanje zadnjeg
+
+      // const user = JSON.parse(localStorage.getItem("currentUser"));
+      // const data1 = await axios.get(
+      //   process.env.REACT_APP_API_URL + `/user/latestWorkorder/${user._id}`
+      // );
+
+      // // let jobs = JSON.parse(localStorage.getItem("jobs"));
+      // let workorder = data1.data.workorder;
+      // console.log(data1);
+      // // let jobs = data1.data.jobs;
+      // // jobs.jobs = data1.data.jobs;
+      // // workorder.jobs = jobs;
+      // // console.log(data.data.jobs);
+      // console.log(workorder);
+      // workorder.jobs = finalItems;
+      // let work1 = JSON.parse(localStorage.getItem("workorders"));
+      // work1.push(workorder);
+      // localStorage.setItem("workorders", JSON.stringify(work1));
       localStorage.removeItem("jobs");
+      // console.log(data1);
       this.props.history.push("/rooms/" + this.props.match.params.m);
       // window.location.reload();
     } else {
@@ -271,9 +303,38 @@ class FullRoom extends Form {
     let room0 = "";
     let room = "";
     // const allItems = [];
+
+    // if (this.props.location.state) {
+    //   localStorage.setItem(
+    //     "jobs",
+    //     JSON.stringify(this.props.location.state.jobs)
+    //   );
+    // }
+    // let value = "";
+    // const showing = "";
+    // if (this.props.location.state) {
+    //   const buildNumber = this.props.location.state.buildingNumber;
+    //   let building = buildings.find(m => m.number == buildNumber);
+    //   // }
+    //   const adress = building.adress + " (" + building.zip + ")";
+    //   console.log(buildings);
+    //   const work = JSON.parse(localStorage.getItem("workorder"));
+    //   work.workorder.buildingNumber = buildNumber;
+    //   work.workorder.apartmentNumber = this.props.location.state.apartmentNumber;
+    //   work.workorder.adress = adress;
+    //   localStorage.setItem("workorder", JSON.stringify(work));
+    //   showing = true;
+    //   this.state = { showing: showing, adress };
+
+    //   value = this.props.location.state.apartmentNumber;
+    // }
+
     let allItems = [];
-    if (JSON.parse(localStorage.getItem("jobs"))) {
-      const jobs = JSON.parse(localStorage.getItem("jobs"));
+    // console.log(localStorage.getItem("jobs"));
+    if (localStorage.getItem("jobs")) {
+      // if (localStorage.getItem("jobs") != undefined)
+      let jobs = JSON.parse(localStorage.getItem("jobs"));
+      // const jobs = JSON.parse(localStorage.getItem("jobs"));
       allItems = JSON.parse(localStorage.getItem("allItems"));
       // jobs.filter(j => allItems.filter(m => (j.checked = true)));
 
@@ -283,13 +344,28 @@ class FullRoom extends Form {
       let picka = allItems.filter(d => d.name != jebise.find(m => m == d.name));
 
       allItems = kurac.concat(picka);
-      room = this.props.match.params.m;
+      localStorage.setItem("allItems", JSON.stringify(allItems));
+      localStorage.setItem("jobs", JSON.stringify(allItems));
+
+      room = this.props.match.params.id;
+      console.log(room);
       room0 = rooms.filter(m => m.id == this.props.match.params.id);
 
       renderedItems = allItems.filter(m => m.room === room0[0].name);
       {
         renderedItems.map(item => (checked[item.name] = false));
       }
+      // } else if (localStorage.getItem("jobs") == null) {
+      //   allItems = JSON.parse(localStorage.getItem("allItems"));
+      //   let jobs = JSON.parse(localStorage.getItem("workorder")).jobs;
+      //   let kurac = jobs.filter(j => allItems.filter(m => m.name == j.name));
+      //   // console.log(kurac);
+      //   let jebise = jobs.map(j => j).map(m => m.name);
+      //   let picka = allItems.filter(d => d.name != jebise.find(m => m == d.name));
+
+      //   allItems = kurac.concat(picka);
+      //   localStorage.setItem("allItems", JSON.stringify(allItems));
+      //   localStorage.setItem("jobs", JSON.stringify(allItems));
     } else {
       allItems = JSON.parse(localStorage.getItem("allItems"));
       room = this.props.match.params.m;
@@ -300,7 +376,7 @@ class FullRoom extends Form {
       {
         renderedItems.map(item => (checked[item.name] = false));
       }
-      console.log(renderedItems);
+      // console.log(renderedItems);
     }
     let schema = this.state.schema;
 
@@ -357,9 +433,9 @@ class FullRoom extends Form {
   }
 
   render() {
-    console.log(this.state.renderedItems);
+    // console.log(this.state.renderedItems);
 
-    console.log(this.state.allItems);
+    // console.log(this.state.allItems);
     let allItems = JSON.parse(localStorage.getItem("allItems"));
     // jobs.filter(j => allItems.filter(m => (j.checked = true)));
     const jobs = JSON.parse(localStorage.getItem("jobs"));
@@ -369,7 +445,7 @@ class FullRoom extends Form {
     // let picka = allItems.filter(d => d.name != jebise.find(m => m == d.name));
 
     // allItems = kurac.concat(picka);
-    console.log();
+    // console.log();
     const searchQuery = this.state.searchQuery;
     const showing = true;
     // const adress = [];

@@ -7,6 +7,7 @@ import axios from "axios";
 import "../css/navbar.css";
 
 import logo from "../img/ben-leeds-logo.png";
+import WorkOrder from "./workOrder";
 class NavBar extends Component {
   state = {
     data: [],
@@ -21,14 +22,38 @@ class NavBar extends Component {
     }
   }
   async handleWorkorders(e) {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     if (e.target.value === "saved") {
       e.preventDefault();
       e.persist();
-      console.log("work");
-      console.log("sta");
-      localStorage.removeItem("jobs");
       const user = JSON.parse(localStorage.getItem("currentUser"));
+      const data1 = await axios.get(
+        process.env.REACT_APP_API_URL + `/user/latestWorkorder/${user._id}`
+      );
+
+      // let jobs = JSON.parse(localStorage.getItem("jobs"));
+      let workorder = data1.data.workorder;
+      console.log(data1);
+      // let jobs = data1.data.jobs;
+      // jobs.jobs = data1.data.jobs;
+      // workorder.jobs = jobs;
+      // console.log(data.data.jobs);
+      console.log(workorder);
+      workorder.jobs = data1.data.jobs;
+      let work1 = JSON.parse(localStorage.getItem("workorders"));
+      work1.push(workorder);
+      localStorage.setItem("workorders", JSON.stringify(work1));
+      // localStorage.removeItem("jobs");
+      console.log(data1);
+      // console.log("work");
+      // console.log("sta");
+      // localStorage.removeItem("jobs");
+      // let work = JSON.parse(localStorage.getItem("workorder"));
+
+      // work.jobs = ;
+      // localStorage.setItem("workorder", JSON.stringify(work));
+      // localStorage.removeItem("jobs");
+      // const user = JSON.parse(localStorage.getItem("currentUser"));
       // window.location.reload();
       // const params = {
       //   email: user.email,
@@ -37,38 +62,42 @@ class NavBar extends Component {
 
       // this.props.history.push(`./user/workorders`);
 
-      const data = await axios.get(
-        process.env.REACT_APP_API_URL + `/user/latestWorkorder/${user._id}`
-      );
-      let workorder = data.data.workorder;
-      let jobs = data.data.jobs;
-      workorder.jobs = jobs;
-      console.log(data.data.jobs);
-      let work = JSON.parse(localStorage.getItem("workorders"));
-      work.push(workorder);
-      localStorage.setItem("workorders", JSON.stringify(work));
+      // const data = await axios.get(
+      //   process.env.REACT_APP_API_URL + `/user/latestWorkorder/${user._id}`
+      // );
+      // let workorder = data.data.workorder;
+      // let jobs = data.data.jobs;
+      // workorder.jobs = jobs;
+      // console.log(data.data.jobs);
+      // let work = JSON.parse(localStorage.getItem("workorders"));
+      // work.push(workorder);
+      // localStorage.setItem("workorders", JSON.stringify(work));
       // await axios.get(process.env.REACT_APP_API_URL)
       // event.persist();
       // localStorage.setItem("workorders", JSON.stringify(response.workorders));
       window.location = `/user/workorders/${e.target.value}`;
     } else if (e.target.value === "pending") {
       e.preventDefault();
-      console.log("work");
-      console.log("sta");
+
       localStorage.removeItem("jobs");
       // window.location.reload();
 
       window.location = `/user/workorders/${e.target.value}`;
     } else if ((e.target.value = "new")) {
+      console.log("wtf");
       localStorage.removeItem("jobs");
-      const work = JSON.parse(localStorage.getItem("workorder"));
+      let work = JSON.parse(localStorage.getItem("workorder"));
+      // work.jobs = {};
       work.workorder.buildingNumber = "";
       work.workorder.apartmentNumber = "";
       work.workorder.adress = "";
+      work.workorder._id = "";
       //login vreme ?
+      // localStorage.removeItem("workorder");
       localStorage.setItem("workorder", JSON.stringify(work));
       const region = JSON.parse(localStorage.getItem("currentUser")).region;
       window.location = `/rooms/${region}`;
+    } else {
     }
   }
 
@@ -93,7 +122,7 @@ class NavBar extends Component {
     const building1 = e.target.value;
     const build = building1.split(":");
     const building = build[0];
-    console.log(building);
+    // console.log(building);
     const work = JSON.parse(localStorage.getItem("workorder"));
     work.workorder.buildingNumber = building;
     localStorage.setItem("workorder", JSON.stringify(work));
@@ -105,8 +134,8 @@ class NavBar extends Component {
     const workorder = JSON.parse(localStorage.getItem("workorder"));
 
     const dateNow = new Date(workorder.workorder.loginTime).toLocaleString();
-    console.log(dateNow);
-    console.log(dateNow.toLocaleString());
+    // console.log(dateNow);
+    // console.log(dateNow.toLocaleString());
     const { showing } = this.state;
     const { adress } = this.state;
     // console.log(this.state.data);
@@ -169,7 +198,7 @@ class NavBar extends Component {
               >
                 <option value="">Workorders</option>
                 <option value="new">New Workorder</option>
-                <option value="saved">Save Workorders</option>
+                <option value="saved">Saved Workorders</option>
                 <option value="pending">Sent Workorders</option>
 
                 {/* <option value="">Select building</option>

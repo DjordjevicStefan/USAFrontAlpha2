@@ -77,7 +77,8 @@ class LoginForm extends Form {
             apartmentNumber: "",
             sendTime: "",
             userId: user,
-            buildingNumber: ""
+            buildingNumber: "",
+            id: ""
           },
           jobs: {},
           user: response.user

@@ -36,7 +36,7 @@ class Wo extends Component {
     this.setState({ woComment });
   };
   handleBackButton = url => {
-    console.log(this.props.match.params.m);
+    // console.log(this.props.match.params.m);
     this.props.history.push("/rooms/" + this.props.match.params.m);
   };
 
@@ -67,27 +67,27 @@ class Wo extends Component {
       // console.log(woComment);
       const work = JSON.parse(localStorage.getItem("workorder"));
       work.jobs = finalItems;
-      if (!work.workorder._id) {
-        work.workorder.id = "" ;
-      } else {
-        work.workorder.id = work.workorder._id;
-      }
+      // if (!work.workorder._id) {
+      //   // work.workorder.id = "";
+      // } else {
+      work.workorder.id = "";
+      // }
       work.workorder.totalPrice = total;
       work.workorder.comment = woComment;
       work.workorder.sendTime = new Date();
       work.workorder.status = "pending";
       localStorage.setItem("workorder", JSON.stringify(work));
       const finalData = JSON.parse(localStorage.getItem("workorder"));
-      console.log("final data",finalData);
+      console.log("final data", finalData);
       const data = await axios.post(
         process.env.REACT_APP_API_URL + "/user/newWorkorder",
         JSON.stringify(finalData)
       );
       console.log(data);
       if (data.statusText === "OK") {
-        console.log("radi");
+        // console.log("radi");
         // window.location = `/`;
-        console.log(this.props);
+        // console.log(this.props);
 
         const work = JSON.parse(localStorage.getItem("workorder"));
         work.workorder.buildingNumber = "";
@@ -115,7 +115,7 @@ class Wo extends Component {
     for (let i = 0; i < allItems.length; i++) {
       total += Math.ceil(allItems[i].quantity * allItems[i].price);
     }
-    console.log(total);
+    // console.log(total);
     this.state = {
       total,
       allItems,
@@ -123,9 +123,9 @@ class Wo extends Component {
     };
   }
   render() {
-    console.log(this.state.woComment);
+    // console.log(this.state.woComment);
     let total = this.state.total;
-    console.log(total);
+    // console.log(total);
     const showing = true;
     const adress = JSON.parse(localStorage.getItem("workorder")).workorder
       .adress;
