@@ -156,15 +156,15 @@ class FullRoom extends Form {
     if (e.target.checked === false) {
       checked[e.currentTarget.name] = e.target.checked;
       rooms.checked = false;
-      localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
-      localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
 
+      localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
+      localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
       this.setState({ checked });
     } else {
       checked[e.currentTarget.name] = e.target.checked;
       rooms.checked = true;
-      localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
       localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
+      localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
 
       this.setState({ checked });
     }
@@ -245,9 +245,7 @@ class FullRoom extends Form {
       } else {
         work.workorder.id = work.workorder;
       }
-      console.log(work.workorder.id);
-      // console.log(work.workorder.id);
-      // console.log(work);
+      // console.log(wor);
       work.workorder.status = "saved";
       work.workorder.totalPrice = 0;
       // work.workorder.adress =;
@@ -255,7 +253,6 @@ class FullRoom extends Form {
       work.workorder.sendTime = new Date();
       work.workorder.completedTime = new Date();
       localStorage.setItem("workorder", JSON.stringify(work));
-      console.log(work);
       const finalData = JSON.parse(localStorage.getItem("workorder"));
       console.log(finalData);
       const data = await axios.post(
@@ -263,28 +260,7 @@ class FullRoom extends Form {
         JSON.stringify(finalData)
       );
       console.log(data);
-      // localStorage.removeItem("jobs");
-      //drugi deo pozivanje zadnjeg
-
-      // const user = JSON.parse(localStorage.getItem("currentUser"));
-      // const data1 = await axios.get(
-      //   process.env.REACT_APP_API_URL + `/user/latestWorkorder/${user._id}`
-      // );
-
-      // // let jobs = JSON.parse(localStorage.getItem("jobs"));
-      // let workorder = data1.data.workorder;
-      // console.log(data1);
-      // // let jobs = data1.data.jobs;
-      // // jobs.jobs = data1.data.jobs;
-      // // workorder.jobs = jobs;
-      // // console.log(data.data.jobs);
-      // console.log(workorder);
-      // workorder.jobs = finalItems;
-      // let work1 = JSON.parse(localStorage.getItem("workorders"));
-      // work1.push(workorder);
-      // localStorage.setItem("workorders", JSON.stringify(work1));
       localStorage.removeItem("jobs");
-      // console.log(data1);
       this.props.history.push("/rooms/" + this.props.match.params.m);
       // window.location.reload();
     } else {
@@ -330,11 +306,8 @@ class FullRoom extends Form {
     // }
 
     let allItems = [];
-    // console.log(localStorage.getItem("jobs"));
-    if (localStorage.getItem("jobs")) {
-      // if (localStorage.getItem("jobs") != undefined)
-      let jobs = JSON.parse(localStorage.getItem("jobs"));
-      // const jobs = JSON.parse(localStorage.getItem("jobs"));
+    if (JSON.parse(localStorage.getItem("jobs"))) {
+      const jobs = JSON.parse(localStorage.getItem("jobs"));
       allItems = JSON.parse(localStorage.getItem("allItems"));
       // jobs.filter(j => allItems.filter(m => (j.checked = true)));
 
@@ -435,7 +408,7 @@ class FullRoom extends Form {
   render() {
     // console.log(this.state.renderedItems);
 
-    // console.log(this.state.allItems);
+    console.log(this.state.allItems);
     let allItems = JSON.parse(localStorage.getItem("allItems"));
     // jobs.filter(j => allItems.filter(m => (j.checked = true)));
     const jobs = JSON.parse(localStorage.getItem("jobs"));

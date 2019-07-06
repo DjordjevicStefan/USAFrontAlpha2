@@ -1,11 +1,21 @@
 import React from "react";
-import DatePicker from "react-datepicker";
+import ModalMy2 from "../common/modal2/modal2"
+
 import _ from "lodash" ;
 
 export default function WorkOrderJobs(props) {
-  const { jobs, onDateChange, onVendorChange , vendors, handleId, onOk, searchOption, searchQuery , okTriger } = props;
+  const { jobs, onDateChange, onVendorChange , vendors, handleId, onOk, searchOption, searchQuery , onProfessionChange, professions, vendorsWhitSamePro , allSentJoobs } = props;
    
-  let sortJobs = _.orderBy(jobs, ['name'],['asc']) ;
+
+  //// sort jobs and vendors
+  let sortJobs = _.orderBy(jobs, [item => item.name.toLowerCase()],['asc']) ;
+  const sortVendors = _.orderBy(vendorsWhitSamePro, ['profession'],['asc']) ;
+  const sortProfessions =  _.orderBy(professions, [item => item.toLowerCase()],['asc']);
+
+  
+  // console.log("jobs" , jobs);
+  // console.log("vendors jobs table" , vendors);
+  
 
   //// search jobs arrey 
   let searchedArrey = null ; 
@@ -16,13 +26,7 @@ export default function WorkOrderJobs(props) {
     
   }
   
- 
-
-  const sortVendors = _.orderBy(vendors, ['profession'],['asc']) ;
-  
-  console.log("jobs arrey",sortJobs);
-  
-  const formatDate = (date) => {
+ const formatDate = (date) => {
     if (date) {
       return date.substring(0,10);
    } else {
@@ -30,11 +34,27 @@ export default function WorkOrderJobs(props) {
     }
   }
 
+  const checkVendorId =(vendorId) => {
+    if (vendorId) {
+      let vendorSelected = vendors.find(vendor => vendor._id === vendorId) ;
+      // console.log(vendorSelected);
+      
+      return  `Name: ${vendorSelected.name} | ` + `Profession: ${vendorSelected.profession}` ;
+    } else {
+      // console.log("ne ulazi u if");
+      
+      return "Select vendor"
+    }
+  }
+
   return (
     <>
+      
       {sortJobs.map(job => (
+         
         <table key={job._id} className="table table-bordered table-border-bottom">
           <thead>
+          
             <tr>
               <th>
                 Name:  <span className="font-weight-normal">{job.name}</span>{" "}
@@ -61,43 +81,58 @@ export default function WorkOrderJobs(props) {
             </tr>
 
             <tr>
+              <th>Select profession:
+              <select onChange={onProfessionChange} className="form-control form-control-sm">
+                  <option>Select profession</option>
+                  {sortProfessions.map(pro=> (
+                    <option> {pro} </option>
+                  ))}
+               </select>
+
+              </th>
               <th id={job._id}>
                 
                 Select vendor:
                
-                  <select  onChange={onVendorChange} className="form-control form-control-sm">
-                  <option>Select vendor</option>
+                  <select disabled={(job.status=== "finished") ? true : false } onChange={onVendorChange} className="form-control form-control-sm">
+                  <option>{checkVendorId(job.vendorId)}</option>
                   {sortVendors.map(vendor=> (
                     <option value={vendor._id} key={vendor._id}> {`Name: ${vendor.name} | ` } { `Profession: ${vendor.profession}`   } </option>
                   ))}
                 </select>
-              
+    
                 
-              </th>
+                <ModalMy2
+                    // workOrders ={this.getUserWorkOrders(id)}
+                    // user ={this.state.user}
+                    allSentJoobs={allSentJoobs}
+                    vendors={vendors}
+                    selVendorId={job.vendorId}
+                    
+               />
+               </th>
+               
               <th>
                 Pick start date:
                 <div onClick={() => handleId(job._id)} className="btn-dsp-block">
                  
                   <input 
                     type="date"
-                    // disabled ={(job.assignmentDate !== "" ) ? true : false}
+                    disabled={(job.status=== "finished") ? true : false }
                     value = {formatDate(job.assignmentDate)}
                     onChange={onDateChange}
                     className="form-control form-control-sm"
                   /> 
-
-                 
-                </div>
+             </div>
               </th>
               <th>
                 Status:   {(job.status==="sent") ? <p className="green-status font-weight-bold">{job.status}</p> : <p>{job.status}</p> }  
               </th>
               <th className="th-text-align">
-                Confirm:
+              {(job.status==="sent") ? "Edit" : "Confirm" }
                 <span className="">
-                  
                   <button type="button" onClick={(e) => onOk(e, job._id)} className="btn btn-sm mdc-button btn-dsp-block">
-                    Ok
+                    {(job.status==="sent") ? "Edit" : "Ok" }
                   </button>
                 </span>
               </th>
