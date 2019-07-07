@@ -131,7 +131,7 @@ export default function WorkOrderJobs(props) {
               <th className="th-text-align">
               {(job.status==="sent") ? "Edit" : "Confirm" }
                 <span className="">
-                  <button type="button" onClick={(e) => onOk(e, job._id)} className="btn btn-sm mdc-button btn-dsp-block">
+                  <button type="button" disabled={(job.status=== "finished") ? true : false } onClick={(e) => onOk(e, job._id)} className="btn btn-sm mdc-button btn-dsp-block">
                     {(job.status==="sent") ? "Edit" : "Ok" }
                   </button>
                 </span>

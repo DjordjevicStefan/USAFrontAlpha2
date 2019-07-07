@@ -87,8 +87,7 @@ export default class workOrderTable extends Component {
              searchOption ={this.state.searchOption}
              searchQuery = {this.state.searchQuery}
              onVendorChange ={onVendorChange}
-             onDateChange= {onDateChange}
-            
+             onDateChange= {onDateChange} 
              vendors={vendors}
              handleId={handleId}
              returnVendorId={returnVendorId}
