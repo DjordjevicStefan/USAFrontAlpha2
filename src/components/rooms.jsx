@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
 import "../css/navbar.css";
 
 import NavBar from "./navBar.jsx";
@@ -10,7 +10,6 @@ import WorkOrder from "./workOrder";
 
 class Rooms extends Component {
   state = {
-    rooms: getRooms(),
     value: [],
     build: []
   };
@@ -31,62 +30,51 @@ class Rooms extends Component {
     localStorage.setItem("workorder", JSON.stringify(work));
   };
 
-  // handleChange1 = e => {
-  //   console.log(e);
-  //   const building1 = e.target.value;
-  //   const build = building1.split(":");
-  //   const building = build[0];
-  //   console.log(building);
-  //   const work = JSON.parse(localStorage.getItem("workorder"));
-  //   work.workorder.buildingNumber = building;
-  //   localStorage.setItem("workorder", JSON.stringify(work));
-  // };
+  handleWorkOrder = async () => {
+    window.alert("In development...");
+  };
 
   handleInput = e => {
     console.log(e.target.value);
     const { showing } = this.state;
-    console.log();
-    // const buildings = "";
-    // if (buildingNumber) {
-    //   buildings = JSON.parse(localStorage.getItem("buildings")).find(
-    //     m => m.number == buildingNumber
-    //   );
-    // } else {
+    // const{ build}=this.state;
     let buildings = JSON.parse(localStorage.getItem("buildings")).filter(
       m => m.region === this.props.match.params.id
     );
     let building = buildings.find(m => m.number == e.target.value);
-    // }
-    console.log(buildings);
+    console.log(building);
+
     if (building === undefined) {
       const adress = "";
-
+      console.log("radi");
       const work = JSON.parse(localStorage.getItem("workorder"));
       work.workorder.buildingNumber = "";
       work.workorder.adress = adress;
       localStorage.setItem("workorder", JSON.stringify(work));
       this.setState({ showing: false, adress: false });
     } else {
+      console.log("radi else");
       const adress = building.adress + " (" + building.zip + ")";
-      console.log(buildings);
+      console.log(adress);
       const work = JSON.parse(localStorage.getItem("workorder"));
       work.workorder.buildingNumber = e.target.value;
       work.workorder.adress = adress;
       localStorage.setItem("workorder", JSON.stringify(work));
-      this.setState({ showing: !showing, adress });
+      this.setState({ showing: true, adress });
     }
     localStorage.removeItem("jobs");
-    // element.value = element.number + " (" + element.zip + ")";
   };
 
   handleAptNum = e => {
-    const value = "";
-
-    const workOrder = JSON.parse(localStorage.getItem("workorder"));
-    workOrder.workorder.apartmentNumber = e.target.value;
-
-    localStorage.setItem("workorder", JSON.stringify(workOrder));
-    localStorage.removeItem("jobs");
+    let value = "";
+    console.log(e);
+    // const workOrder = JSON.parse(localStorage.getItem("workorder"));
+    // workOrder.workorder.apartmentNumber = e.target.value;
+    const work = JSON.parse(localStorage.getItem("workorder"));
+    work.workorder.apartmentNumber = e.target.value;
+    localStorage.setItem("workorder", JSON.stringify(work));
+    // localStorage.setItem("workorder", JSON.stringify(workOrder));
+    // localStorage.removeItem("jobs");
     this.setState({
       value: e.target.value
     });
@@ -101,146 +89,108 @@ class Rooms extends Component {
   constructor(props) {
     super(props);
 
-    const build = [...this.state.build];
+    // const build = [...this.state.build];
 
-    let buildings = JSON.parse(localStorage.getItem("buildings")).filter(
-      m => m.region == this.props.match.params.id
-    );
-    // const regionBuildings = {};
-    // const d = buildings.map(
-    //   element => (
-    //     (regionBuildings.number = element.number),
-    //     (regionBuildings.adress = element.address + " (" + element.zip + ")")
-    //   )
-    // );
-    // console.log(d);
-
-    // build.push(d);
-
-    console.log(buildings);
+    let build = "";
     const adress = "";
     let showing = false;
-    let value = [];
-    // const value = "";
-    if (this.props.location.state) {
-      localStorage.setItem(
-        "jobs",
-        JSON.stringify(this.props.location.state.jobs)
-      );
-    }
-    // let value = "";
-    // const showing = "";
-    if (this.props.location.state) {
-      const buildNumber = this.props.location.state.buildingNumber;
-      let building = buildings.find(m => m.number == buildNumber);
-      // }
-      const adress = building.adress + " (" + building.zip + ")";
-      console.log(buildings);
-      const work = JSON.parse(localStorage.getItem("workorder"));
-      work.workorder.buildingNumber = buildNumber;
-      work.workorder.apartmentNumber = this.props.location.state.apartmentNumber;
-      work.workorder.adress = adress;
-      localStorage.setItem("workorder", JSON.stringify(work));
-      showing = true;
-      this.state = { showing: showing, adress };
+    let value = "";
 
-      value = this.props.location.state.apartmentNumber;
-    }
+    let allItems = JSON.parse(localStorage.getItem("allItems"));
+    let jobs = JSON.parse(localStorage.getItem("jobs"));
 
-    // this.state = { data };
-    // if(this.props.location.state){
-    //                                localStorage.setItem(
-    //                                  "buildingNumber",
-    //                                  JSON.stringify(
-    //                                    this.location
-    //                                      .state
-    //                                      .buildingNumber
-    //                                  )
-    //                                );
-    //                              }
-    const allItems = JSON.parse(localStorage.getItem("allItems"));
-    // const showing = [];
-    const rooms = getRooms();
+    // let checkedJobs = jobs.map(item => {
+    //   return {
+    //     name: item.name,
+    //     price: item.price,
+    //     room: item.room,
+    //     subCategory: item.subCategory,
+    //     quantity: item.quantity,
+    //     comment: item.comment,
+    //     _id: item.id
+    //   };
+    // });
+
+    // let k = checkedJobs.filter(j => allItems.filter(m => m.name == j.name));
+    // // console.log(kurac);
+    // let j = checkedJobs.map(j => j).map(m => m.name);
+    // let p = allItems.filter(d => d.name != j.find(m => m == d.name));
+
+    // allItems = k.concat(p);
+    // localStorage.setItem("allItems", JSON.stringify(allItems));
+    // localStorage.setItem("jobs", JSON.stringify(allItems));
+
+    // if (this.props.location.state) {
+    //   const buildNumber = this.props.location.state.buildingNumber;
+    //   let building = buildings.find(m => m.number == buildNumber);
+    //   // }urac
+    //   const adress = building.adress + " (" + building.zip + ")";
+    //   // console.log(buildings);
+    //   const work = JSON.parse(localStorage.getItem("workorder"));
+    //   work.workorder.id = this.props.location.state.id;
+    //   work.workorder.buildingNumber = buildNumber;
+    //   work.workorder.apartmentNumber = this.props.location.state.apartmentNumber;
+    //   work.workorder.adress = adress;
+    //   localStorage.setItem("workorder", JSON.stringify(work));
+    //   showing = true;
+    //   this.state = { showing: showing, adress };
+
+    //   value = this.props.location.state.apartmentNumber;
+    // }
+
+    let rooms = getRooms();
     this.state = {
-      rooms: getRooms(),
-      value: false,
-      // build,
-      showing
+      rooms: rooms,
+      value,
+      showing: false,
+      build
     };
-  }
-  handleNewWorkorders() {
-    localStorage.removeItem("jobs");
-    window.location = "/rooms/new-workorder";
   }
 
   render() {
     let adress = [];
     let showing = this.state.showing;
-    console.log(this.props);
-    const workorder = JSON.parse(localStorage.getItem("workorder"));
+    // console.log(this.props);
+    // let value = "";
+    let build = this.state.build;
+    // console.log(buildNumber);
+    let buildings = JSON.parse(localStorage.getItem("buildings")).filter(
+      m => m.region == this.props.match.params.id
+    );
     let value = "";
-    let buildNumber = "";
-    // if (this.props.location.state) {
-    //   const buildNumber = this.props.location.state.buildingNumber;
-    //   const buildings = JSON.parse(localStorage.getItem("buildings")).find(
-    //     m => m.number == buildNumber
-    //   );
-    //   // }
-    //   const adress = buildings.adress + " (" + buildings.zip + ")";
-    //   console.log(buildings);
-    //   const work = JSON.parse(localStorage.getItem("workorder"));
-    //   work.workorder.buildingNumber = buildNumber;
-    //   work.workorder.adress = adress;
-    //   localStorage.setItem("workorder", JSON.stringify(work));
-    //   showing = true;
-    //   // showing = showing;
-    //   // this.setState({ showing: !showing, adress });
+    value = this.state.value;
+    // if (localStorage.getItem("workorder")) {
+    let workorder = JSON.parse(localStorage.getItem("workorder"));
 
-    //   value = this.props.location.state.apartmentNumber;
-    // } else {
-    buildNumber = JSON.parse(localStorage.getItem("workorder")).workorder
-      .buildingNumber;
-    value = workorder.workorder.apartmentNumber;
-    // showing = true;
-    // const { showing } = this.state;
-    // showing = showing;
-    // }
+    let buildNumber = workorder.workorder.buildingNumber;
+
     let building = "";
     if (buildNumber == "") {
       adress = "";
-      console.log("radii");
-      // let workord = JSON.parse(localStorage.getItem("workorder"))
-      // workord.workorder.apartmentNumber=""
-      // localStorage.setItem("workorder", JSON.stringify(workord));
+
       showing = false;
     } else {
+      value = workorder.workorder.apartmentNumber;
       let region = JSON.parse(localStorage.getItem("currentUser")).region;
       let buildings = JSON.parse(localStorage.getItem("buildings")).filter(
         m => m.region == region
       );
       let building = buildings.find(m => m.number == buildNumber);
-      console.log(building);
-      // console.log(building);
-      // const adress = "";
-      // if (building == undefined) {
-      //   const adress = "Upisi adresu";
-      // } else {
-      //   // element.value = element.number + " (" + element.zip + ")";
-
-      //   // const { data, errors, checked, renderedItems } = this.state;
 
       adress = building.adress + " (" + building.zip + ")";
       // let { showing } = this.state;
       showing = true;
     }
-    // const showing = true;
+    // }
+    // let value = "";
+    // let workorder = JSON.parse(localStorage.getItem("workorder"));
+    // if (workorder.workorder.buildingNumber != "") {
+    //   adress = workorder.workorder.adress;
+
+    //   console.log(adress, value);
+    // } else {
     // }
 
-    // const adress = workorder.workorder.buildingNumber;
-    // console.log(value, adress);
-
-    // const build = workorder.workorder.buildingNumber;
-    // console.log(build);
     let rooms = this.state.rooms.map(room => {
       return (
         <Room
@@ -262,7 +212,6 @@ class Rooms extends Component {
           onHandleInput={this.handleInput}
           adress={adress}
           classs=""
-          // build={build}
           onHandleChange={this.handleChange1}
           onHandleAptNum={this.handleAptNum}
           onChangeBuildings={() => this.handleChangeBuilding()}
@@ -289,20 +238,7 @@ class Rooms extends Component {
               Complete All
             </button>
           </div>
-          {/* <Link
-              to={"/user/workorders"}
-              onClick={this.handleWorkorders}
-              className="btn btn-warning mt-3 mb-3"
-            >
-              My Workorders
-            </Link>
-            <Link
-              to={"/rooms/new-workorder"}
-              onClick={this.handleNewWorkorders}
-              className="btn btn-secondary mt-3 mb-3 float-right"
-            >
-              New Workorder
-            </Link> */}
+
           <button
             onClick={() => this.handlelogOut()}
             className="btn btn-danger m-3"

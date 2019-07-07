@@ -1,12 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-
-import qs from "qs";
 import axios from "axios";
-
 import "../css/navbar.css";
-
 import logo from "../img/ben-leeds-logo.png";
+
 class NavBar extends Component {
   state = {
     data: [],
@@ -21,54 +17,27 @@ class NavBar extends Component {
     }
   }
   async handleWorkorders(e) {
-    console.log(e.target.value);
     if (e.target.value === "saved") {
       e.preventDefault();
-      e.persist();
-      console.log("work");
-      console.log("sta");
-      localStorage.removeItem("jobs");
-      const user = JSON.parse(localStorage.getItem("currentUser"));
-      // window.location.reload();
-      // const params = {
-      //   email: user.email,
-      //   password: 123
-      // };
 
-      // this.props.history.push(`./user/workorders`);
-
-      const data = await axios.get(
-        process.env.REACT_APP_API_URL + `/user/latestWorkorder/${user._id}`
-      );
-      let workorder = data.data.workorder;
-      let jobs = data.data.jobs;
-      workorder.jobs = jobs;
-      console.log(data.data.jobs);
-      let work = JSON.parse(localStorage.getItem("workorders"));
-      work.push(workorder);
-      localStorage.setItem("workorders", JSON.stringify(work));
-      // await axios.get(process.env.REACT_APP_API_URL)
-      // event.persist();
-      // localStorage.setItem("workorders", JSON.stringify(response.workorders));
-      window.location = `/user/workorders/${e.target.value}`;
+      window.alert("In development...");
     } else if (e.target.value === "pending") {
       e.preventDefault();
-      console.log("work");
-      console.log("sta");
+
       localStorage.removeItem("jobs");
       // window.location.reload();
 
       window.location = `/user/workorders/${e.target.value}`;
     } else if ((e.target.value = "new")) {
       localStorage.removeItem("jobs");
-      const work = JSON.parse(localStorage.getItem("workorder"));
+      let work = JSON.parse(localStorage.getItem("workorder"));
       work.workorder.buildingNumber = "";
       work.workorder.apartmentNumber = "";
       work.workorder.adress = "";
-      //login vreme ?
       localStorage.setItem("workorder", JSON.stringify(work));
       const region = JSON.parse(localStorage.getItem("currentUser")).region;
       window.location = `/rooms/${region}`;
+    } else {
     }
   }
 
@@ -77,7 +46,7 @@ class NavBar extends Component {
     const buildings = JSON.parse(localStorage.getItem("buildings")).filter(
       m => m.region === this.props.match.params.id
     );
-    // console.log(buildings);
+
     const data = [...this.state.data];
 
     const d = buildings.map(
@@ -93,7 +62,7 @@ class NavBar extends Component {
     const building1 = e.target.value;
     const build = building1.split(":");
     const building = build[0];
-    console.log(building);
+
     const work = JSON.parse(localStorage.getItem("workorder"));
     work.workorder.buildingNumber = building;
     localStorage.setItem("workorder", JSON.stringify(work));
@@ -105,13 +74,7 @@ class NavBar extends Component {
     const workorder = JSON.parse(localStorage.getItem("workorder"));
 
     const dateNow = new Date(workorder.workorder.loginTime).toLocaleString();
-    console.log(dateNow);
-    console.log(dateNow.toLocaleString());
-    const { showing } = this.state;
-    const { adress } = this.state;
-    // console.log(this.state.data);
-    // console.log(this.state.adress);
-    // console.log(this.props.adress);
+
     return (
       <nav className="nav-box  text-center">
         <div className="logo p-3">
@@ -123,10 +86,7 @@ class NavBar extends Component {
             <div className="col-sm-4">
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
-                  <div
-                    // onChangeBuild={() => this.props.changeBuild(this.value)}
-                    className="build input-group-text  text-white"
-                  >
+                  <div className="build input-group-text  text-white">
                     Building#
                   </div>
                 </div>
@@ -136,8 +96,6 @@ class NavBar extends Component {
                   min="1"
                   className={`build-input ${this.props.classs}`}
                   onChange={this.props.onHandleInput}
-                  // adress={this.props.adress}
-                  // onChangeInput={this.handleInput}
                 />
                 <br />
                 {this.props.showing ? (
@@ -161,15 +119,11 @@ class NavBar extends Component {
               <select
                 className="btn btn-secondary form-control m-3"
                 name="country"
-                // onChange={() => this.setState({ showing: !showing })}
                 onChange={this.handleWorkorders}
-                // currentBuild={() => this.props.currentBuild(this.state.build)}
-                // build={this.props.build}
-                // value={this.props.build}
               >
-                <option value="">Workorders</option>
+                <option>Workorders</option>
                 <option value="new">New Workorder</option>
-                <option value="saved">Save Workorders</option>
+                <option value="saved">Saved Workorders</option>
                 <option value="pending">Sent Workorders</option>
 
                 {/* <option value="">Select building</option>
@@ -197,9 +151,6 @@ class NavBar extends Component {
                 />
               </div>
             </div>
-            {/* <Link to={"/user/workorders"} className="btn btn-warning mt-3 mb-3">
-              My Workorders
-            </Link> */}
           </div>
         </div>
       </nav>

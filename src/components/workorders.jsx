@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import NavBar from "./navBar.jsx";
 import { Link } from "react-router-dom";
-import Joi from "joi-browser";
+
 import Form from "./common/form";
+
 import _ from "lodash";
 import "../css/fullroom.css";
-import axios from "axios";
+
 import SearchBox from "./common/searchbox";
+
 class Workorders extends Form {
   state = {
     data: {},
@@ -19,139 +21,139 @@ class Workorders extends Form {
     build: []
   };
 
-  handleBackButton = () => {
-    this.props.history.push("/rooms/" + this.props.match.params.m);
-  };
-  async componentDidMount() {}
-  getCurrentRoom = () => {
-    return this.props.match.params.id;
-  };
-  handleBackButton = () => {
-    const region = JSON.parse(localStorage.getItem("currentUser")).region;
-    this.props.history.push("/rooms/" + region);
-  };
+  // handleBackButton = () => {
+  //   this.props.history.push("/rooms/" + this.props.match.params.m);
+  // };
+  // // async componentDidMount() {}
+  // // getCurrentRoom = () => {
+  // //   return this.props.match.params.id;
+  // // };
+  // handleBackButton = () => {
+  //   const region = JSON.parse(localStorage.getItem("currentUser")).region;
+  //   this.props.history.push("/rooms/" + region);
+  // };
   handlelogOut() {
     const answer = window.confirm("Are you sure you want to log out?");
     if (answer) {
       window.location = `/`;
     }
   }
-  handleFinishedButton = () => {
-    // console.log(this.props.match);
-    this.props.history.push(
-      "/rooms/" + this.props.match.params.id + "/work-order"
-    );
-    const work = JSON.parse(localStorage.getItem("workorder"));
-    const date = new Date();
-    work.workorder.completedTime = date;
-    localStorage.setItem("workorder", JSON.stringify(work));
-  };
+  // handleFinishedButton = () => {
+  //   // console.log(this.props.match);
+  //   this.props.history.push(
+  //     "/rooms/" + this.props.match.params.id + "/work-order"
+  //   );
+  //   const work = JSON.parse(localStorage.getItem("workorder"));
+  //   const date = new Date();
+  //   work.workorder.completedTime = date;
+  //   localStorage.setItem("workorder", JSON.stringify(work));
+  // };
 
-  handleChangeArea = ({ currentTarget: input }) => {
-    const value = this.state.value;
+  // handleChangeArea = ({ currentTarget: input }) => {
+  //   const value = this.state.value;
 
-    value[input.name] = input.value;
+  //   value[input.name] = input.value;
 
-    this.setState({ value });
+  //   this.setState({ value });
 
-    const rooms = this.state.allItems.find(room => room._id === input.id);
+  //   const rooms = this.state.allItems.find(room => room._id === input.id);
 
-    rooms.comment = this.state.value[input.name];
+  //   rooms.comment = this.state.value[input.name];
 
-    localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
-  };
+  //   localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
+  // };
   handleSearch = query => {
     this.setState({ searchQuery: query });
   };
-  validate = () => {
-    const options = { abortEarly: false };
-    const { error } = Joi.validate(this.state.data, this.state.schema, options);
-    if (!error) return null;
+  // validate = () => {
+  //   const options = { abortEarly: false };
+  //   const { error } = Joi.validate(this.state.data, this.state.schema, options);
+  //   if (!error) return null;
 
-    const errors = {};
-    for (let item of error.details) errors[item.path[0]] = item.message;
-    return errors;
-  };
+  //   const errors = {};
+  //   for (let item of error.details) errors[item.path[0]] = item.message;
+  //   return errors;
+  // };
 
-  validateProperty = ({ name, value }) => {
-    const obj = { [name]: value };
-    const schema = { [name]: this.state.schema[name] };
-    const { error } = Joi.validate(obj, schema);
-    return error ? error.details[0].message : null;
-  };
+  // validateProperty = ({ name, value }) => {
+  //   const obj = { [name]: value };
+  //   const schema = { [name]: this.state.schema[name] };
+  //   const { error } = Joi.validate(obj, schema);
+  //   return error ? error.details[0].message : null;
+  // };
 
-  handleChange = e => {
-    const input = e.currentTarget;
+  // handleChange = e => {
+  //   const input = e.currentTarget;
 
-    const errors = { ...this.state.errors };
-    const schema = { ...this.state.schema };
-    const errorMessage = this.validateProperty(input);
-    if (errorMessage) errors[input.name] = errorMessage;
-    else delete errors[input.name];
-    const data = { ...this.state.data };
+  //   const errors = { ...this.state.errors };
+  //   const schema = { ...this.state.schema };
+  //   const errorMessage = this.validateProperty(input);
+  //   if (errorMessage) errors[input.name] = errorMessage;
+  //   else delete errors[input.name];
+  //   const data = { ...this.state.data };
 
-    data[input.name] = input.value;
+  //   data[input.name] = input.value;
 
-    this.setState({ data, errors });
+  //   this.setState({ data, errors });
 
-    const rooms = this.state.allItems.find(room => room._id === input.id);
+  //   const rooms = this.state.allItems.find(room => room._id === input.id);
 
-    rooms.quantity = data[input.name];
+  //   rooms.quantity = data[input.name];
 
-    localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
+  //   localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
 
-    // schema = {
-    //   [input.name]: Joi.number().label("quantity")
-    // };
-    // this.setState({ schema });
+  //   // schema = {
+  //   //   [input.name]: Joi.number().label("quantity")
+  //   // };
+  //   // this.setState({ schema });
 
-    // const data = { ...this.state.data };
-    // console.log(input.value);
-    // console.log(e.target.value);
-    // data[input.name] = input.value;
-    // this.setState({ data });
+  //   // const data = { ...this.state.data };
+  //   // console.log(input.value);
+  //   // console.log(e.target.value);
+  //   // data[input.name] = input.value;
+  //   // this.setState({ data });
 
-    // this.setState({ value: e.target.value });
-  };
-  // changeBuild(value) {
+  //   // this.setState({ value: e.target.value });
+  // };
+  // // changeBuild(value) {
   //   // console.log(value);
   // }
-  handleSearch = query => {
-    this.setState({ searchQuery: query });
-    console.log(query);
-  };
-  handleInput = e => {
-    const { showing } = this.state;
-    const buildNumber = JSON.parse(localStorage.getItem("workorder")).workorder
-      .buildingNumber;
+  // handleSearch = query => {
+  //   this.setState({ searchQuery: query });
+  //   // console.log(query);
+  // };
+  // handleInput = e => {
+  //   const { showing } = this.state;
+  //   const buildNumber = JSON.parse(localStorage.getItem("workorder")).workorder
+  //     .buildingNumber;
 
-    const buildings = JSON.parse(localStorage.getItem("buildings")).find(
-      m => m.number == buildNumber
-    );
+  //   const buildings = JSON.parse(localStorage.getItem("buildings")).find(
+  //     m => m.number == buildNumber
+  //   );
 
-    // element.value = element.number + " (" + element.zip + ")";
-    const adress = buildings.adress + " (" + buildings.zip + ")";
-    // console.log(buildings);
-    this.setState({ adress });
-  };
-  handleCheckboxChange = e => {
-    const checked = { ...this.state.checked };
+  //   // element.value = element.number + " (" + element.zip + ")";
+  //   const adress = buildings.adress + " (" + buildings.zip + ")";
+  //   // console.log(buildings);
+  //   this.setState({ adress });
+  // };
+  // handleCheckboxChange = e => {
+  //   const checked = { ...this.state.checked };
 
-    const rooms = this.state.allItems.find(
-      room => room._id === e.currentTarget.id
-    );
-    if (e.target.checked === false) {
-      checked[e.currentTarget.name] = e.target.checked;
-      rooms.checked = false;
+  //   const rooms = this.state.allItems.find(
+  //     room => room._id === e.currentTarget.id
+  //   );
+  //   if (e.target.checked === false) {
+  //     checked[e.currentTarget.name] = e.target.checked;
+  //     rooms.checked = false;
 
-      localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
-    } else {
-      checked[e.currentTarget.name] = e.target.checked;
-      rooms.checked = true;
-      localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
-    }
-    this.setState({ checked });
-  };
+  //     localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
+  //   } else {
+  //     checked[e.currentTarget.name] = e.target.checked;
+  //     rooms.checked = true;
+  //     localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
+  //   }
+  //   this.setState({ checked });
+  // };
 
   // handleChange1(e) {
   //   const building1 = e.target.value;
@@ -162,37 +164,37 @@ class Workorders extends Form {
   //   work.workorder.buildingNumber = building;
   //   localStorage.setItem("workorder", JSON.stringify(work));
   // }
-  handleWorkOrder = async () => {
-    // const workOrder = JSON.parse(localStorage.getItem("workorder"));
+  // handleWorkOrder = async () => {
+  //   // const workOrder = JSON.parse(localStorage.getItem("workorder"));
 
-    const allItems = JSON.parse(localStorage.getItem("allItems"));
-    const copyItems = [...allItems].filter(item => {
-      return item.checked;
-    });
-    const finalItems = copyItems.map(item => {
-      return {
-        name: item.name,
-        price: item.price,
-        room: item.room,
-        subCategory: item.subCategory,
-        quantity: item.quantity,
-        comment: item.comment
-      };
-    });
-    const work = JSON.parse(localStorage.getItem("workorder"));
-    work.jobs = finalItems;
-    work.workorder.status = "saved";
-    work.workorder.sendTime = new Date();
-    work.workorder.completedTime = new Date();
-    localStorage.setItem("workorder", JSON.stringify(work));
-    const finalData = JSON.parse(localStorage.getItem("workorder"));
-    console.log(finalData);
-    const data = await axios.post(
-      process.env.REACT_APP_API_URL + "/user/newWorkorder",
-      JSON.stringify(finalData)
-    );
-    console.log(data);
-  };
+  //   const allItems = JSON.parse(localStorage.getItem("allItems"));
+  //   const copyItems = [...allItems].filter(item => {
+  //     return item.checked;
+  //   });
+  //   const finalItems = copyItems.map(item => {
+  //     return {
+  //       name: item.name,
+  //       price: item.price,
+  //       room: item.room,
+  //       subCategory: item.subCategory,
+  //       quantity: item.quantity,
+  //       comment: item.comment
+  //     };
+  //   });
+  //   const work = JSON.parse(localStorage.getItem("workorder"));
+  //   work.jobs = finalItems;
+  //   work.workorder.status = "saved";
+  //   work.workorder.sendTime = new Date();
+  //   work.workorder.completedTime = new Date();
+  //   localStorage.setItem("workorder", JSON.stringify(work));
+  //   const finalData = JSON.parse(localStorage.getItem("workorder"));
+  //   console.log(finalData);
+  //   const data = await axios.post(
+  //     process.env.REACT_APP_API_URL + "/user/newWorkorder",
+  //     JSON.stringify(finalData)
+  //   );
+  //   console.log(data);
+  // };
 
   constructor(props) {
     super(props);
@@ -206,7 +208,7 @@ class Workorders extends Form {
     // console.log(response.workorders);
 
     const allItems = JSON.parse(localStorage.getItem("workorders"));
-    console.log(allItems);
+    // console.log(allItems);
     // const room = this.props.match.params.m;
 
     // const renderedItems = allItems;
@@ -258,9 +260,9 @@ class Workorders extends Form {
   }
 
   render() {
-    console.log(this.state.allItems);
+    // console.log(this.state.allItems);
     let workorders = JSON.parse(localStorage.getItem("workorders"));
-    console.log(workorders);
+    // console.log(workorders);
     // const allItems = this.state.allItems;
     const searchQuery = this.state.searchQuery;
 
@@ -299,6 +301,7 @@ class Workorders extends Form {
     // }
     // console.log(datas);
     // let datas = this.state.allItems;
+
     let allItems = [];
     if (this.props.match.params.i === "saved") {
       allItems = workorders.filter(m => m.status == this.props.match.params.i);
@@ -307,7 +310,7 @@ class Workorders extends Form {
     }
 
     const region = JSON.parse(localStorage.getItem("currentUser")).region;
-    console.log(allItems);
+    // console.log(allItems);
     if (searchQuery) {
       allItems = allItems.filter(m =>
         m.adress.toLowerCase().startsWith(searchQuery.toLowerCase())
@@ -320,7 +323,7 @@ class Workorders extends Form {
     // const value = workorder.workorder.apartmentNumber;
     // const { adress } = this.state;
     // console.log(adress);
-
+    console.log(allItems);
     return (
       <React.Fragment>
         <div className="container mainPage">
@@ -336,6 +339,12 @@ class Workorders extends Form {
             onFinishedButton={this.handleFinishedButton}
           />
           <div className="rooms border text-center">
+            <button
+              onClick={() => this.handlelogOut()}
+              className="btn btn-danger m-3"
+            >
+              Logout
+            </button>
             <h1 className="lead m-2">
               All {this.props.match.params.i} workorders
             </h1>
@@ -351,7 +360,7 @@ class Workorders extends Form {
 
                   <th>Status</th>
 
-                  <th>Link</th>
+                  {/* <th>Link</th> */}
                 </tr>
               </thead>
 
@@ -363,21 +372,21 @@ class Workorders extends Form {
                     <td>{item.apartmentNumber}</td>
                     <td>{item.adress}</td>
                     <td>{item.status}</td>
-
-                    <td>
-                      <Link
+                    {/* <td>
+                      {/* <Link
                         to={{
                           pathname: `/rooms/${region}`,
                           state: {
                             buildingNumber: item.buildingNumber,
                             apartmentNumber: item.apartmentNumber,
-                            jobs: item.jobs
+                            jobs: item.jobs,
+                            id: item._id
                           }
                         }}
                       >
                         Resume to Workorder
-                      </Link>
-                    </td>
+                      </Link> */}
+                    {/* </td> */} */}
                   </tr>
                 ))}
               </tbody>
