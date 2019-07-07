@@ -10,6 +10,7 @@ class ModalMy2 extends Component {
     currentPage: 1,
     itemsPerPage: 8,
     modalShowing : false,
+
   };
 
   handlePaginate = number => {
@@ -37,9 +38,9 @@ class ModalMy2 extends Component {
     if (!jobsArrey || jobsArrey.length === 0 ) {
        return <td>No jobs asigned to this vendor</td>
     } else {
-      let orderedJobsArrey = _.orderBy(jobsArrey, ["assignmentDate"], ["asc"]);
+      // let orderedJobsArrey = _.orderBy(jobsArrey, ["assignmentDate"], ["asc"]);
       return (
-        orderedJobsArrey.map(job => <tr key={job._id}> <td>{job.name}</td> <td>{job.room}</td> <td>{this.formatDate(job.assignmentDate)}</td> </tr> ) 
+        jobsArrey.map(job => <tr key={job._id}> <td>{job.name}</td> <td>{job.room}</td> <td>{this.formatDate(job.assignmentDate)}</td> </tr> ) 
       ) ;
     }
   }
@@ -52,24 +53,15 @@ class ModalMy2 extends Component {
     //  console.log("sel vendor" , selVendor);
     //  console.log("vendors in modal" , vendors);
     //  console.log("vendor id" , selVendorId);
-     const vendorJobArrey = allSentJoobs.filter(job=> job.vendorId === selVendorId)
+    const vendorJobArrey = allSentJoobs.filter(job=> job.vendorId === selVendorId) ; 
+    let vendorJobArreySorted = _.orderBy(vendorJobArrey, ["assignmentDate"], ["asc"]);
      
-     
-    // const { onShowModal, isOpen, onClose, user, workOrders } = this.props;
-    // const name = user.name;
 
-    
+    const indexOfLast = this.state.currentPage * this.state.itemsPerPage;
+    const indexOfFirst = indexOfLast - this.state.itemsPerPage;
+    let vendorsJobsPaginated = vendorJobArreySorted.slice(indexOfFirst, indexOfLast);
 
-    // let woOrderedByTime = _.orderBy(workOrders, ["sendTime"], ["asc"]);
-
-    // const indexOfLast = this.state.currentPage * this.state.itemsPerPage;
-    // const indexOfFirst = indexOfLast - this.state.itemsPerPage;
-    // let itemsPaginated = woOrderedByTime.slice(indexOfFirst, indexOfLast);
-
-    // const formatDate = date => {
-    //   let d = new Date(date).toLocaleString();
-    //   return d;
-    // };
+   
 
     return (
       <div>
@@ -98,21 +90,26 @@ class ModalMy2 extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {(selVendorId) ? this.popuilateTable(vendorJobArrey) : null  }
+                    {(selVendorId) ? this.popuilateTable(vendorsJobsPaginated) : null  }
                   </tbody>
                 </table>
               </>
             }
           </Modal.Body>
           <Modal.Footer>
+          
             <button className="btn mdc-button" onClick={this.handleCloseModal}>
               Go back
-            </button>
-            {/* <Pagination
-              total={woOrderedByTime.length}
+            </button> 
+           
+           
+            <Pagination
+              currentPage={this.state.currentPage}
+              total={vendorJobArreySorted.length}
               somethingPerPage={this.state.itemsPerPage}
               paginate={this.handlePaginate}
-            /> */}
+            />
+            
           </Modal.Footer>
         </Modal>
       </div>

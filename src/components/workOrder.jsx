@@ -147,7 +147,7 @@ export default class WorkOrder extends Component {
 
   handleOkButton = async (e, id) => {
     let yesNo = window.confirm(
-      `Are you sure you assigned/or edited the correct date and vendor for this job?`
+      `Are you sure you assigned/edited the correct date and vendor for this job?`
     );
 
     if (yesNo === false) {

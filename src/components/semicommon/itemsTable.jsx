@@ -196,6 +196,7 @@ class ItemsTable extends Component {
         <div className="row">
           <div className="col float-right">
           <Pagination 
+              currentPage={currentPage}
               total={selectedRoom.items.length} 
               somethingPerPage={somethingPerPage}
               paginate ={paginate}

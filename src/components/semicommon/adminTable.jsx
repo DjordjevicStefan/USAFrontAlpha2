@@ -140,6 +140,7 @@ const AdminTable = ({
           <tr>
             <td colSpan="6">
               <Pagination
+                currentPage={currentPage}
                 total={sorted.length}
                 somethingPerPage={woPerPage}
                 paginate={paginate}

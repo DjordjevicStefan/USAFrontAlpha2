@@ -83,6 +83,7 @@ class ModalMy extends Component {
               Go back
             </button>
             <Pagination
+              currentPage={this.state.currentPage}
               total={woOrderedByTime.length}
               somethingPerPage={this.state.itemsPerPage}
               paginate={this.handlePaginate}
