@@ -130,7 +130,7 @@ export class Vendor extends Component {
       return (
         <div>
           <AdminNavbar pageName="Vendor" />
-          <TableName tablename="Loading...." />
+          <TableName tablename="Loading..." />
           <ToastContainer />
         </div>
       );

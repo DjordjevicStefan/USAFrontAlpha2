@@ -105,7 +105,7 @@ class AdminPanel extends Component {
         <div>
           
           <AdminNavbar pageName="Admin panel"/>
-          <TableName tablename="Loading...." />
+          <TableName tablename="Loading..." />
           <ToastContainer />
         </div>
       );

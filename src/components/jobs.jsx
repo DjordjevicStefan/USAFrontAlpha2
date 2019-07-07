@@ -106,7 +106,7 @@ export default class Jobs extends Component {
       return (
         <>
           <AdminNavbar pageName="Jobs" />
-          <TableName tablename="Loading...." />
+          <TableName tablename="Loading..." />
           <ToastContainer />
         </>
       );

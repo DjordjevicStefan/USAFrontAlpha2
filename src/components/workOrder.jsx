@@ -242,7 +242,7 @@ export default class WorkOrder extends Component {
       return (
         <div>
           <AdminNavbar pageName="Work order" />
-          <TableName tablename="Loading...." />
+          <TableName tablename="Loading..." />
           <ToastContainer />
         </div>
       );

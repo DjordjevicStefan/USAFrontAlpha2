@@ -74,7 +74,7 @@ class Users extends Component {
       return (
         <div>
           <AdminNavbar pageName="Users" />
-          <TableName tablename="Loading...." />
+          <TableName tablename="Loading..." />
           <ToastContainer />
         </div>
       );

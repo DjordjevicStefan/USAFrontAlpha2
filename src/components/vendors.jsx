@@ -94,7 +94,7 @@ class Vendors extends Component {
       return (
         <div>
           <AdminNavbar pageName="Vendors" />
-          <TableName tablename="Loading...." />
+          <TableName tablename="Loading..." />
           <ToastContainer />
         </div>
       );

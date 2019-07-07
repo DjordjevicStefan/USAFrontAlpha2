@@ -189,7 +189,7 @@ class User extends Component {
       return (
         <div>
           <AdminNavbar pageName="User" />
-          <TableName tablename="Loading...." />
+          <TableName tablename="Loading..." />
           <ToastContainer />
         </div>
       );

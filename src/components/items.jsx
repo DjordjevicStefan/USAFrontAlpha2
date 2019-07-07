@@ -157,7 +157,7 @@ export default class Items extends Component {
       return (
         <>
           <AdminNavbar pageName="Room items" />
-          <TableName tablename="Loading...." />
+          <TableName tablename="Loading..." />
           <ToastContainer />
         </>
       );
