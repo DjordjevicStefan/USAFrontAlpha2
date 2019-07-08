@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "../css/navbar.css";
 import logo from "../img/ben-leeds-logo.png";
+import WorkOrder from "./workOrder";
 
 class NavBar extends Component {
   state = {
@@ -77,7 +78,7 @@ class NavBar extends Component {
 
     return (
       <nav className="nav-box  text-center">
-        <div className="logo p-3">
+        <div className="logoBenLeeds p-3">
           <img src={logo} alt="Ben Leeds Logo" />
         </div>
 
@@ -94,6 +95,7 @@ class NavBar extends Component {
                 <input
                   type="number"
                   min="1"
+                  value={this.props.build}
                   className={`build-input ${this.props.classs}`}
                   onChange={this.props.onHandleInput}
                 />
@@ -116,16 +118,19 @@ class NavBar extends Component {
                   className={`build-input ${this.props.classs}`}
                 />
               </div>
+              {/* <label className="btn btn-secondary ">Workorders</label> */}
               <select
-                className="btn btn-secondary form-control m-3"
+                className="mdb-select md-form colorful-select dropdown-primary form-control mb-3"
                 name="country"
                 onChange={this.handleWorkorders}
               >
-                <option>Workorders</option>
+                <option disabled selected>
+                  Choose your option
+                </option>
                 <option value="new">New Workorder</option>
                 <option value="saved">Saved Workorders</option>
                 <option value="pending">Sent Workorders</option>
-
+                {/* <label class="mdb-main-label">Blue select</label> */}
                 {/* <option value="">Select building</option>
                   {this.props.build[0].map(e => {
                     console.log(e);

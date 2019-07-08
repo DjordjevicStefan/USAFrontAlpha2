@@ -48,7 +48,7 @@ class Wo extends Component {
   };
   handleFinishedButton = async () => {
     let prompt = window.confirm(
-      "Are you sure you want to save this workorder?"
+      "Are you sure you want to send this workorder?"
     );
     if (prompt) {
       const jobs = JSON.parse(localStorage.getItem("jobs"));
@@ -85,15 +85,16 @@ class Wo extends Component {
       console.log(data);
       if (data.statusText === "OK") {
         const work = JSON.parse(localStorage.getItem("workorder"));
+        localStorage.removeItem("jobs");
         work.workorder.buildingNumber = "";
         work.workorder.apartmentNumber = "";
-
+        work.workorder.totalPrice = "";
+        work.workorder.comment = "";
         work.workorder.loginTime = new Date();
         localStorage.setItem("workorder", JSON.stringify(work));
-        this.props.history.push("/rooms/" + this.props.match.params.m);
-        window.location.reload();
+        let region = JSON.parse(localStorage.getItem("currentUser")).region;
+        window.location = "/rooms/" + region;
         // localStorage.removeItem("workorder");
-        localStorage.removeItem("jobs");
       }
     } else {
       return;
@@ -104,12 +105,13 @@ class Wo extends Component {
     let total = 0;
     let woComment = "";
     // let allItems = JSON.parse(localStorage.getItem("allItems"));
-
-    let jobs = JSON.parse(localStorage.getItem("jobs")).filter(
-      m => m.checked == true
-    );
-    for (let i = 0; i < jobs.length; i++) {
-      total += Math.ceil(jobs[i].quantity * jobs[i].price);
+    if (localStorage.getItem("jobs")) {
+      let jobs = JSON.parse(localStorage.getItem("jobs")).filter(
+        m => m.checked == true
+      );
+      for (let i = 0; i < jobs.length; i++) {
+        total += Math.ceil(jobs[i].quantity * jobs[i].price);
+      }
     }
     // console.log(total);
     this.state = {
@@ -119,13 +121,19 @@ class Wo extends Component {
     };
   }
   render() {
+    let jobs = "";
     // console.log(this.state.woComment);
     let total = this.state.total;
-    let jobs = JSON.parse(localStorage.getItem("jobs"));
-    // console.log(total);
-    jobs = JSON.parse(localStorage.getItem("jobs")).filter(
-      m => m.checked == true
-    );
+    if (localStorage.getItem("jobs")) {
+      //  jobs = JSON.parse(localStorage.getItem("jobs"));
+      // console.log(total);
+      jobs = JSON.parse(localStorage.getItem("jobs")).filter(
+        m => m.checked == true
+      );
+    }
+    {
+      jobs = false;
+    }
     const showing = true;
     const adress = JSON.parse(localStorage.getItem("workorder")).workorder
       .adress;
@@ -136,6 +144,7 @@ class Wo extends Component {
 
     // const total = totalprice.map(item => );
     const workorder = JSON.parse(localStorage.getItem("workorder"));
+    const buildingNumber = workorder.workorder.buildingNumber;
     const value = workorder.workorder.apartmentNumber;
     return (
       <React.Fragment>
@@ -144,6 +153,7 @@ class Wo extends Component {
             {...this.props}
             adress={adress}
             showing={showing}
+            build={buildingNumber}
             value={value}
             classs="disabled"
             onHandleAptNum={this.handleAptNum}
@@ -166,24 +176,26 @@ class Wo extends Component {
                 </tr>
               </thead>
               <tbody>
-                {jobs.map(item => (
-                  <tr>
-                    <td>{item.room}</td>
-                    <td>{item.name}</td>
-                    <td>{item.subCategory}</td>
+                {jobs
+                  ? jobs.map(item => (
+                      <tr>
+                        <td>{item.room}</td>
+                        <td>{item.name}</td>
+                        <td>{item.subCategory}</td>
 
-                    <td>{item.quantity}</td>
-                    <td>${item.price}</td>
-                    <td>
-                      {" "}
-                      $
-                      {Math.ceil(item.quantity * item.price)
-                        ? Math.ceil(item.quantity * item.price)
-                        : 0}
-                    </td>
-                    <td>{item.comment}</td>
-                  </tr>
-                ))}
+                        <td>{item.quantity}</td>
+                        <td>${item.price}</td>
+                        <td>
+                          {" "}
+                          $
+                          {Math.ceil(item.quantity * item.price)
+                            ? Math.ceil(item.quantity * item.price)
+                            : 0}
+                        </td>
+                        <td>{item.comment}</td>
+                      </tr>
+                    ))
+                  : null}
               </tbody>
             </table>
             <div>Total Price: ${total}</div>
