@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import axios from "axios";
+
 import "../css/navbar.css";
 
 import NavBar from "./navBar.jsx";
-
+import { toast, ToastContainer } from "react-toastify";
 import Room from "./room.jsx";
 import { getRooms } from "../services/fakeRoomService";
-import WorkOrder from "./workOrder";
 
 class Rooms extends Component {
   state = {
@@ -88,7 +87,7 @@ class Rooms extends Component {
   }
   constructor(props) {
     super(props);
-
+    toast.error("Please enter Building and Apartment number");
     // const build = [...this.state.build];
 
     let build = "";
@@ -205,6 +204,7 @@ class Rooms extends Component {
 
     return (
       <div className="container main-page">
+        <ToastContainer />
         <NavBar
           {...this.props}
           showing={showing}

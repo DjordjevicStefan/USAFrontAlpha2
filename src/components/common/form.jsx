@@ -28,7 +28,7 @@ class Form extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    
+
     const errors = this.validate();
     this.setState({ errors: errors || {} });
     if (errors) return;
@@ -55,7 +55,7 @@ class Form extends Component {
         {label} <br />
         {isLoading ? (
           <span
-            class="mr-1 spinner-border spinner-border-sm"
+            className="mr-1 spinner-border spinner-border-sm"
             role="status"
             aria-hidden="true"
           />
