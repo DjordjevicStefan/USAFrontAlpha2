@@ -87,7 +87,7 @@ class Rooms extends Component {
   }
   constructor(props) {
     super(props);
-    toast.error("Please enter Building and Apartment number");
+    // toast.error("Please enter Building and Apartment number");
     // const build = [...this.state.build];
 
     let build = "";
@@ -209,7 +209,7 @@ class Rooms extends Component {
           {...this.props}
           showing={showing}
           value={value}
-          build={build}
+          // build={build}
           onHandleInput={this.handleInput}
           adress={adress}
           classs=""
