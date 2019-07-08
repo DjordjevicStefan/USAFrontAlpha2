@@ -64,6 +64,7 @@ export default function JobsTable(props) {
 
            <thead>
              <tr className="text-left">
+             <th>Comment</th>
             <th>Building number</th>
             <th>Apartment number</th>
             <th>Vendor</th>
@@ -72,13 +73,14 @@ export default function JobsTable(props) {
            </thead>
            <tbody>
            <tr className="text-left">
+             <td>{job.comment}</td>
              <td>{job.workorder.buildingNumber}</td>
              <td>{job.workorder.apartmentNumber}</td>
              <td>{(job.vendor) ?  job.vendor.name  : "not selected or deleted"}</td>
              <td>{(job.assignmentDate) ?  formatDate(job.assignmentDate): "not assigned" } </td>
            </tr>
            <tr className={ (job.vendor) ? "" : "table-border-bottom"}>
-             <th colSpan="4">Room: <span className="font-weight-normal mr-5"> {job.room} </span>
+             <th colSpan="5">Room: <span className="font-weight-normal mr-5"> {job.room} </span>
              Name: <span className="font-weight-normal mr-5"> {job.name} </span>
              Price: <span className="font-weight-normal">&#36;</span> <span className="font-weight-normal mr-5"> {job.price} </span>
              Quantity: <span className="font-weight-normal mr-5"> {job.quantity} </span>

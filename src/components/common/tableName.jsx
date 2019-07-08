@@ -7,19 +7,19 @@ const TableName = props => {
   return (
     <div className="container">
       <div className="table-name clearfix">
-        <p
+        <span
           className={
             tz ? "p-display-inline float-left reset-bottom-margin" : null
           }
         >
           {props.tablename === "Loading..." ? (
-            <div class="spinner-border" role="status">
-              <span class="sr-only">Loading...</span>
+            <div className="spinner-border" role="status">
+              <span className="sr-only">Loading...</span>
             </div>
           ) : (
             props.tablename
           )}
-        </p>
+        </span>
         {tz ? (
           <div className="float-right">
             <span>

@@ -20,7 +20,7 @@ export default function Pagination({ somethingPerPage, total , paginate, current
   
   return (
     
-        <nav className="float-right">
+        <nav className="float-right padding-bottom-1rem">
           <ul className="pagination pagination-custom">
             {pageNumber.map(number => (
               <li key={number} className="page-item">

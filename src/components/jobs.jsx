@@ -123,6 +123,11 @@ export default class Jobs extends Component {
         
         <ToastContainer />
         <AdminNavbar pageName="Jobs" />
+        <div className="container">
+           <div className="col">
+        <div className="float-right"> <button onClick={this.print} className="btn btn-sm mdc-button print-btn"> Print page </button> </div>
+        </div>
+        </div>
         <div>
           <SearchBox 
             options ={this.state.options}
@@ -158,7 +163,7 @@ export default class Jobs extends Component {
              onFinish ={this.handleFinish}
           /> }
            
-           <div className="float-right"> <button onClick={this.print} className="btn btn-sm mdc-button print-btn"> Print page </button> </div>
+          
 
         </div>
         
