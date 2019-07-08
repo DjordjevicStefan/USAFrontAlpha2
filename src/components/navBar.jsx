@@ -14,7 +14,8 @@ class NavBar extends Component {
   handlelogOut() {
     const answer = window.confirm("Are you sure you want to log out?");
     if (answer) {
-      window.location = `/`;
+      this.props.history.push(`/`);
+     // window.location = `/`;
     }
   }
   async handleWorkorders(e) {
@@ -37,7 +38,8 @@ class NavBar extends Component {
       work.workorder.adress = "";
       localStorage.setItem("workorder", JSON.stringify(work));
       const region = JSON.parse(localStorage.getItem("currentUser")).region;
-      window.location = `/rooms/${region}`;
+      this.props.history.push(`/rooms/${region}`);
+     // window.location = `/rooms/${region}`;
     } else {
     }
   }
