@@ -1,12 +1,13 @@
 import React from "react";
-import { log } from "util";
+import Pagination from "../common/pagination" ;
+import _ from "lodash" ;
 
 export default function JobsTable(props) {
-  const { jobs , jobStateSelect , searchQuery , searchOption , onFinish } = props ;
+  const { jobs , jobStateSelect , searchQuery , searchOption , onFinish , paginate, currentPage, jobsPerPage } = props ;
    
   let filteredJobsArrey = jobs.filter(job => job.status === jobStateSelect);
-
-  console.log("provera da li ima finished",filteredJobsArrey);
+  let jobsSorted = _.orderBy(filteredJobsArrey, [job => job.subCategory.toLowerCase()],['asc']) ;
+ 
   
  
   if (filteredJobsArrey.length === 0) {
@@ -23,13 +24,22 @@ export default function JobsTable(props) {
 
    
 
-  //// search implement on arrey
+  //// search implement on arrey + paginate !!!! 
   let searchedArrey = null ; 
+  let jobsPaginated = null ;
   if (searchQuery !== "") {
-    searchedArrey = filteredJobsArrey.filter(job => job[searchOption].toLowerCase().startsWith(searchQuery.toLowerCase()) )
-    filteredJobsArrey = searchedArrey ;
+    searchedArrey = jobsSorted.filter(job => job[searchOption].toLowerCase().startsWith(searchQuery.toLowerCase()) )
+     
+    const indexOfLast = currentPage * jobsPerPage ;
+    const indexOfFirst = indexOfLast - jobsPerPage ;
+    jobsPaginated = searchedArrey.slice(indexOfFirst, indexOfLast) ;
+    // jobsSorted = searchedArrey ;
+
   } else {
-    
+    const indexOfLast = currentPage * jobsPerPage ;
+    const indexOfFirst = indexOfLast - jobsPerPage ;
+    jobsPaginated = jobsSorted.slice(indexOfFirst, indexOfLast)
+
   }
 
 
@@ -37,16 +47,9 @@ export default function JobsTable(props) {
 
   const formatDate = (assignmentDate) => {
     
-    // const year = assignmentDate.substring(0,4) ;
-    // const month = assignmentDate.substring(5,7);
-    // const day = assignmentDate.substring(8,10);
-  
     // const formatedSelDate = month + "/" + day +"/" + year ;
     let d = new Date(assignmentDate).toLocaleString();
-    return d;
-    
-    
-      
+    return d;  
   }
 
 
@@ -55,7 +58,7 @@ export default function JobsTable(props) {
   return (
     <>
       
-      {filteredJobsArrey.map(job=> (
+      {jobsPaginated.map(job=> (
           
         <table key={job._id} className="table table-bordered ">
 
@@ -91,6 +94,16 @@ export default function JobsTable(props) {
           
          ))}  
        
+       <div className="row">
+          <div className="col">
+          <Pagination 
+                 currentPage={currentPage}
+                 total={(searchQuery !== "") ? searchedArrey.length : jobsSorted.length} 
+                 somethingPerPage={jobsPerPage}
+                 paginate ={paginate}
+           /> 
+          </div>
+       </div>
       
     </>
   );
