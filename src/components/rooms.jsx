@@ -152,7 +152,7 @@ class Rooms extends Component {
     let showing = this.state.showing;
     // console.log(this.props);
     // let value = "";
-    let build = this.state.build;
+
     // console.log(buildNumber);
     let buildings = JSON.parse(localStorage.getItem("buildings")).filter(
       m => m.region == this.props.match.params.id
@@ -161,7 +161,7 @@ class Rooms extends Component {
     value = this.state.value;
     // if (localStorage.getItem("workorder")) {
     let workorder = JSON.parse(localStorage.getItem("workorder"));
-
+    let build = workorder.workorder.buildingNumber;
     let buildNumber = workorder.workorder.buildingNumber;
 
     let building = "";
@@ -194,6 +194,7 @@ class Rooms extends Component {
     let rooms = this.state.rooms.map(room => {
       return (
         <Room
+          key={room.id}
           region={this.props.match.params.id}
           id={room.id}
           image={room.image}
@@ -208,7 +209,7 @@ class Rooms extends Component {
           {...this.props}
           showing={showing}
           value={value}
-          build={this.state.build}
+          build={build}
           onHandleInput={this.handleInput}
           adress={adress}
           classs=""
@@ -217,14 +218,19 @@ class Rooms extends Component {
           onChangeBuildings={() => this.handleChangeBuilding()}
         />
         <div className="buttons">
-          <div className="col-6">
+          <div>
             <button
               onClick={() => this.handleBackButton()}
               className="btn btn-warning m-3"
             >
               ⏎ Home
             </button>
-
+            <button
+              onClick={() => this.handlelogOut()}
+              className="btn btn-danger m-3"
+            >
+              &#x2716; Logout
+            </button>
             <button
               onClick={() => this.handleWorkOrder()}
               className="btn btn-success m-3"
@@ -238,13 +244,6 @@ class Rooms extends Component {
               Complete All
             </button>
           </div>
-
-          <button
-            onClick={() => this.handlelogOut()}
-            className="btn btn-danger m-3"
-          >
-            &#x2716; Logout
-          </button>
         </div>
         {adress && value ? <div className="row">{rooms}</div> : null}
       </div>
