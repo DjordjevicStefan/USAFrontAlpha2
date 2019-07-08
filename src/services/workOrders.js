@@ -38,7 +38,7 @@ export function assignJob(jobId, job, vendor, workorder){
   return http.post(process.env.REACT_APP_API_URL + `/admin/assignJob/${jobId}` ,
   JSON.stringify({   
       job : {
-         id : job._id ,
+         _id : job._id ,
          status : "sent" ,
          name : job.name ,
          subCategory : job.subCategory ,  
@@ -51,14 +51,14 @@ export function assignJob(jobId, job, vendor, workorder){
          assignmentDate : job.assignmentDate 
       },
       vendor : {
-         id : vendor._id ,
+         _id : vendor._id ,
          name : vendor.name ,
          email : vendor.email ,
          profession : vendor.profession,
          status : vendor.status  
        },
       workorder : {
-        id : workorder._id ,
+        _id : workorder._id ,
         status : workorder.status,
         buildingNumber : workorder.buildingNumber,
         apartmentNumber : workorder.apartmentNumber,

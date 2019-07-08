@@ -84,8 +84,8 @@ export default function WorkOrderJobs(props) {
               <th>Select profession:
               <select onChange={onProfessionChange} className="form-control form-control-sm">
                   <option>Select profession</option>
-                  {sortProfessions.map(pro=> (
-                    <option> {pro} </option>
+                  {sortProfessions.map((pro,index)=> (
+                    <option key={index} > {pro} </option>
                   ))}
                </select>
 
