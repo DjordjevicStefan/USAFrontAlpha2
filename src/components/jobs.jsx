@@ -15,6 +15,8 @@ export default class Jobs extends Component {
   state = {
     vendors : null ,
     jobs: null,
+    currentPage : 1,
+    jobsPerPage : 8,
     searchQuery : "" ,
     searchOption : "name",
     options : [ "name" , "room" ] ,
@@ -25,8 +27,6 @@ export default class Jobs extends Component {
 
   async componentDidMount() {
     const { data: jobs } = await getJobs();
-    
-    
     const { data: vendors } = await getAllVendors();
     const { data : workorders } = await getAllWorkorders();
     this.setState({
@@ -70,6 +70,12 @@ export default class Jobs extends Component {
   handleOptionsSearch = (e) => {
     this.setState({
       searchOption : e.target.value
+    })
+  }
+
+  handlePaginate = (number) => {
+    this.setState({
+      currentPage : number 
     })
   }
 
@@ -141,6 +147,9 @@ export default class Jobs extends Component {
           </form>
           {(this.state.jobStateSelect === "by jobs status" || this.state.jobStateSelect === null ) ? null : 
           <JobsTable 
+             jobsPerPage={this.state.jobsPerPage}
+             currentPage={this.state.currentPage}
+             paginate={this.handlePaginate}
              searchOption={this.state.searchOption}
              searchQuery = {this.state.searchQuery}
              jobStateSelect={this.state.jobStateSelect}

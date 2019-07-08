@@ -108,9 +108,8 @@ class Vendors extends Component {
 
   //// first check if the search is active and then paginate searched Arrey !!!! 
   if (searchQuery !== "") {
-    searchedArrey = vendors.filter(vendor => vendor[searchOption].toLowerCase().startsWith(searchQuery.toLowerCase()) )
+    searchedArrey = vendors.filter(vendor => vendor[searchOption].toLowerCase().startsWith(searchQuery.toLowerCase()))
    
-     
     const indexOfLast = currentPage * vendorsPerPage ;
     const indexOfFirst = indexOfLast - vendorsPerPage ;
     vendorsPaginated = searchedArrey.slice(indexOfFirst, indexOfLast) ;
@@ -188,7 +187,7 @@ class Vendors extends Component {
                 
            <Pagination 
                  currentPage={this.state.currentPage}
-                 total={  (searchQuery !== "") ? searchedArrey.length : vendors.length} 
+                 total={(searchQuery !== "") ? searchedArrey.length : vendors.length} 
                  somethingPerPage={this.state.vendorsPerPage}
                  paginate ={this.handlePaginate}
            /> 
