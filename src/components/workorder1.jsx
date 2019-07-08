@@ -130,10 +130,10 @@ class Wo extends Component {
       jobs = JSON.parse(localStorage.getItem("jobs")).filter(
         m => m.checked == true
       );
-    }
-    {
+    } else {
       jobs = false;
     }
+    console.log(jobs);
     const showing = true;
     const adress = JSON.parse(localStorage.getItem("workorder")).workorder
       .adress;

@@ -294,12 +294,18 @@ class FullRoom extends Form {
             onFinishedButton={this.handleFinishedButton}
           />
           <div className="buttons">
-            <div className="col-6">
+            <div className="">
               <button
                 onClick={() => this.handleBackButton()}
                 className="btn btn-warning m-3"
               >
                 ⏎ Home
+              </button>
+              <button
+                onClick={() => this.handlelogOut()}
+                className="btn btn-danger m-3"
+              >
+                &#x2716; Logout
               </button>
 
               <button
@@ -329,12 +335,6 @@ class FullRoom extends Form {
             >
               My Workorders
             </Link> */}
-            <button
-              onClick={() => this.handlelogOut()}
-              className="btn btn-danger m-3"
-            >
-              &#x2716; Logout
-            </button>
           </div>
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <div className="rooms border text-center">
@@ -346,9 +346,9 @@ class FullRoom extends Form {
                   <th>SubCategory</th>
 
                   <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Total Price</th>
-                  <th>Comment</th>
+                  <th>#</th>
+                  {/* <th>Total Price</th> */}
+                  {/* <th>Comment</th> */}
 
                   <th>Link</th>
                   <th>✔</th>
@@ -376,23 +376,13 @@ class FullRoom extends Form {
                     </td>
                     {/* {NaN ? $0 : } */}
 
-                    <td>
+                    {/* <td>
                       $
                       {Math.ceil(item.quantity * item.price)
                         ? Math.ceil(item.quantity * item.price)
                         : 0}
-                    </td>
-                    <td>
-                      <textarea
-                        cols="38"
-                        rows="2"
-                        disabled={item.checked}
-                        onChange={this.handleChangeArea}
-                        name={item.name}
-                        value={item.comment}
-                        id={item._id}
-                      />
-                    </td>
+                    </td> */}
+
                     <td>
                       <Link to="#">Link</Link>
                     </td>
@@ -404,6 +394,19 @@ class FullRoom extends Form {
                         id={item._id}
                         checked={item.checked}
                         onChange={this.handleCheckboxChange}
+                      />
+                    </td>
+
+                    <td>
+                      <textarea
+                        cols="38"
+                        rows="2"
+                        disabled={item.checked}
+                        onChange={this.handleChangeArea}
+                        name={item.name}
+                        value={item.comment}
+                        id={item._id}
+                        className="form-control"
                       />
                     </td>
                   </tr>

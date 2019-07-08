@@ -9,6 +9,8 @@
   /* padding: 0rem !important; */
 }
 
+
+
 .main-page {
   padding: 1.5em;
 }
@@ -17,7 +19,7 @@
   background-color: #eee !important;
 }
 
-@media only screen and (max-width: 315px) {
+@media only screen and (max-width: 330px) {
   /* .logo img {
     width: 80px;
   } */
@@ -27,11 +29,28 @@
     padding: 0rem !important;
   }
 
+  textarea {
+    width: 100px;
+
+    background-color: #eee;
+  }
+
+  .table th {
+    padding: 0px !important;
+    font-size: 15px !important;
+  }
+
+  .table td {
+    padding: 0px !important;
+    font-size: 15px !important;
+  }
+
   /* .main-page {
   padding: 1.5em;
 } */
   .main-page {
     background-color: #eee !important;
+    padding: 0px
   }
 
 }
