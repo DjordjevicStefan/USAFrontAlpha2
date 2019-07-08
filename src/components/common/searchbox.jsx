@@ -6,7 +6,7 @@ const SearchBox = ({ value, onChange }) => {
       type="text"
       name="query"
       // className="col-2 offset-10  mt-3"
-      className="form-control mt-3"
+      className="mt-3"
       placeholder="Search..."
       value={value}
       onChange={e => onChange(e.currentTarget.value)}

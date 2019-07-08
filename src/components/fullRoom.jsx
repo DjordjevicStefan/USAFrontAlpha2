@@ -173,17 +173,19 @@ class FullRoom extends Form {
       allItems = JSON.parse(localStorage.getItem("allItems"));
       // jobs.filter(j => allItems.filter(m => (j.checked = true)));
 
-      let kurac = jobs.filter(j => allItems.filter(m => m.name == j.name));
+      let checked = jobs.filter(j => allItems.filter(m => m.name == j.name));
       // console.log(kurac);
-      let jebise = jobs.map(j => j).map(m => m.name);
-      let picka = allItems.filter(d => d.name != jebise.find(m => m == d.name));
+      let checkedArr = jobs.map(j => j).map(m => m.name);
+      let unchecked = allItems.filter(
+        d => d.name != checkedArr.find(m => m == d.name)
+      );
 
-      allItems = kurac.concat(picka);
+      allItems = checked.concat(unchecked);
       localStorage.setItem("allItems", JSON.stringify(allItems));
       localStorage.setItem("jobs", JSON.stringify(allItems));
 
       room = this.props.match.params.id;
-      console.log(room);
+
       room0 = rooms.filter(m => m.id == this.props.match.params.id);
 
       renderedItems = allItems.filter(m => m.room === room0[0].name);
@@ -354,8 +356,8 @@ class FullRoom extends Form {
                   <th>✔</th>
                 </tr>
               </thead>
-              <tbody>
-                {datas.map(item => (
+              {datas.map(item => (
+                <tbody>
                   <tr key={item.name}>
                     <td>{item.name}</td>
                     <td>{item.subCategory}</td>
@@ -374,14 +376,6 @@ class FullRoom extends Form {
                         id={item._id}
                       />{" "}
                     </td>
-                    {/* {NaN ? $0 : } */}
-
-                    {/* <td>
-                      $
-                      {Math.ceil(item.quantity * item.price)
-                        ? Math.ceil(item.quantity * item.price)
-                        : 0}
-                    </td> */}
 
                     <td>
                       <Link to="#">Link</Link>
@@ -396,22 +390,24 @@ class FullRoom extends Form {
                         onChange={this.handleCheckboxChange}
                       />
                     </td>
-
-                    <td>
+                  </tr>
+                  <tr>
+                    <td colSpan="6">
                       <textarea
-                        cols="38"
-                        rows="2"
+                        // cols="38"
+                        // rows="2"
+                        placeholder="Comment"
                         disabled={item.checked}
                         onChange={this.handleChangeArea}
                         name={item.name}
                         value={item.comment}
                         id={item._id}
-                        className="form-control"
+                        className="form-control p-1"
                       />
                     </td>
                   </tr>
-                ))}
-              </tbody>
+                </tbody>
+              ))}
             </table>
           </div>
         </div>
