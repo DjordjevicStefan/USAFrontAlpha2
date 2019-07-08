@@ -3,10 +3,11 @@
   height: 100px !important;
 }
 
-/* .card-footer {
-  font-size: small;
-  padding: 0rem !important;
-} */
+.card-footer {
+  height: 120px;
+  line-height: 50px;
+  /* padding: 0rem !important; */
+}
 
 .main-page {
   padding: 1.5em;
@@ -17,6 +18,9 @@
 }
 
 @media only screen and (max-width: 315px) {
+  /* .logo img {
+    width: 80px;
+  } */
 
   .card-footer {
     font-size: small;

@@ -78,7 +78,7 @@ class NavBar extends Component {
 
     return (
       <nav className="nav-box  text-center">
-        <div className="logo p-3">
+        <div className="logoBenLeeds p-3">
           <img src={logo} alt="Ben Leeds Logo" />
         </div>
 
