@@ -66,14 +66,14 @@ export default function WorkOrderJobs(props) {
                 Price:  <span className="font-weight-normal"> &#36; {job.price}  </span>{" "}
               </th>
               <th>
-                quantity:  <span className="font-weight-normal">{job.quantity}</span>{" "}
+                Quantity:  <span className="font-weight-normal">{job.quantity}</span>{" "}
               </th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <th >
-                User comment:  <span className="font-weight-normal">{job.comment}</span>
+                User Comment:  <span className="font-weight-normal">{job.comment}</span>
               </th>
               <th >
                 Subcategory:  <span className="font-weight-normal">{job.subCategory}</span>{" "}
@@ -113,7 +113,7 @@ export default function WorkOrderJobs(props) {
                </th>
                
               <th>
-                Pick start date:
+                Pick Start Date:
                 <div onClick={() => handleId(job._id)} className="btn-dsp-block">
                  
                   <input 

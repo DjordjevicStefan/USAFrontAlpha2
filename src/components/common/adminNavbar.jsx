@@ -10,7 +10,7 @@ const AdminNavbar = props => {
     <div>
       <nav className="my-nav navbar navbar-expand-lg ">
         <Link to="/admin" className="logo-color">
-          BenLeeds
+          HOMEPAGE
         </Link>
 
         <ul className="navbar-nav ml-auto">
@@ -36,12 +36,12 @@ const AdminNavbar = props => {
           </li>
           <li className="ml-2 nav-item">
             <Link className="nav-link my-nav-link" to="/admin">
-              Work orders
+              Work Orders
             </Link>
           </li>
           <li className="ml-2 nav-item">
             <Link onClick={kurac} className="nav-link my-nav-link" to="/">
-              Log out
+              Log Out
             </Link>
           </li>
         </ul>

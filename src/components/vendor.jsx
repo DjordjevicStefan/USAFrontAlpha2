@@ -145,7 +145,7 @@ export class Vendor extends Component {
         <AdminNavbar
           pageName={
             this.props.match.params.id === "new"
-              ? "New user"
+              ? "New Vendor"
               : name
           }
         />

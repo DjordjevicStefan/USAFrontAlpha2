@@ -131,7 +131,7 @@ class Vendors extends Component {
         <ToastContainer />
         <AdminNavbar pageName="Vendors" />
         <div className="container">
-        <TableName tablename="List of vendors" />
+        <TableName tablename="List Of Vendors" />
         <div>
           <SearchBox 
             options ={this.state.options}
@@ -146,7 +146,7 @@ class Vendors extends Component {
                 <th scope="col">Select</th>
                 <th scope="col">Name</th>
                 <th scope="col">Profession</th>
-                <th scope="col">Delete vendor</th>
+                <th scope="col">Delete Vendor</th>
               </tr>
             </thead>
             <tbody>
