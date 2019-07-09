@@ -156,6 +156,24 @@ class FullRoom extends Form {
     window.alert("In development...");
   };
 
+  handleLinks = (e, link) => {
+    let target = this.state.target;
+    // console.log(link);
+    // let b = e.currentTarget.target;
+    // console.log(e.currentTarget.target);
+    if (link == "") {
+      target = "#";
+      this.setState({ target });
+    } else {
+      window.location = `${link}`;
+      target = "_blank";
+      this.setState({ target });
+    }
+  };
+  // handleLinksTarget = b => {
+  //   b = "_blank";
+  //   return b;
+  // };
   constructor(props) {
     super(props);
     const data = {};
@@ -240,6 +258,7 @@ class FullRoom extends Form {
   }
 
   render() {
+    console.log(this.state.target);
     let allItems = JSON.parse(localStorage.getItem("allItems"));
 
     const jobs = JSON.parse(localStorage.getItem("jobs"));
@@ -276,7 +295,7 @@ class FullRoom extends Form {
     } else {
       title = datas[0].room;
     }
-
+    // let b = "";
     const workorder = JSON.parse(localStorage.getItem("workorder"));
     const value = workorder.workorder.apartmentNumber;
 
@@ -378,7 +397,12 @@ class FullRoom extends Form {
                     </td>
 
                     <td>
-                      <Link to="#">Link</Link>
+                      <Link
+                        target={this.state.target}
+                        onClick={e => this.handleLinks(e, item.link)}
+                      >
+                        Link
+                      </Link>
                     </td>
                     <td>
                       <Checkbox
