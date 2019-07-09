@@ -41,6 +41,15 @@ class Rooms extends Component {
     let buildings = JSON.parse(localStorage.getItem("buildings")).filter(
       m => m.region === this.props.match.params.id
     );
+
+    if (e.target.value) {
+      let building = buildings.find(m => m.number == e.target.value);
+      if (building == undefined) {
+        toast.error(
+          "Building number doesn't exist, please enter a valid building number!"
+        );
+      }
+    }
     let building = buildings.find(m => m.number == e.target.value);
     console.log(building);
 
@@ -51,6 +60,7 @@ class Rooms extends Component {
       work.workorder.buildingNumber = "";
       work.workorder.adress = adress;
       localStorage.setItem("workorder", JSON.stringify(work));
+
       this.setState({ showing: false, adress: false });
     } else {
       console.log("radi else");
@@ -174,15 +184,13 @@ class Rooms extends Component {
       adress = "";
 
       showing = false;
-      toast.error(
-        "Building number doesn't exist, please enter valid Building Number"
-      );
     } else {
       value = workorder.workorder.apartmentNumber;
       let region = JSON.parse(localStorage.getItem("currentUser")).region;
       let buildings = JSON.parse(localStorage.getItem("buildings")).filter(
         m => m.region == region
       );
+
       let building = buildings.find(m => m.number == buildNumber);
 
       adress = building.adress + " (" + building.zip + ")";

@@ -204,7 +204,7 @@ class Wo extends Component {
                   : null}
               </tbody>
             </table>
-            <div>Total Price: ${total}</div>
+            <div>Total Price: {total}</div>
             <textarea
               placeholder="General Notes"
               onChange={this.handleGeneralNotes}

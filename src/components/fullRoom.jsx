@@ -88,8 +88,12 @@ class FullRoom extends Form {
     const data = { ...this.state.data };
 
     data[input.name] = input.value;
+    console.log(input.value);
 
-    this.setState({ data, errors });
+    // let number = e.currentTarget.value;
+    // console.log(number);
+
+    this.setState({ data, errors, value: input.value });
 
     const rooms = this.state.allItems.find(room => room._id === input.id);
 
@@ -128,9 +132,21 @@ class FullRoom extends Form {
     // console.log(buildings);
     this.setState({ adress });
   };
+
   handleCheckboxChange = e => {
     const checked = { ...this.state.checked };
+    // let value = this.state.value;
+    // console.log(this.state.value);
+    let value;
+    if (this.state.value[0] == undefined) {
+      value = 1;
+      console.log("radi", value);
+      // this.setState({ value });
+    } else {
+      value = this.state.value;
+    }
 
+    // console.log(this.state.value);
     const rooms = this.state.allItems.find(
       room => room._id === e.currentTarget.id
     );
@@ -138,18 +154,21 @@ class FullRoom extends Form {
     if (e.target.checked === false) {
       checked[e.currentTarget.name] = e.target.checked;
       rooms.checked = false;
-
+      rooms.quantity = value;
       localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
       localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
       this.setState({ checked });
     } else {
       checked[e.currentTarget.name] = e.target.checked;
       rooms.checked = true;
+      rooms.quantity = value;
       localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
       localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
 
       this.setState({ checked });
     }
+    value = "";
+    this.setState({ value });
   };
 
   handleWorkOrder = async () => {
@@ -258,7 +277,11 @@ class FullRoom extends Form {
   }
 
   render() {
-    console.log(this.state.target);
+    console.log(this.state.value);
+    // let number = 1;
+    // if (this.state.value==undefined){
+    //   number=
+    // }
     let allItems = JSON.parse(localStorage.getItem("allItems"));
 
     const jobs = JSON.parse(localStorage.getItem("jobs"));
@@ -298,6 +321,7 @@ class FullRoom extends Form {
     // let b = "";
     const workorder = JSON.parse(localStorage.getItem("workorder"));
     const value = workorder.workorder.apartmentNumber;
+    // let number = this.state.data[0];
 
     return (
       <React.Fragment>
@@ -380,7 +404,7 @@ class FullRoom extends Form {
                   <tr key={item.name}>
                     <td>{item.name}</td>
                     <td>{item.subCategory}</td>
-                    <td>${item.price}</td>
+                    <td>{item.price}</td>
 
                     <td>
                       <input
@@ -391,7 +415,7 @@ class FullRoom extends Form {
                         value={item.quantity}
                         className="quantity"
                         type="number"
-                        min="0"
+                        min="1"
                         id={item._id}
                       />{" "}
                     </td>
@@ -406,6 +430,7 @@ class FullRoom extends Form {
                     </td>
                     <td>
                       <Checkbox
+                        number={this.state.value}
                         type="checkbox"
                         className="form-control"
                         name={item.name}

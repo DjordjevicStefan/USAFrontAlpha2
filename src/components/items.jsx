@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import AdminNavbar from "./common/adminNavbar";
-import TableName from "./common/tableName";
+import React, { Component } from 'react';
+import AdminNavbar from './common/adminNavbar';
+import TableName from './common/tableName';
 
-import { toast, ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from 'react-toastify';
 
 import {
   getRooms,
@@ -10,23 +10,23 @@ import {
   saveNewItem,
   deleteItem,
   editItem
-} from "../services/items";
+} from '../services/items';
 
-import ItemsTable from "./semicommon/itemsTable";
+import ItemsTable from './semicommon/itemsTable';
 
 export default class Items extends Component {
   state = {
     rooms: null,
     load: false,
-    selectedRoom: { items: [], room: "" },
+    selectedRoom: { items: [], room: '' },
     itemsTableShow: false,
-    currentPage : 1,
-    itemsPerPage : 8, 
+    currentPage: 1,
+    itemsPerPage: 8,
     newItem: {
-      name: "",
-      subCategory: "",
-      price: "",
-      link : ""
+      name: '',
+      subCategory: '',
+      price: '',
+      link: ''
     }
   };
 
@@ -41,7 +41,7 @@ export default class Items extends Component {
 
   //// handling select options and returning items from selected room
   handleChange = async e => {
-    if (e.target.value === "select") {
+    if (e.target.value === 'select') {
       this.setState({ itemsTableShow: false });
       return;
     }
@@ -68,9 +68,9 @@ export default class Items extends Component {
 
     const { data } = await saveNewItem(itemReady);
     if (data.error) {
-      toast.error("Item add error, please fill all fields and try again");
+      toast.error('Item add error, please fill all fields and try again');
     } else {
-      toast.success("Item successfully added", { autoClose: 2700 });
+      toast.success('Item successfully added', { autoClose: 2700 });
     }
 
     const { data: selectedRoom } = await getItemsFromRoom(name);
@@ -82,10 +82,10 @@ export default class Items extends Component {
       selectedRoom: selectedRoom,
       itemsTableShow: true,
       newItem: {
-        name: "",
-        subCategory: "",
-        price: "",
-        link : ""
+        name: '',
+        subCategory: '',
+        price: '',
+        link: ''
       }
     }));
   };
@@ -112,13 +112,13 @@ export default class Items extends Component {
     });
   };
 
-  //// submiting edited item to database 
+  //// submiting edited item to database
   handleEdit = async item => {
     const { data } = await editItem(item);
     if (data.success) {
-      toast.success("Item successfully edited", { autoClose: 2700 });
+      toast.success('Item successfully edited', { autoClose: 2700 });
     } else {
-      toast.error("Database error");
+      toast.error('Database error');
     }
   };
 
@@ -144,24 +144,24 @@ export default class Items extends Component {
 
     const { data } = await deleteItem(itemId);
     if (data.error) {
-      toast.error("Database error, please try again");
+      toast.error('Database error, please try again');
       this.setState({ selectedRoom: selectedRoomCopy });
     }
   };
-  
+
   //// paginate
-  handlePaginate = (number) => {
+  handlePaginate = number => {
     this.setState({
-      currentPage : number 
-    })
-  }
+      currentPage: number
+    });
+  };
 
   render() {
     if (this.state.load === false) {
       return (
         <>
-          <AdminNavbar pageName="Room Items" />
-          <TableName tablename="Loading..." />
+          <AdminNavbar pageName='Room Items' />
+          <TableName tablename='Loading...' />
           <ToastContainer />
         </>
       );
@@ -172,16 +172,16 @@ export default class Items extends Component {
     return (
       <>
         <ToastContainer />
-        <AdminNavbar pageName="Master List By Rooms" />
-        <TableName tablename="Add,edit and delete items from rooms" />
-        <div className="form-container padding-bottom-1rem">
+        <AdminNavbar pageName='Master List By Rooms' />
+        <TableName tablename='Add, Edit And Delete Items From Rooms' />
+        <div className='form-container padding-bottom-1rem'>
           <form>
-            <div className="form-group row">
-              <span className="col-sm-2 lead">Select Room :</span>
-              <div className="col-sm-10">
+            <div className='form-group row'>
+              <span className='col-sm-2 lead'>Select Room :</span>
+              <div className='col-sm-10'>
                 <select
                   onChange={this.handleChange}
-                  className="form-control form-control-sm"
+                  className='form-control form-control-sm'
                 >
                   <option>select</option>
                   {rooms.map(room => (
@@ -201,9 +201,9 @@ export default class Items extends Component {
             editItem={this.handleEdit}
             renderNewItem={this.state.renderNewItem}
             newItem={this.state.newItem}
-            paginate ={this.handlePaginate}
-            somethingPerPage = {this.state.itemsPerPage}
-            currentPage ={this.state.currentPage}
+            paginate={this.handlePaginate}
+            somethingPerPage={this.state.itemsPerPage}
+            currentPage={this.state.currentPage}
           />
         </div>
       </>
