@@ -190,7 +190,7 @@ class Wo extends Component {
                         <td>{item.subCategory}</td>
 
                         <td>{item.quantity}</td>
-                        <td>${item.price}</td>
+                        <td>{item.price}</td>
                         <td>
                           {" "}
                           {Math.ceil(item.quantity * item.price)

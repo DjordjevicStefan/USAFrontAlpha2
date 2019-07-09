@@ -179,6 +179,15 @@ class Rooms extends Component {
     let build = workorder.workorder.buildingNumber;
     let buildNumber = workorder.workorder.buildingNumber;
 
+    // if (e.target.value) {
+    //   let building = buildings.find(m => m.number == e.target.value);
+    //   if (building == undefined) {
+    //     toast.error(
+    //       "Building number doesn't exist, please enter a valid building number!"
+    //     );
+    //   }
+    // }
+
     let building = "";
     if (buildNumber == "") {
       adress = "";
