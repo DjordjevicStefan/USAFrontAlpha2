@@ -9,7 +9,6 @@ import Workorders from "./components/workorders";
 import FullRoom from "./components/fullRoom";
 import Wo from "./components/workorder1";
 import ProtectedRoute from "./components/common/protectedRoute";
-import auth from "./services/authService";
 //// bootstrap and custom css
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import "react-datepicker/dist/react-datepicker.css";

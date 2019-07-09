@@ -1,10 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import NavBar from "./navBar.jsx";
-import { Link } from "react-router-dom";
 
 import Form from "./common/form";
 
-import _ from "lodash";
 import "../css/fullroom.css";
 
 import SearchBox from "./common/searchbox";
