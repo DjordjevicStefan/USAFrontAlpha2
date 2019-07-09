@@ -88,8 +88,12 @@ class FullRoom extends Form {
     const data = { ...this.state.data };
 
     data[input.name] = input.value;
-
-    this.setState({ data, errors });
+    console.log(e.currentTarget.value);
+    if (!input.value) {
+      console.log("radi");
+    }
+    let number = e.currentTarget.value;
+    this.setState({ data, errors, number });
 
     const rooms = this.state.allItems.find(room => room._id === input.id);
 
@@ -130,7 +134,15 @@ class FullRoom extends Form {
   };
   handleCheckboxChange = e => {
     const checked = { ...this.state.checked };
+    let value = this.state.value;
+    // console.log(value);
+    if (!this.state.number) {
+      value = 1;
+      console.log("radi", value);
+      this.setState({ value });
+    }
 
+    console.log(this.state.number);
     const rooms = this.state.allItems.find(
       room => room._id === e.currentTarget.id
     );
@@ -145,6 +157,7 @@ class FullRoom extends Form {
     } else {
       checked[e.currentTarget.name] = e.target.checked;
       rooms.checked = true;
+      rooms.quantity = value;
       localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
       localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
 
@@ -258,7 +271,7 @@ class FullRoom extends Form {
   }
 
   render() {
-    console.log(this.state.target);
+    console.log(this.state.number);
     let allItems = JSON.parse(localStorage.getItem("allItems"));
 
     const jobs = JSON.parse(localStorage.getItem("jobs"));
@@ -298,6 +311,7 @@ class FullRoom extends Form {
     // let b = "";
     const workorder = JSON.parse(localStorage.getItem("workorder"));
     const value = workorder.workorder.apartmentNumber;
+    // let number = this.state.data[0];
 
     return (
       <React.Fragment>
@@ -388,10 +402,10 @@ class FullRoom extends Form {
                         name={item.name}
                         label="quantity"
                         onChange={this.handleChange}
-                        value={item.quantity || "1"}
+                        value={item.quantity}
                         className="quantity"
                         type="number"
-                        min="0"
+                        min="1"
                         id={item._id}
                       />{" "}
                     </td>
@@ -406,6 +420,7 @@ class FullRoom extends Form {
                     </td>
                     <td>
                       <Checkbox
+                        number={this.state.number}
                         type="checkbox"
                         className="form-control"
                         name={item.name}
