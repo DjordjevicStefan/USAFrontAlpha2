@@ -17,30 +17,37 @@ class NavBar extends Component {
       window.location = `/`;
     }
   }
-  async handleWorkorders(e) {
+  handleWorkorders = async e => {
     if (e.target.value === "saved") {
       e.preventDefault();
-
+      console.log(this);
       window.alert("In development...");
     } else if (e.target.value === "pending") {
       e.preventDefault();
 
       localStorage.removeItem("jobs");
       // window.location.reload();
-
-      window.location = `/user/workorders/${e.target.value}`;
+      this.props.history.push(`/user/workorders/${e.target.value}`);
+      document.location.reload();
+      // window.location = `/user/workorders/${e.target.value}`;
     } else if ((e.target.value = "new")) {
       localStorage.removeItem("jobs");
+
       let work = JSON.parse(localStorage.getItem("workorder"));
+      work.jobs = {};
       work.workorder.buildingNumber = "";
       work.workorder.apartmentNumber = "";
       work.workorder.adress = "";
+
       localStorage.setItem("workorder", JSON.stringify(work));
       const region = JSON.parse(localStorage.getItem("currentUser")).region;
-      window.location = `/rooms/${region}`;
+
+      this.props.history.push(`/rooms/${region}`);
+      document.location.reload();
+      // window.location = `/rooms/${region}`;
     } else {
     }
-  }
+  };
 
   constructor(props) {
     super(props);

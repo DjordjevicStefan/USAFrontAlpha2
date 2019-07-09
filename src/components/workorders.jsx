@@ -35,7 +35,7 @@ class Workorders extends Form {
   handlelogOut() {
     const answer = window.confirm("Are you sure you want to log out?");
     if (answer) {
-      window.location = `/`;
+      document.location = "/";
     }
   }
   // handleFinishedButton = () => {

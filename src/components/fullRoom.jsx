@@ -33,7 +33,7 @@ class FullRoom extends Form {
     const answer = window.confirm("Are you sure you want to log out?");
     if (answer) {
       localStorage.removeItem("jobs");
-      window.location = `/`;
+      document.location = "/";
     }
   }
   handleFinishedButton = () => {

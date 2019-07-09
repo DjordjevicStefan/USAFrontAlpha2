@@ -10,7 +10,8 @@ import { getRooms } from "../services/fakeRoomService";
 class Rooms extends Component {
   state = {
     value: [],
-    build: []
+    build: [],
+    allItems: []
   };
 
   componentDidMount() {}
@@ -82,12 +83,12 @@ class Rooms extends Component {
     const answer = window.confirm("Are you sure you want to log out?");
     if (answer) {
       localStorage.removeItem("jobs");
-      window.location = `/`;
+      document.location = "/";
     }
   }
   constructor(props) {
     super(props);
-    toast.error("Please enter Building and Apartment number");
+    // toast.error("Please enter Building and Apartment number");
     // const build = [...this.state.build];
 
     let build = "";
@@ -96,8 +97,12 @@ class Rooms extends Component {
     let value = "";
 
     let allItems = JSON.parse(localStorage.getItem("allItems"));
-    let jobs = JSON.parse(localStorage.getItem("jobs"));
+    let workorder = JSON.parse(localStorage.getItem("workorder"));
 
+    let jobs = JSON.parse(localStorage.getItem("jobs"));
+    // if (!localStorage.getItem("jobs")) {
+    //   this.state = { allItems, workorder };
+    // }
     // let checkedJobs = jobs.map(item => {
     //   return {
     //     name: item.name,
@@ -136,7 +141,7 @@ class Rooms extends Component {
 
     //   value = this.props.location.state.apartmentNumber;
     // }
-
+    // let allItems;
     let rooms = getRooms();
     this.state = {
       rooms: rooms,
@@ -209,7 +214,7 @@ class Rooms extends Component {
           {...this.props}
           showing={showing}
           value={value}
-          build={build}
+          // build={build}
           onHandleInput={this.handleInput}
           adress={adress}
           classs=""

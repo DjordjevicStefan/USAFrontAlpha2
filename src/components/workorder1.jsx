@@ -17,7 +17,8 @@ class Wo extends Component {
   handlelogOut() {
     const answer = window.confirm("Are you sure you want to log out?");
     if (answer) {
-      window.location = `/`;
+      // window.location = `/`;
+      document.location = "/";
     }
   }
   componentDidMount() {
@@ -85,15 +86,20 @@ class Wo extends Component {
       console.log(data);
       if (data.statusText === "OK") {
         const work = JSON.parse(localStorage.getItem("workorder"));
-        localStorage.removeItem("jobs");
+        // localStorage.removeItem("jobs");
         work.workorder.buildingNumber = "";
         work.workorder.apartmentNumber = "";
         work.workorder.totalPrice = "";
         work.workorder.comment = "";
         work.workorder.loginTime = new Date();
         localStorage.setItem("workorder", JSON.stringify(work));
+        localStorage.removeItem("jobs");
         let region = JSON.parse(localStorage.getItem("currentUser")).region;
-        window.location = "/rooms/" + region;
+
+        this.props.history.push(`/rooms/${region}`);
+        document.location.reload();
+
+        // window.location = "/rooms/" + region;
         // localStorage.removeItem("workorder");
       }
     } else {
