@@ -19,19 +19,16 @@ class NavBar extends Component {
     }
   }
   handleWorkorders = async e => {
-    if (e.target.value === "saved") {
+    if (e.target.value == "saved") {
       e.preventDefault();
       console.log(this);
       window.alert("In development...");
-    } else if (e.target.value === "pending") {
+    } else if (e.target.value == "pending") {
       e.preventDefault();
 
+      console.log(e.target.value);
       localStorage.removeItem("jobs");
-      const data = await axios.get(
-        process.env.REACT_APP_API_URL + "/user/allWorkorders"
-      );
 
-      localStorage.setItem("workorders", JSON.stringify(data));
       // window.location.reload();
       this.props.history.push(`/user/workorders/${e.target.value}`);
       document.location.reload();

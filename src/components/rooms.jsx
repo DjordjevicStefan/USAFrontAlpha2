@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import axios from "axios";
 import "../css/navbar.css";
 
 import NavBar from "./navBar.jsx";
@@ -14,7 +14,14 @@ class Rooms extends Component {
     allItems: []
   };
 
-  componentDidMount() {}
+  async componentDidMount() {
+    const data = await axios.get(
+      process.env.REACT_APP_API_URL + "/user/allWorkorders"
+    );
+    console.log(data);
+
+    localStorage.setItem("workorders", JSON.stringify(data.data));
+  }
 
   handleBackButton = url => {
     // this.props.history.push("/rooms/" + this.props.match.params.id);
