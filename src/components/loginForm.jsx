@@ -97,14 +97,14 @@ class LoginForm extends Form {
               alt="Ben Leeds Logo"
             />
           </div>
-          <h1 className="p-3">Login</h1>
+          <h1 className="p-3">Log-In</h1>
           <form
             className="col-8 offset-2 text-center"
             onSubmit={this.handleSubmit}
           >
             {this.renderInput("email", "Email")}
             {this.renderInput("password", "Password", "password")}
-            {this.renderButton("Login", this.state.isLoading)}
+            {this.renderButton("Submit", this.state.isLoading)}
             {/* <button class="btn btn-primary" type="button" enabled>
               <span
                 class="spinner-grow spinner-grow-sm"
