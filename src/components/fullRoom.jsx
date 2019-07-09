@@ -388,7 +388,7 @@ class FullRoom extends Form {
                         name={item.name}
                         label="quantity"
                         onChange={this.handleChange}
-                        value={item.quantity}
+                        value={item.quantity || "1"}
                         className="quantity"
                         type="number"
                         min="0"
