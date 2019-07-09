@@ -88,7 +88,7 @@ export default function JobsTable(props) {
            </tr>
            {(job.vendor && (job.endDate === "") ) ? <tr className={ (job.vendor ) ? "table-border-bottom" : null}>
                <th colSpan="3">Finish job : </th>
-               <th colSpan="1"> <button className="btn btn-sm mdc-button" onClick={()=>onFinish(job._id)}>finish</button> </th>
+               <th colSpan="2"> <button className="btn btn-sm mdc-button" onClick={()=>onFinish(job._id)}>finish</button> </th>
             </tr> : null }
            </tbody>
            </table>
