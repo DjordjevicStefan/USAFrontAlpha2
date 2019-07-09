@@ -6,7 +6,8 @@ import WorkOrderTable from "../components/semicommon/workOrderTable";
 import { getJobs } from "../services/jobs";
 
 import { getAllVendors } from "../services/vendor";
-import { getWorkOrder, assignJob, endJob } from "../services/workOrders";
+import { getWorkOrder, assignJob } from "../services/workOrders";
+import getAllWorkorders from "../services/workOrders";
 import getAllUsers from "../services/users";
 
 import { toast, ToastContainer } from "react-toastify";
@@ -16,6 +17,7 @@ export default class WorkOrder extends Component {
   state = {
     allSentJobs : null ,
     workorder: null,
+    allWorkOrders : null ,
     vendors: null,
     users: null,
     vendorsWhitSamePro : null ,
@@ -31,6 +33,7 @@ export default class WorkOrder extends Component {
     const { data: jobs } = await getJobs();
     const { data: workorder } = await getWorkOrder(this.props.match.params.id);
     const { data: vendors } = await getAllVendors();
+    const { data : allWorkOrders} =await getAllWorkorders();
 
     const vendorsWithoutDisabled = vendors.filter(
       vendor => vendor.status === "active"
@@ -53,6 +56,7 @@ export default class WorkOrder extends Component {
     this.setState(() => ({
       allSentJoobs : allSentJoobs,
       workorder: workorder,
+      allWorkOrders : allWorkOrders,
       vendors: vendorsWithoutDisabled,
       vendorsWhitSamePro : vendorsWithoutDisabled,
       users: users,
@@ -255,6 +259,7 @@ export default class WorkOrder extends Component {
         
 
         <WorkOrderTable
+          allWorkOrders={this.state.allWorkOrders}
           workorder={this.state.workorder}
           users={this.state.users}
           onVendorChange={this.handleVendorChange}
