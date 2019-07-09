@@ -163,6 +163,7 @@ class Rooms extends Component {
     );
     let value = "";
     value = this.state.value;
+
     // if (localStorage.getItem("workorder")) {
     let workorder = JSON.parse(localStorage.getItem("workorder"));
     let build = workorder.workorder.buildingNumber;
@@ -173,6 +174,9 @@ class Rooms extends Component {
       adress = "";
 
       showing = false;
+      toast.error(
+        "Building number doesn't exist, please enter valid Building Number"
+      );
     } else {
       value = workorder.workorder.apartmentNumber;
       let region = JSON.parse(localStorage.getItem("currentUser")).region;

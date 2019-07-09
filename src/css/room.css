@@ -62,7 +62,7 @@
 
 }
 
-@media only screen and (min-width: 350px) {
+@media (min-width: 350px) and (max-width: 767.98px) {
 
   /* .logo img {
     width: 80px;
