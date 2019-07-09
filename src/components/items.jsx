@@ -156,7 +156,7 @@ export default class Items extends Component {
     if (this.state.load === false) {
       return (
         <>
-          <AdminNavbar pageName="Room items" />
+          <AdminNavbar pageName="Room Items" />
           <TableName tablename="Loading..." />
           <ToastContainer />
         </>
@@ -173,7 +173,7 @@ export default class Items extends Component {
         <div className="form-container padding-bottom-1rem">
           <form>
             <div className="form-group row">
-              <span className="col-sm-2 lead">Select room :</span>
+              <span className="col-sm-2 lead">Select Room :</span>
               <div className="col-sm-10">
                 <select
                   onChange={this.handleChange}

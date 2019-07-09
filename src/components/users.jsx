@@ -99,14 +99,14 @@ class Users extends Component {
         <AdminNavbar pageName="Users" />
 
     <div className="container">
-        <TableName tablename="List of users" />
+        <TableName tablename="List Of Users" />
         <table className="table table-bordered">
           <thead>
             <tr>
               <th scope="col">Select</th>
               <th scope="col">Name</th>
               <th scope="col">Region</th>
-              <th scope="col">Delete user</th>
+              <th scope="col">Delete User</th>
             </tr>
           </thead>
           <tbody>
@@ -133,7 +133,7 @@ class Users extends Component {
             ))}
             <tr>
               <td colSpan="2"><div onClick={() => this.handleBack()} className="btn-table-end">Back</div></td>
-              <td colSpan="2"><div onClick={() => {this.newUserRoute()}} className="btn-table-end">Add new</div></td>
+              <td colSpan="2"><div onClick={() => {this.newUserRoute()}} className="btn-table-end">Add New</div></td>
             </tr>
           </tbody>
         </table>

@@ -104,7 +104,7 @@ class AdminPanel extends Component {
         // <BrowserRouter >
         <div>
           
-          <AdminNavbar pageName="Admin panel"/>
+          <AdminNavbar pageName="Admin Panel"/>
           <TableName tablename="Loading..." />
           <ToastContainer />
         </div>
@@ -115,8 +115,8 @@ class AdminPanel extends Component {
       
       <div>
         <ToastContainer />
-        <AdminNavbar pageName="Admin panel"/>
-        <TableName tablename="Work orders" timeZone={this.state.timeZone} />
+        <AdminNavbar pageName="Admin Panel"/>
+        <TableName tablename="Work Orders" timeZone={this.state.timeZone} />
          {/* <Switch>
         <Route path="/users" exact component={Users} />
         </Switch> */}

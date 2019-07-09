@@ -146,7 +146,7 @@ class User extends Component {
        
 
     if (result.data.success) {
-      console.log("otkinuo submit na back dugme forme");
+      // console.log("otkinuo submit na back dugme forme");
 
       this.handleBack();
     }
@@ -210,7 +210,7 @@ class User extends Component {
         <AdminNavbar
           pageName={
             this.props.match.params.id === "new"
-              ? "New user"
+              ? "New User"
               : name
           }
         />

@@ -125,7 +125,7 @@ export default class Jobs extends Component {
         <AdminNavbar pageName="Jobs" />
         <div className="container">
            <div className="col">
-        <div className="float-right"> <button onClick={this.print} className="btn btn-sm mdc-button print-btn"> Print page </button> </div>
+        <div className="float-right"> <button onClick={this.print} className="btn btn-sm mdc-button print-btn"> Print Page </button> </div>
         </div>
         </div>
         <div>
@@ -142,7 +142,7 @@ export default class Jobs extends Component {
               <label  className="col-sm-2 col-form-label">Show jobs </label>
               <div className="col-sm-10 padding-jobs">
                 <select onChange={this.handleJobStateSelect} className="form-control form-control-sm">
-                   <option>By jobs status</option>
+                   <option>By Jobs Status</option>
                   <option value="pending">Pending</option>
                   <option value="sent">Sent</option>
                   <option value="finished">Finished</option>
@@ -150,7 +150,7 @@ export default class Jobs extends Component {
               </div>
             </div>
           </form>
-          {(this.state.jobStateSelect === "by jobs status" || this.state.jobStateSelect === null ) ? null : 
+          {(this.state.jobStateSelect === "By Jobs Status" || this.state.jobStateSelect === null ) ? null : 
           <JobsTable 
              jobsPerPage={this.state.jobsPerPage}
              currentPage={this.state.currentPage}

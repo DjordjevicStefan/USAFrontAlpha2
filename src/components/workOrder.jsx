@@ -241,7 +241,7 @@ export default class WorkOrder extends Component {
     if (load === false) {
       return (
         <div>
-          <AdminNavbar pageName="Work order" />
+          <AdminNavbar pageName="Work Order" />
           <TableName tablename="Loading..." />
           <ToastContainer />
         </div>
@@ -250,7 +250,7 @@ export default class WorkOrder extends Component {
 
     return (
       <div>
-        <AdminNavbar pageName="Work order" />
+        <AdminNavbar pageName="Work Order" />
         <ToastContainer />
         
 

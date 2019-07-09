@@ -63,10 +63,10 @@ export default function JobsTable(props) {
         <table key={job._id} className="table table-bordered ">
 
            <thead>
-             <tr className="text-left">
-             <th>Comment</th>
-            <th>Building number</th>
-            <th>Apartment number</th>
+            <tr className="text-left">
+            <th>Comment</th>
+            <th>Building Number</th>
+            <th>Apartment Number</th>
             <th>Vendor</th>
             <th>Assignment Date</th>
           </tr>
@@ -84,11 +84,11 @@ export default function JobsTable(props) {
              Name: <span className="font-weight-normal mr-5"> {job.name} </span>
              Price: <span className="font-weight-normal">&#36;</span> <span className="font-weight-normal mr-5"> {job.price} </span>
              Quantity: <span className="font-weight-normal mr-5"> {job.quantity} </span>
-             {(job.endDate !== "") ?  <span className="font-weight-normal"> <span className="font-weight-bold">End date:</span>  <span className="endDate">{job.endDate}</span></span> : null }</th>
+             {(job.endDate !== "") ?  <span className="font-weight-normal"> <span className="font-weight-bold">End Date:</span>  <span className="endDate">{job.endDate}</span></span> : null }</th>
            </tr>
            {(job.vendor && (job.endDate === "") ) ? <tr className={ (job.vendor ) ? "table-border-bottom" : null}>
-               <th colSpan="3">Finish job : </th>
-               <th colSpan="2"> <button className="btn btn-sm mdc-button" onClick={()=>onFinish(job._id)}>finish</button> </th>
+               <th colSpan="3">Finish Job : </th>
+               <th colSpan="2"> <button className="btn btn-sm mdc-button" onClick={()=>onFinish(job._id)}>Finish</button> </th>
             </tr> : null }
            </tbody>
            </table>

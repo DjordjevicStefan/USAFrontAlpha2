@@ -79,7 +79,7 @@ class UserForm extends Component {
                 </button>
               </div>
               <div className="col-6">
-                <button className="btn-form-submit">{(id==="") ? "Add new user" : "Edit user" }</button>
+                <button className="btn-form-submit">{(id==="") ? "Add New User" : "Edit User" }</button>
               </div>
             </div>
             </form>

@@ -71,7 +71,7 @@ const AdminTable = ({
               scope="col"
             >
               {arrowIcon("buildingNumber")}
-              Building number
+              Building Number
             </th>
             <th
               className="click-th"
@@ -79,7 +79,7 @@ const AdminTable = ({
               scope="col"
             >
               {arrowIcon("apartmentNumber")}
-              Apartment number
+              Apartment Number
             </th>
             <th
               className="click-th"
