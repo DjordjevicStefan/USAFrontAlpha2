@@ -42,14 +42,14 @@ class Rooms extends Component {
       m => m.region === this.props.match.params.id
     );
 
-    if (e.target.value) {
-      let building = buildings.find(m => m.number == e.target.value);
-      if (building == undefined) {
-        toast.error(
-          "Building number doesn't exist, please enter a valid building number!"
-        );
-      }
-    }
+    // if (e.target.value) {
+    //   let building = buildings.find(m => m.number == e.target.value);
+    //   if (building == undefined) {
+    //     toast.error(
+    //       "Building number doesn't exist, please enter a valid building number!"
+    //     );
+    //   }
+    // }
     let building = buildings.find(m => m.number == e.target.value);
     console.log(building);
 

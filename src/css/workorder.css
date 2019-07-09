@@ -7,6 +7,13 @@
   font-size: 3em;
   color: #23408e;
 }
-.work-order {
+
+/* .work-order {
   /* font-size: 1.5em; */
+
+
+.text-area {
+  width: 100%;
+  background-color: white;
+  font-weight: bold;
 }

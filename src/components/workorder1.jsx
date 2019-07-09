@@ -168,8 +168,8 @@ class Wo extends Component {
             onFinishedButton={this.handleFinishedButton}
           />
           <div className="work-order border text-center mt-3">
-            <h1 className="m-3">Work order</h1>
-            <table className="table">
+            <h1 className="m-3">Work Order</h1>
+            <table className="table text-left">
               <thead>
                 <tr>
                   <th>Room</th>
@@ -193,7 +193,6 @@ class Wo extends Component {
                         <td>${item.price}</td>
                         <td>
                           {" "}
-                          $
                           {Math.ceil(item.quantity * item.price)
                             ? Math.ceil(item.quantity * item.price)
                             : 0}
@@ -202,16 +201,22 @@ class Wo extends Component {
                       </tr>
                     ))
                   : null}
+                <tr>
+                  <td colSpan="3" />
+                  <td colSpan="2">Total Price:</td>
+                  <td>
+                    <div> {total}</div>
+                  </td>
+                </tr>
               </tbody>
             </table>
-            <div>Total Price: {total}</div>
+
             <textarea
+              className="text-area"
               placeholder="General Notes"
               onChange={this.handleGeneralNotes}
               name=""
               id=""
-              cols="30"
-              rows="4"
             />
 
             <div className="buttons">

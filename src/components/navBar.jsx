@@ -27,6 +27,11 @@ class NavBar extends Component {
       e.preventDefault();
 
       localStorage.removeItem("jobs");
+      const data = await axios.get(
+        process.env.REACT_APP_API_URL + "/user/allWorkorders"
+      );
+
+      localStorage.setItem("workorders", JSON.stringify(data));
       // window.location.reload();
       this.props.history.push(`/user/workorders/${e.target.value}`);
       document.location.reload();
@@ -81,15 +86,37 @@ class NavBar extends Component {
     const data = this.state.data;
     const datas = data[0];
     const workorder = JSON.parse(localStorage.getItem("workorder"));
-
-    const dateNow = new Date(workorder.workorder.loginTime).toLocaleString();
-
+    let dat = new Date(workorder.workorder.loginTime).toLocaleString();
+    const dateNow =
+      dat.substring(0, dat.length - 6) + dat.slice(dat.length - 3);
     return (
       <nav className="nav-box  text-center">
         <div className="logoBenLeeds p-3">
           <img src={logo} alt="Ben Leeds Logo" />
         </div>
+        <select
+          className="select dropdown-primary form-control mb-3"
+          name="country"
+          onChange={this.handleWorkorders}
+        >
+          <option disabled selected>
+            Choose your option
+          </option>
+          <option value="new">New Work Order</option>
+          <option value="saved">Saved Work Orders</option>
+          <option value="pending">Sent Work Orders</option>
+          {/* <label class="mdb-main-label">Blue select</label> */}
+          {/* <option value="">Select building</option>
+                  {this.props.build[0].map(e => {
+                    console.log(e);
+                    // console.log(e);
+                    // console.log(this.state.data);
+                    // console.log(e);
+                    // console.log(index);
 
+                    return <option value={e}>{e}</option>;
+                  })} */}
+        </select>
         <div className="container mainPage">
           <div className="row nav-box">
             <div className="col-sm-4">
@@ -127,34 +154,13 @@ class NavBar extends Component {
                 />
               </div>
               {/* <label className="btn btn-secondary ">Workorders</label> */}
-              <select
-                className="mdb-select md-form colorful-select dropdown-primary form-control mb-3"
-                name="country"
-                onChange={this.handleWorkorders}
-              >
-                <option disabled selected>
-                  Choose your option
-                </option>
-                <option value="new">New Workorder</option>
-                <option value="saved">Saved Workorders</option>
-                <option value="pending">Sent Workorders</option>
-                {/* <label class="mdb-main-label">Blue select</label> */}
-                {/* <option value="">Select building</option>
-                  {this.props.build[0].map(e => {
-                    console.log(e);
-                    // console.log(e);
-                    // console.log(this.state.data);
-                    // console.log(e);
-                    // console.log(index);
-
-                    return <option value={e}>{e}</option>;
-                  })} */}
-              </select>
             </div>
             <div className="col-sm-4">
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
-                  <div className="build input-group-text text-white">Date:</div>
+                  <div className="build input-group-text text-white">
+                    Date/Time:
+                  </div>
                 </div>
 
                 <input
