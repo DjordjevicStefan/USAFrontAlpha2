@@ -26,11 +26,11 @@
 /* custom bootstrap colors and mine custom bootstrpa css  */
 
 .padding-bottom-1rem {
-  padding-bottom: 1rem ;
+  padding-bottom: 1rem;
 }
 
 .p-display-inline {
-  display: inline ;
+  display: inline;
 }
 
 .reset-right-padding {
@@ -101,6 +101,7 @@
 
 .logo-color {
   color: #ffff74;
+  text-decoration: none;
 }
 
 .jumbotron {
@@ -147,7 +148,7 @@
 }
 
 .print-btn {
-  margin-bottom: 1.5rem ;
+  margin-bottom: 1.5rem;
 }
 
 .table-border-bottom {
@@ -160,7 +161,7 @@
   height: 0.5rem;
 }
 
-.logo-img{
+.logo-img {
   min-height: 3rem;
   min-width: 4rem;
 }
@@ -214,8 +215,8 @@
 /* custom navbar links  */
 
 .paginationActive {
-  background-color:  #5c6bc0 ;
-  color:  white !important ;
+  background-color: #5c6bc0;
+  color: white !important ;
 }
 
 .clicableA {
@@ -228,8 +229,6 @@ a:active {
 }
 
 /* cutom pagination  */
-
-
 
 @keyframes App-logo-spin {
   from {
