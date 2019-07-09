@@ -404,7 +404,7 @@ class FullRoom extends Form {
                   <tr key={item.name}>
                     <td>{item.name}</td>
                     <td>{item.subCategory}</td>
-                    <td>${item.price}</td>
+                    <td>{item.price}</td>
 
                     <td>
                       <input
