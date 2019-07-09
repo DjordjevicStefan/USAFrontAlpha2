@@ -24,6 +24,8 @@ class NavBar extends Component {
 
       window.alert('In development...');
     } else if (e.target.value === 'pending') {
+      console.log('pending', e.target.value);
+
       e.preventDefault();
 
       localStorage.removeItem('jobs');
@@ -31,6 +33,7 @@ class NavBar extends Component {
       this.props.history.push(`/user/workorders/${e.target.value}`);
       // window.location = `/user/workorders/${e.target.value}`;
     } else if ((e.target.value = 'new')) {
+      console.log('new', e.target.value);
       localStorage.removeItem('jobs');
       let work = JSON.parse(localStorage.getItem('workorder'));
       work.workorder.buildingNumber = '';
