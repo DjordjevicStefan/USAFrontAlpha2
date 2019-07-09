@@ -148,13 +148,16 @@ class ItemsTable extends Component {
                           Price:
                         </label>
                         <div className="col-sm-2">
+                        {console.log("price", item.price )}
                           <input
+                             
                             value={item.price}
                             onChange={onChange}
                             id={item._id}
                             name="price"
-                            step=".01"
-                            type="number"
+                            // step=".01"
+                            // type="number"
+                            type ="text"
                             className="form-control form-control-sm"
                           />
                         </div>

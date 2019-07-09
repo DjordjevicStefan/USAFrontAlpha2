@@ -4,7 +4,7 @@ import ModalMy2 from "../common/modal2/modal2"
 import _ from "lodash" ;
 
 export default function WorkOrderJobs(props) {
-  const { jobs, onDateChange, onVendorChange , vendors, handleId, onOk, searchOption, searchQuery , onProfessionChange, professions, vendorsWhitSamePro , allSentJoobs } = props;
+  const { jobs, onDateChange, onVendorChange , vendors, handleId, onOk, searchOption, searchQuery , onProfessionChange, professions, vendorsWhitSamePro , allSentJoobs, allWorkOrders } = props;
    
 
   //// sort jobs and vendors
@@ -105,6 +105,7 @@ export default function WorkOrderJobs(props) {
                 <ModalMy2
                     // workOrders ={this.getUserWorkOrders(id)}
                     // user ={this.state.user}
+                    allWorkOrders={allWorkOrders}
                     allSentJoobs={allSentJoobs}
                     vendors={vendors}
                     selVendorId={job.vendorId}

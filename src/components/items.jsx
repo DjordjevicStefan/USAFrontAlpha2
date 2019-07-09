@@ -51,6 +51,10 @@ export default class Items extends Component {
       toast.error(selectedRoom.error);
       return;
     }
+   
+    console.log("items",selectedRoom);
+    
+
     this.setState(() => ({
       selectedRoom: selectedRoom,
       itemsTableShow: true
