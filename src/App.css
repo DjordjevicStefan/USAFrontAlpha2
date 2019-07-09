@@ -101,6 +101,8 @@
 
 .logo-color {
   color: #ffff74;
+}
+.logo-color:hover {
   text-decoration: none;
 }
 
