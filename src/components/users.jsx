@@ -100,7 +100,7 @@ class Users extends Component {
 
     <div className="container">
         <TableName tablename="List Of Users" />
-        <table className="table table-bordered">
+        <table className="table table-bordered table-sm">
           <thead>
             <tr>
               <th scope="col">Select</th>

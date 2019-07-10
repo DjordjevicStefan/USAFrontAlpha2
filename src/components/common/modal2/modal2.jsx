@@ -90,7 +90,7 @@ class ModalMy2 extends Component {
           <Modal.Body>
             {
               <>
-                <table className="table table-bordered">
+                <table className="table table-hover table-sm">
                   <thead>
                     <tr>
                       <th scope="col">Job name</th>

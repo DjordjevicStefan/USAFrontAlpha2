@@ -140,7 +140,7 @@ class Vendors extends Component {
             onChange ={this.handleSearch}
           />
         </div>
-          <table className="table table-bordered">
+          <table className="table table-bordered  table-sm">
             <thead>
               <tr>
                 <th scope="col">Select</th>

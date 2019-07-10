@@ -61,7 +61,7 @@ const AdminTable = ({
     <div className="container">
       
       {checkEmpty()}
-      <table className="table">
+      <table className="table table-hover table-sm">
         <thead>
           <tr>
             {status === "saved" ? <th /> : <th scope="col">Select</th>}

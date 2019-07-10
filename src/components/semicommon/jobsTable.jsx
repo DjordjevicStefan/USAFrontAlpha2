@@ -60,7 +60,7 @@ export default function JobsTable(props) {
       
       {jobsPaginated.map(job=> (
           
-        <table key={job._id} className="table table-bordered ">
+        <table key={job._id} className="table table-bordered table-hover table-sm">
 
            <thead>
             <tr className="text-left">
