@@ -384,14 +384,13 @@ class FullRoom extends Form {
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <div className="rooms border text-center">
             <h1 className="lead m-3">{title}</h1>
-            <table className="table">
+            <table className="table text-left table-bordered">
               <thead>
                 <tr>
-                  <th>Item</th>
+                  <th className="item-name">Item</th>
                   <th>SubCategory</th>
-
                   <th>Price</th>
-                  <th>#</th>
+                  <th className="quantity">#</th>
                   {/* <th>Total Price</th> */}
                   {/* <th>Comment</th> */}
 
@@ -402,10 +401,9 @@ class FullRoom extends Form {
               {datas.map(item => (
                 <tbody>
                   <tr key={item.name}>
-                    <td>{item.name}</td>
+                    <td className="item-name">{item.name}</td>
                     <td>{item.subCategory}</td>
                     <td>{item.price}</td>
-
                     <td>
                       <input
                         disabled={item.checked}
@@ -451,7 +449,7 @@ class FullRoom extends Form {
                         name={item.name}
                         value={item.comment}
                         id={item._id}
-                        className="form-control p-1"
+                        className="form-control"
                       />
                     </td>
                   </tr>

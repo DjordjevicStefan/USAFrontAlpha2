@@ -51,7 +51,7 @@ class LoginForm extends Form {
       }
       if (response.error === "bad password") {
         errors.password = "Wrong password";
-        this.setState({ errors, isLoading: false });
+      this.setState({ errors, isLoading: false });
       }
     } else {
       if (response === "admin") {

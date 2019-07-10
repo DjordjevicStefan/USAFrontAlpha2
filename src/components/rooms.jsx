@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import axios from "axios";
 import "../css/navbar.css";
 
 import NavBar from "./navBar.jsx";
@@ -14,7 +14,14 @@ class Rooms extends Component {
     allItems: []
   };
 
-  componentDidMount() {}
+  async componentDidMount() {
+    const data = await axios.get(
+      process.env.REACT_APP_API_URL + "/user/allWorkorders"
+    );
+    console.log(data);
+
+    localStorage.setItem("workorders", JSON.stringify(data.data));
+  }
 
   handleBackButton = url => {
     // this.props.history.push("/rooms/" + this.props.match.params.id);
@@ -42,14 +49,14 @@ class Rooms extends Component {
       m => m.region === this.props.match.params.id
     );
 
-    if (e.target.value) {
-      let building = buildings.find(m => m.number == e.target.value);
-      if (building == undefined) {
-        toast.error(
-          "Building number doesn't exist, please enter a valid building number!"
-        );
-      }
-    }
+    // if (e.target.value) {
+    //   let building = buildings.find(m => m.number == e.target.value);
+    //   if (building == undefined) {
+    //     toast.error(
+    //       "Building number doesn't exist, please enter a valid building number!"
+    //     );
+    //   }
+    // }
     let building = buildings.find(m => m.number == e.target.value);
     console.log(building);
 
@@ -178,6 +185,15 @@ class Rooms extends Component {
     let workorder = JSON.parse(localStorage.getItem("workorder"));
     let build = workorder.workorder.buildingNumber;
     let buildNumber = workorder.workorder.buildingNumber;
+
+    // if (e.target.value) {
+    //   let building = buildings.find(m => m.number == e.target.value);
+    //   if (building == undefined) {
+    //     toast.error(
+    //       "Building number doesn't exist, please enter a valid building number!"
+    //     );
+    //   }
+    // }
 
     let building = "";
     if (buildNumber == "") {

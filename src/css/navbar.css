@@ -13,6 +13,11 @@
   background-color: #23408e;
 }
 
+.select {
+  background-color: #23408e !important;
+  color: white !important;
+}
+
 .build {
   background-color: #23408e !important;
   font-weight: bold;
