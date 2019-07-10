@@ -40,7 +40,7 @@ class ModalMy2 extends Component {
     } else {
       // let orderedJobsArrey = _.orderBy(jobsArrey, ["assignmentDate"], ["asc"]);
       return (
-        jobsArrey.map(job => <tr key={job._id}> <td>{job.name}</td>  <td>{this.formatDate(job.assignmentDate)}</td> </tr> ) 
+        jobsArrey.map(job => <tr key={job._id}><td>{job.name}</td><td>{job.wo.buildingNumber}</td><td>{job.wo.apartmentNumber}</td><td>{this.formatDate(job.assignmentDate)}</td></tr> ) 
       ) ;
     }
   }
@@ -59,21 +59,15 @@ class ModalMy2 extends Component {
      console.log("before selected id" , vendorJobArrey);
      console.log("before selected id" , vendorJobArreySorted);
 
-  //   let test = [] ;
-  //   test =  vendorJobArreySorted.forEach(function(job) {
-  //   return  job.wo = allWorkOrders.find(wo => wo._id === job.workorderId) ;
+    //// mutation of jobs arrey to be able to ad workorder on it as a props
+    vendorJobArreySorted.map(job => {
      
-  //  });   
+    job.wo = allWorkOrders.find(wo => wo._id === job.workorderId) ;
+     
+    });   
 
-    // if (vendorJobArreySorted.length === 0) {
+    console.log("after mutation", vendorJobArreySorted);
       
-    // } else {
-    //   console.log("jobsarej" , vendorJobArreySorted);
-   
-   
-    // }
-   
-    
     
     const indexOfLast = this.state.currentPage * this.state.itemsPerPage;
     const indexOfFirst = indexOfLast - this.state.itemsPerPage;
@@ -91,7 +85,7 @@ class ModalMy2 extends Component {
         </div>
         <Modal show={this.state.modalShowing} onHide={this.handleCloseModal}>
           <Modal.Header className="mHeader" closeButton>
-            <Modal.Title>{<p> {(selVendorId) ? selVendor.name +" jobs list" : null  } </p>}</Modal.Title>
+            <Modal.Title>{<p>{(selVendorId) ? selVendor.name +" jobs list" : null  }</p>}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {
@@ -100,13 +94,14 @@ class ModalMy2 extends Component {
                   <thead>
                     <tr>
                       <th scope="col">Job name</th>
-                      {/* <th scope="col">Room</th> */}
+                      <th scope="col">Building Number</th>
+                      <th scope="col">Apartment Number</th>
                       <th scope="col">Start date</th>
                     </tr>
                   </thead>
                   <tbody>
                     {(selVendorId) ? this.popuilateTable(vendorsJobsPaginated) : null  }
-                    {console.log(vendorsJobsPaginated)}
+                    {console.log("vednors jobs paginated",vendorsJobsPaginated)}
                   </tbody>
                 </table>
               </>
