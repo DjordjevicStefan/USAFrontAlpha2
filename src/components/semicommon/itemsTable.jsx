@@ -122,14 +122,14 @@ class ItemsTable extends Component {
                           Name:
                         </label>
                         <div className="col-sm-2">
-                          <input
+                          <textarea rows="3" cols="50"
                             value={item.name}
                             onChange={onChange}
                             name="name"
                             type="text"
                             className="form-control form-control-sm"
                             id={item._id}
-                          />
+                            />
                         </div>
                         <label className="col col-form-label form-control-sm">
                           Subcategory:
@@ -148,7 +148,7 @@ class ItemsTable extends Component {
                           Price:
                         </label>
                         <div className="col-sm-2">
-                        {console.log("price", item.price )}
+
                           <input
                              
                             value={item.price}

@@ -28,7 +28,7 @@ export default function JobsTable(props) {
   let searchedArrey = null ; 
   let jobsPaginated = null ;
   if (searchQuery !== "") {
-    searchedArrey = jobsSorted.filter(job => job[searchOption].toLowerCase().startsWith(searchQuery.toLowerCase()) )
+    searchedArrey = jobsSorted.filter(job => job[searchOption].toLowerCase().includes(searchQuery.toLowerCase()) )
      
     const indexOfLast = currentPage * jobsPerPage ;
     const indexOfFirst = indexOfLast - jobsPerPage ;

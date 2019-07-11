@@ -58,7 +58,7 @@ class Users extends Component {
   }
 
   handleBack = () => {
-    this.props.history.push("/admin") ;
+    this.props.history.goBack() ;
   }
 
   //// try to insert link element on click , for later !!!!!!!!!!!
