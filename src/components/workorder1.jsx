@@ -141,8 +141,7 @@ class Wo extends Component {
     }
     console.log(jobs);
     const showing = true;
-    const adress = JSON.parse(localStorage.getItem("workorder")).workorder
-      .adress;
+    const adress = JSON.parse(localStorage.getItem("workorder")).adress;
     // const total = this.state.total;
     // const totalprice = this.state.allItems.map(
     //   item => item.quantity * item.price
@@ -150,8 +149,8 @@ class Wo extends Component {
 
     // const total = totalprice.map(item => );
     const workorder = JSON.parse(localStorage.getItem("workorder"));
-    const buildingNumber = workorder.workorder.buildingNumber;
-    const value = workorder.workorder.apartmentNumber;
+    const buildingNumber = workorder.buildingNumber;
+    const value = workorder.apartmentNumber;
     return (
       <React.Fragment>
         <div className="container main-page">
