@@ -61,7 +61,7 @@ class Vendors extends Component {
   }
 
   handleBack = () => {
-    this.props.history.push("/admin");
+   this.props.history.goBack() ;
   };
 
   newVendorRoute = () => {
@@ -108,7 +108,7 @@ class Vendors extends Component {
 
   //// first check if the search is active and then paginate searched Arrey !!!! 
   if (searchQuery !== "") {
-    searchedArrey = vendors.filter(vendor => vendor[searchOption].toLowerCase().startsWith(searchQuery.toLowerCase()))
+    searchedArrey = vendors.filter(vendor => vendor[searchOption].toLowerCase().includes(searchQuery.toLowerCase()))
    
     const indexOfLast = currentPage * vendorsPerPage ;
     const indexOfFirst = indexOfLast - vendorsPerPage ;
