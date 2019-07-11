@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Pagination from "../common/pagination" ;
 import _ from "lodash" ;
+import SearchBox from "../common/search";
 
 class ItemsTable extends Component {
 
@@ -16,7 +17,12 @@ class ItemsTable extends Component {
       newItem,
       paginate,
       somethingPerPage,
-      currentPage
+      currentPage,
+      onOptionChange,
+      onSearch,
+      searchOption,
+      searchQuery,
+      options
     } = this.props;
     const room = selectedRoom.room.name;
 
@@ -24,21 +30,53 @@ class ItemsTable extends Component {
     let sorted = _.orderBy(selectedRoom.items, [item => item.name.toLowerCase()],['asc']) ;
     // console.log("sorted",sorted);
 
+    let searchedArrey = null ; 
+    let itemsPaginated =null ;
+  
+    //// first check if the search is active and then paginate searched Arrey !!!! 
+    if (searchQuery !== "") {
+      searchedArrey = sorted.filter(items => items[searchOption].toLowerCase().includes(searchQuery.toLowerCase()))
+      
     const indexOfLast = currentPage * somethingPerPage ;
     const indexOfFirst = indexOfLast - somethingPerPage ;
-    let itemsPaginated = sorted.slice(indexOfFirst, indexOfLast)
+    itemsPaginated = searchedArrey.slice(indexOfFirst, indexOfLast)
+    
+    
+    //// if not , just paginate the initial arrey !!!!
+    } else {
+      const indexOfLast = currentPage * somethingPerPage ;
+      const indexOfFirst = indexOfLast - somethingPerPage ;
+      itemsPaginated = sorted.slice(indexOfFirst, indexOfLast)
+    }
+
+
+
 
     return (
       <>
         <table
-          className={`table table-bordered ${
+          className={`table table-bordered table-sm table-hover ${
             itemsTableShow === false ? "item-table-show" : null
           }`}
         >
           <thead>
             <tr>
-              <th scope="col">Item name,subcategory and price</th>
-              <th scope="col">Action</th>
+              <th scope="col">
+                
+           <span>Item name,subcategory and price</span>     
+              
+               <div>
+               <SearchBox 
+                 resetPadding={true}
+                 options ={options}
+                 onOptionChange ={onOptionChange}
+                 value = {searchQuery}
+                 onChange ={onSearch}
+                 />     
+                </div>
+                
+                 </th>
+              <th className="dsp-block border-bottom-reset" scope="col"><span>Action</span></th>
             </tr>
           </thead>
           <tbody>
@@ -177,7 +215,7 @@ class ItemsTable extends Component {
                       </div>
                     </form>
                   </td>
-                  <td className="padding-b">
+                  <td className="adj-padding-items-btn">
                     <button
                       onClick={() => editItem(item)}
                       className="btn btn-sm mdc-button mb-1"
@@ -200,7 +238,7 @@ class ItemsTable extends Component {
           <div className="col float-right">
           <Pagination 
               currentPage={currentPage}
-              total={selectedRoom.items.length} 
+              total={(searchQuery !== "") ? searchedArrey.length : sorted.length} 
               somethingPerPage={somethingPerPage}
               paginate ={paginate}
            /> 

@@ -16,12 +16,15 @@ import ItemsTable from './semicommon/itemsTable';
 
 export default class Items extends Component {
   state = {
+    searchQuery : "" ,
+    searchOption : "name",
+    options : [ "name" , "subCategory" ] ,
     rooms: null,
     load: false,
     selectedRoom: { items: [], room: '' },
     itemsTableShow: false,
     currentPage: 1,
-    itemsPerPage: 8,
+    itemsPerPage: 10,
     newItem: {
       name: '',
       subCategory: '',
@@ -156,6 +159,22 @@ export default class Items extends Component {
     });
   };
 
+  //// handle search
+
+  handleSearch = (query) => {
+    this.setState({
+      searchQuery : query ,
+      currentPage : 1 
+    });
+  }
+
+  handleOptionsSearch = (e) => {
+    this.setState({
+      searchOption : e.target.value
+    })
+  } 
+
+
   render() {
     if (this.state.load === false) {
       return (
@@ -192,6 +211,11 @@ export default class Items extends Component {
             </div>
           </form>
           <ItemsTable
+            options={this.state.options}
+            searchQuery= {this.state.searchQuery}
+            searchOption={this.state.searchOption}
+            onSearch={this.handleSearch}
+            onOptionChange ={this.handleOptionsSearch}
             itemsTableShow={this.state.itemsTableShow}
             selectedRoom={this.state.selectedRoom}
             submitNew={this.handleNewSubmit}

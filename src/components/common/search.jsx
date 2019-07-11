@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function SearchBox({ onOptionChange, options,  value, onChange }) {
+export default function SearchBox({ onOptionChange, options,  value, onChange, resetPadding }) {
   return (
-    <div className="container">
+    <div className={(resetPadding) ? "container reset-padding" : "container"}>
       <div className="ml-auto offset-9 col-3 reset-right-padding">
         <div className="input-group mb-2">
           <div className="input-group-prepend">
