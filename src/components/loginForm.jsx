@@ -51,7 +51,7 @@ class LoginForm extends Form {
       }
       if (response.error === "bad password") {
         errors.password = "Wrong password";
-      this.setState({ errors, isLoading: false });
+        this.setState({ errors, isLoading: false });
       }
     } else {
       if (response === "admin") {
@@ -68,16 +68,14 @@ class LoginForm extends Form {
         localStorage.setItem("currentUser", JSON.stringify(currentUser));
         const user = response.user._id;
         const workorder = {
-          workorder: {
-            loginTime: new Date(),
-            completedTime: "",
-            apartmentNumber: "",
-            sendTime: "",
-            userId: user,
-            buildingNumber: ""
-          },
-          jobs: {},
-          user: response.user
+          loginTime: new Date(),
+          // completedTime: "",
+          apartmentNumber: "",
+          // sendTime: "",
+          userId: user,
+          buildingNumber: "",
+
+          jobs: {}
         };
         localStorage.setItem("workorder", JSON.stringify(workorder));
         const { state } = this.props.location;

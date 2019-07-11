@@ -16,6 +16,7 @@ class FullRoom extends Form {
     errors: {},
     rooms: {},
     value: {},
+    value1: {},
     schema: {},
     checked: [],
     rooms2: {},
@@ -26,7 +27,19 @@ class FullRoom extends Form {
   getCurrentRoom = () => {
     return this.props.match.params.id;
   };
-  handleBackButton = () => {
+  handleBackButton = async () => {
+    const jobs = JSON.parse(localStorage.getItem("jobs"));
+    const work = JSON.parse(localStorage.getItem("workorder"));
+    work.autosaveTime = new Date();
+    work.jobs = jobs;
+    localStorage.setItem("workorder", JSON.stringify(work));
+    const finalData = JSON.parse(localStorage.getItem("workorder"));
+    console.log(finalData);
+    const data = await axios.post(
+      process.env.REACT_APP_API_URL + "/user/newTempWorkorder",
+      JSON.stringify(finalData)
+    );
+    console.log(data);
     this.props.history.push("/rooms/" + this.props.match.params.m);
   };
   handlelogOut() {
@@ -36,18 +49,31 @@ class FullRoom extends Form {
       document.location = "/";
     }
   }
-  handleFinishedButton = () => {
+  handleFinishedButton = async () => {
+    const jobs = JSON.parse(localStorage.getItem("jobs"));
+    const work = JSON.parse(localStorage.getItem("workorder"));
+    work.autosaveTime = new Date();
+    work.jobs = jobs;
+    localStorage.setItem("workorder", JSON.stringify(work));
+    const finalData = JSON.parse(localStorage.getItem("workorder"));
+    console.log(finalData);
+    const data = await axios.post(
+      process.env.REACT_APP_API_URL + "/user/newTempWorkorder",
+      JSON.stringify(finalData)
+    );
+    console.log(data);
     this.props.history.push(
       "/rooms/" + this.props.match.params.id + "/work-order"
     );
-    const work = JSON.parse(localStorage.getItem("workorder"));
+    // const work = JSON.parse(localStorage.getItem("workorder"));
     const date = new Date();
-    work.workorder.completedTime = date;
+    work.completedTime = date;
     localStorage.setItem("workorder", JSON.stringify(work));
   };
 
   handleChangeArea = ({ currentTarget: input }) => {
-    const value = this.state.value;
+    const value = this.state.value1;
+    console.log(input.name, value);
 
     value[input.name] = input.value;
 
@@ -156,14 +182,18 @@ class FullRoom extends Form {
       rooms.checked = false;
       rooms.quantity = value;
       localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
-      localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
+      // localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
       this.setState({ checked });
     } else {
       checked[e.currentTarget.name] = e.target.checked;
       rooms.checked = true;
       rooms.quantity = value;
       localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
-      localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
+
+      const allItems = JSON.parse(localStorage.getItem("allItems"));
+
+      let checkedAllItems = allItems.filter(m => m.checked === true);
+      localStorage.setItem("jobs", JSON.stringify(checkedAllItems));
 
       this.setState({ checked });
     }
@@ -198,6 +228,7 @@ class FullRoom extends Form {
     const data = {};
     const errors = {};
     const value = {};
+    const value1 = {};
     const checked = {};
     const rooms = getRooms();
     let renderedItems = [];
@@ -219,7 +250,7 @@ class FullRoom extends Form {
 
       allItems = checked.concat(unchecked);
       localStorage.setItem("allItems", JSON.stringify(allItems));
-      localStorage.setItem("jobs", JSON.stringify(allItems));
+      localStorage.setItem("jobs", JSON.stringify(jobs));
 
       room = this.props.match.params.id;
 
@@ -255,7 +286,7 @@ class FullRoom extends Form {
     const build = [...this.state.build];
     const workorder = JSON.parse(localStorage.getItem("workorder"));
     const build1 = [];
-    build1.push(workorder.workorder.buildingNumber);
+    build1.push(workorder.buildingNumber);
     build.push(build1);
     const adress = [];
     const searchQuery = "";
@@ -271,6 +302,7 @@ class FullRoom extends Form {
       data,
       errors,
       value,
+      value1,
       checked,
       renderedItems
     };
@@ -289,11 +321,9 @@ class FullRoom extends Form {
     const searchQuery = this.state.searchQuery;
     const showing = true;
     // const adress = [];
-    if (
-      !JSON.parse(localStorage.getItem("workorder")).workorder.buildingNumber
-    ) {
+    if (!JSON.parse(localStorage.getItem("workorder")).buildingNumber) {
     }
-    const buildNumber = JSON.parse(localStorage.getItem("workorder")).workorder
+    const buildNumber = JSON.parse(localStorage.getItem("workorder"))
       .buildingNumber;
 
     const building = JSON.parse(localStorage.getItem("buildings")).find(
@@ -320,7 +350,7 @@ class FullRoom extends Form {
     }
     // let b = "";
     const workorder = JSON.parse(localStorage.getItem("workorder"));
-    const value = workorder.workorder.apartmentNumber;
+    const value = workorder.apartmentNumber;
     // let number = this.state.data[0];
 
     return (
@@ -399,8 +429,8 @@ class FullRoom extends Form {
                 </tr>
               </thead>
               {datas.map(item => (
-                <tbody>
-                  <tr key={item.name}>
+                <tbody key={item._id}>
+                  <tr>
                     <td className="item-name">{item.name}</td>
                     <td>{item.subCategory}</td>
                     <td>{item.price}</td>

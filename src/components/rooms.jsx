@@ -21,6 +21,23 @@ class Rooms extends Component {
     console.log(data);
 
     localStorage.setItem("workorders", JSON.stringify(data.data));
+
+    const work = JSON.parse(localStorage.getItem("workorder"));
+    let finalData = {};
+    finalData.buildingNumber = work.buildingNumber;
+    finalData.apartmentNumber = work.apartmentNumber;
+    finalData.userId = work.userId;
+
+    // work.autosaveTime = new Date();
+    // work.jobs = jobs;
+    // localStorage.setItem("workorder", JSON.stringify(work));
+    // const finalData = JSON.parse(localStorage.getItem("workorder"));
+    console.log(finalData);
+    const data1 = await axios.post(
+      process.env.REACT_APP_API_URL + "/user/getTempWorkorder",
+      JSON.stringify(finalData)
+    );
+    console.log(data1);
   }
 
   handleBackButton = url => {
@@ -33,7 +50,7 @@ class Rooms extends Component {
     );
     const work = JSON.parse(localStorage.getItem("workorder"));
     const date = new Date();
-    work.workorder.completedTime = date;
+    work.completedTime = date;
     localStorage.setItem("workorder", JSON.stringify(work));
   };
 
@@ -42,7 +59,7 @@ class Rooms extends Component {
   };
 
   handleInput = e => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     const { showing } = this.state;
     // const{ build}=this.state;
     let buildings = JSON.parse(localStorage.getItem("buildings")).filter(
@@ -58,37 +75,39 @@ class Rooms extends Component {
     //   }
     // }
     let building = buildings.find(m => m.number == e.target.value);
-    console.log(building);
+
+    const work = JSON.parse(localStorage.getItem("workorder"));
 
     if (building === undefined) {
-      const adress = "";
-      console.log("radi");
-      const work = JSON.parse(localStorage.getItem("workorder"));
-      work.workorder.buildingNumber = "";
-      work.workorder.adress = adress;
-      localStorage.setItem("workorder", JSON.stringify(work));
+      const adress = "Wrong Building Number";
 
-      this.setState({ showing: false, adress: false });
-    } else {
-      console.log("radi else");
-      const adress = building.adress + " (" + building.zip + ")";
-      console.log(adress);
       const work = JSON.parse(localStorage.getItem("workorder"));
-      work.workorder.buildingNumber = e.target.value;
-      work.workorder.adress = adress;
+      work.buildingNumber = "";
+      work.adress = adress;
+
       localStorage.setItem("workorder", JSON.stringify(work));
-      this.setState({ showing: true, adress });
+      let buildingNum = e.target.value;
+      this.setState({ showing: true, adress, buildingNum });
+    } else {
+      const adress = building.adress + " (" + building.zip + ")";
+
+      const work = JSON.parse(localStorage.getItem("workorder"));
+      work.buildingNumber = e.target.value;
+      work.adress = adress;
+      localStorage.setItem("workorder", JSON.stringify(work));
+      let buildingNum = e.target.value;
+      this.setState({ showing: true, adress, buildingNum });
     }
     localStorage.removeItem("jobs");
   };
 
   handleAptNum = e => {
     let value = "";
-    console.log(e);
+
     // const workOrder = JSON.parse(localStorage.getItem("workorder"));
     // workOrder.workorder.apartmentNumber = e.target.value;
     const work = JSON.parse(localStorage.getItem("workorder"));
-    work.workorder.apartmentNumber = e.target.value;
+    work.apartmentNumber = e.target.value;
     localStorage.setItem("workorder", JSON.stringify(work));
     // localStorage.setItem("workorder", JSON.stringify(workOrder));
     // localStorage.removeItem("jobs");
@@ -113,10 +132,13 @@ class Rooms extends Component {
     let showing = false;
     let value = "";
 
-    let allItems = JSON.parse(localStorage.getItem("allItems"));
-    let workorder = JSON.parse(localStorage.getItem("workorder"));
+    // let allItems = JSON.parse(localStorage.getItem("allItems"));
+    // let workorder = JSON.parse(localStorage.getItem("workorder"));
 
-    let jobs = JSON.parse(localStorage.getItem("jobs"));
+    // let jobs = JSON.parse(localStorage.getItem("jobs"));
+
+    // const jobs = JSON.parse(localStorage.getItem("jobs"));
+
     // if (!localStorage.getItem("jobs")) {
     //   this.state = { allItems, workorder };
     // }
@@ -170,6 +192,7 @@ class Rooms extends Component {
 
   render() {
     let adress = [];
+    // console.log(typeof this.state.buildingNum);
     let showing = this.state.showing;
     // console.log(this.props);
     // let value = "";
@@ -183,36 +206,73 @@ class Rooms extends Component {
 
     // if (localStorage.getItem("workorder")) {
     let workorder = JSON.parse(localStorage.getItem("workorder"));
-    let build = workorder.workorder.buildingNumber;
-    let buildNumber = workorder.workorder.buildingNumber;
+    let build = workorder.buildingNumber;
+    let buildNumber = workorder.buildingNumber;
+    console.log(workorder.adress);
 
     // if (e.target.value) {
     //   let building = buildings.find(m => m.number == e.target.value);
     //   if (building == undefined) {
-    //     toast.error(
-    //       "Building number doesn't exist, please enter a valid building number!"
-    //     );
+    //
     //   }
     // }
 
+    console.log(this.state.buildingNum, workorder.adress);
     let building = "";
-    if (buildNumber == "") {
-      adress = "";
+    // let work = JSON.parse(localStorage.getItem("workorder"));
+    if (this.state.buildingNum && workorder.adress != undefined) {
+      console.log("radi");
+      value = workorder.apartmentNumber;
+      adress = workorder.adress;
+      // let region = JSON.parse(localStorage.getItem("currentUser")).region;
+      // let buildings = JSON.parse(localStorage.getItem("buildings")).filter(
+      //   m => m.region == region
+      // );
 
-      showing = false;
-    } else {
-      value = workorder.workorder.apartmentNumber;
-      let region = JSON.parse(localStorage.getItem("currentUser")).region;
-      let buildings = JSON.parse(localStorage.getItem("buildings")).filter(
-        m => m.region == region
-      );
+      // let building = buildings.find(m => m.number == buildNumber);
 
-      let building = buildings.find(m => m.number == buildNumber);
-
-      adress = building.adress + " (" + building.zip + ")";
+      // adress = building.adress + " (" + building.zip + ")";
       // let { showing } = this.state;
       showing = true;
+    } else {
+      showing = false;
     }
+
+    if (workorder.adress != "" && workorder.buildingNumber != "") {
+      value = workorder.apartmentNumber;
+      adress = workorder.adress;
+      showing = true;
+    }
+    // if (this.state.buildingNum) {
+    //   console.log("radi buildnumb");
+    //   // setInterval()
+
+    //   // if (work.workorder.buildingNumber == "") {
+    //   //
+    //   setTimeout(
+    //     (this.state.buildingNum = () => {
+    //       let work = JSON.parse(localStorage.getItem("workorder"));
+    //       if (work.workorder.buildingNumber == "") {
+    //         toast.error(
+    //           "Building number doesn't exist, please enter a valid building number!"
+    //         );
+    //       }
+    //     }),
+    //     2500
+    //   );
+    //   // } else {
+    //   // }
+    // } else {
+    //   console.log("thisshit");
+    // }
+
+    // console.log(typeof buildNumber);
+    // if (buildNumber != undefined && work.workorder.adress == "") {
+    //   toast.error(
+    //     "Building number doesn't exist, please enter a valid building number!"
+    //   );
+    // }
+
     // }
     // let value = "";
     // let workorder = JSON.parse(localStorage.getItem("workorder"));

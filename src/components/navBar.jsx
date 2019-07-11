@@ -38,9 +38,9 @@ class NavBar extends Component {
 
       let work = JSON.parse(localStorage.getItem("workorder"));
       work.jobs = {};
-      work.workorder.buildingNumber = "";
-      work.workorder.apartmentNumber = "";
-      work.workorder.adress = "";
+      work.buildingNumber = "";
+      work.apartmentNumber = "";
+      work.adress = "";
 
       localStorage.setItem("workorder", JSON.stringify(work));
       const region = JSON.parse(localStorage.getItem("currentUser")).region;
@@ -75,15 +75,22 @@ class NavBar extends Component {
     const building = build[0];
 
     const work = JSON.parse(localStorage.getItem("workorder"));
-    work.workorder.buildingNumber = building;
+    work.buildingNumber = building;
     localStorage.setItem("workorder", JSON.stringify(work));
   }
 
   render() {
+    let klasa = "";
+    if (this.props.adress == "Wrong Building Number") {
+      klasa = "build-div btn btn-danger";
+    } else {
+      klasa = "build-div btn btn-success";
+    }
+
     const data = this.state.data;
     const datas = data[0];
     const workorder = JSON.parse(localStorage.getItem("workorder"));
-    let dat = new Date(workorder.workorder.loginTime).toLocaleString();
+    let dat = new Date(workorder.loginTime).toLocaleString();
     const dateNow =
       dat.substring(0, dat.length - 6) + dat.slice(dat.length - 3);
     return (
@@ -96,9 +103,7 @@ class NavBar extends Component {
           name="country"
           onChange={this.handleWorkorders}
         >
-          <option disabled selected>
-            Choose your option
-          </option>
+          <option defaultValue>Choose your option</option>
           <option value="new">New Work Order</option>
           <option value="saved">Saved Work Orders</option>
           <option value="pending">Sent Work Orders</option>
@@ -133,7 +138,7 @@ class NavBar extends Component {
                 />
                 <br />
                 {this.props.showing ? (
-                  <div className="build-div">{this.props.adress}</div>
+                  <div className={klasa}>{this.props.adress}</div>
                 ) : null}
               </div>
             </div>
