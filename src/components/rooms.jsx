@@ -21,23 +21,6 @@ class Rooms extends Component {
     console.log(data);
 
     localStorage.setItem("workorders", JSON.stringify(data.data));
-
-    const work = JSON.parse(localStorage.getItem("workorder"));
-    let finalData = {};
-    finalData.buildingNumber = work.buildingNumber;
-    finalData.apartmentNumber = work.apartmentNumber;
-    finalData.userId = work.userId;
-
-    // work.autosaveTime = new Date();
-    // work.jobs = jobs;
-    // localStorage.setItem("workorder", JSON.stringify(work));
-    // const finalData = JSON.parse(localStorage.getItem("workorder"));
-    console.log(finalData);
-    const data1 = await axios.post(
-      process.env.REACT_APP_API_URL + "/user/getTempWorkorder",
-      JSON.stringify(finalData)
-    );
-    console.log(data1);
   }
 
   handleBackButton = url => {
@@ -208,7 +191,7 @@ class Rooms extends Component {
     let workorder = JSON.parse(localStorage.getItem("workorder"));
     let build = workorder.buildingNumber;
     let buildNumber = workorder.buildingNumber;
-    console.log(workorder.adress);
+    // console.log(workorder.adress);
 
     // if (e.target.value) {
     //   let building = buildings.find(m => m.number == e.target.value);
@@ -217,13 +200,18 @@ class Rooms extends Component {
     //   }
     // }
 
-    console.log(this.state.buildingNum, workorder.adress);
     let building = "";
     // let work = JSON.parse(localStorage.getItem("workorder"));
+    // if (workorder.adress == "Wrong Building Number") {
+    //   console.log("wrong");
+    //   workorder.adress = "";
+
+    // }
     if (this.state.buildingNum && workorder.adress != undefined) {
-      console.log("radi");
+      // console.log("radi");
       value = workorder.apartmentNumber;
       adress = workorder.adress;
+
       // let region = JSON.parse(localStorage.getItem("currentUser")).region;
       // let buildings = JSON.parse(localStorage.getItem("buildings")).filter(
       //   m => m.region == region
@@ -242,6 +230,12 @@ class Rooms extends Component {
       value = workorder.apartmentNumber;
       adress = workorder.adress;
       showing = true;
+      console.log(workorder.adress);
+    }
+    if (workorder.buildingNumber == "") {
+      value = "";
+      workorder.apartmentNumber = "";
+      localStorage.setItem("workorder", JSON.stringify(workorder));
     }
     // if (this.state.buildingNum) {
     //   console.log("radi buildnumb");

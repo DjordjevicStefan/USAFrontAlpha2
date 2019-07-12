@@ -32,6 +32,7 @@ class FullRoom extends Form {
     const work = JSON.parse(localStorage.getItem("workorder"));
     work.autosaveTime = new Date();
     work.jobs = jobs;
+
     localStorage.setItem("workorder", JSON.stringify(work));
     const finalData = JSON.parse(localStorage.getItem("workorder"));
     console.log(finalData);
