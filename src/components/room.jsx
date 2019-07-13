@@ -42,11 +42,11 @@ class Room extends Component {
       JSON.stringify(finalData)
     );
     console.log(data1);
-    // if (data1.data.workorder) {
-    //   let _id = data1.data.workorder._id;
-    //   work._id = _id;
-    //   localStorage.setItem("workorder", JSON.stringify(work));
-    // }
+    if (data1.data.workorder) {
+      let _id = data1.data.workorder._id;
+      work._id = _id;
+      localStorage.setItem("workorder", JSON.stringify(work));
+    }
   };
   render() {
     return (
