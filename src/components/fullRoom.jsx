@@ -165,13 +165,13 @@ class FullRoom extends Form {
     // let value = this.state.value;
     // console.log(this.state.value);
     let value;
-    if (this.state.value[0] == undefined) {
-      value = 1;
-      console.log("radi", value);
-      // this.setState({ value });
-    } else {
-      value = this.state.value;
-    }
+    // if (this.state.value[0] == undefined) {
+    //   value = 1;
+    //   console.log("radi", value);
+    //   // this.setState({ value });
+    // } else {
+    //   value = this.state.value;
+    // }
 
     // console.log(this.state.value);
     const rooms = this.state.allItems.find(
@@ -181,13 +181,19 @@ class FullRoom extends Form {
     if (e.target.checked === false) {
       checked[e.currentTarget.name] = e.target.checked;
       rooms.checked = false;
+
       rooms.quantity = value;
       localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
-      // localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
+      localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
       this.setState({ checked });
     } else {
       checked[e.currentTarget.name] = e.target.checked;
       rooms.checked = true;
+      // console.log(this.state.quantity);
+      if (this.state.value[0] == undefined) {
+        value = 1;
+      }
+
       rooms.quantity = value;
       localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
 
@@ -240,18 +246,18 @@ class FullRoom extends Form {
     if (JSON.parse(localStorage.getItem("jobs"))) {
       const jobs = JSON.parse(localStorage.getItem("jobs"));
       allItems = JSON.parse(localStorage.getItem("allItems"));
-      // jobs.filter(j => allItems.filter(m => (j.checked = true)));
+      // // jobs.filter(j => allItems.filter(m => (j.checked = true)));
 
-      let checked = jobs.filter(j => allItems.filter(m => m.name == j.name));
-      // console.log(kurac);
-      let checkedArr = jobs.map(j => j).map(m => m.name);
-      let unchecked = allItems.filter(
-        d => d.name != checkedArr.find(m => m == d.name)
-      );
+      // let checked = jobs.filter(j => allItems.filter(m => m.name == j.name));
+      // // console.log(kurac);
+      // let checkedArr = jobs.map(j => j).map(m => m.name);
+      // let unchecked = allItems.filter(
+      //   d => d.name != checkedArr.find(m => m == d.name)
+      // );
 
-      allItems = checked.concat(unchecked);
-      localStorage.setItem("allItems", JSON.stringify(allItems));
-      localStorage.setItem("jobs", JSON.stringify(jobs));
+      // allItems = checked.concat(unchecked);
+      // localStorage.setItem("allItems", JSON.stringify(allItems));
+      // localStorage.setItem("jobs", JSON.stringify(jobs));
 
       room = this.props.match.params.id;
 
@@ -310,7 +316,7 @@ class FullRoom extends Form {
   }
 
   render() {
-    console.log(this.state.value);
+    // console.log(this.state.value);
     // let number = 1;
     // if (this.state.value==undefined){
     //   number=

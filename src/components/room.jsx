@@ -47,10 +47,10 @@ class Room extends Component {
       let _id = data1.data.workorder._id;
       work._id = _id;
       localStorage.setItem("workorder", JSON.stringify(work));
+      localStorage.setItem("jobs", JSON.stringify(data1.data.workorder.jobs));
     }
 
-    // const allItems = JSON.parse(localStorage.getItem("allItems"));
-    // localStorage.setItem("allItems", JSON.stringify(data1.data.items));
+    // const jobs = JSON.parse(localStorage.getItem("jobs"));
   };
   render() {
     return (
@@ -59,7 +59,7 @@ class Room extends Component {
           <Link
             className="links"
             onClick={this.handleLinks}
-            // to={"/rooms/" + this.props.id + "/" + this.props.region}
+            to={"/rooms/" + this.props.id + "/" + this.props.region}
           >
             <img
               className="card-img-top img-fluid"

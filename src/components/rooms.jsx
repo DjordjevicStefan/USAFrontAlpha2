@@ -14,7 +14,37 @@ class Rooms extends Component {
     allItems: []
   };
 
+  async handleAsync() {
+    const work = JSON.parse(localStorage.getItem("workorder"));
+    let finalData = {};
+    finalData.buildingNumber = work.buildingNumber;
+    finalData.apartmentNumber = work.apartmentNumber;
+    finalData.userId = work.userId;
+
+    // work.autosaveTime = new Date();
+    // work.jobs = jobs;
+    // localStorage.setItem("workorder", JSON.stringify(work));
+    // const finalData = JSON.parse(localStorage.getItem("workorder"));
+    console.log(finalData);
+    const data1 = await axios.post(
+      process.env.REACT_APP_API_URL + "/user/getTempWorkorder",
+      JSON.stringify(finalData)
+    );
+    console.log(data1);
+
+    if (data1.data.workorder) {
+      let _id = data1.data.workorder._id;
+      work._id = _id;
+      localStorage.setItem("workorder", JSON.stringify(work));
+
+      localStorage.setItem("allItems", JSON.stringify(data1.data.items));
+      localStorage.setItem("jobs", JSON.stringify(data1.data.workorder.jobs));
+    }
+  }
+
   async componentDidMount() {
+    console.log("radi");
+
     const data = await axios.get(
       process.env.REACT_APP_API_URL + "/user/allWorkorders"
     );
@@ -22,6 +52,31 @@ class Rooms extends Component {
 
     localStorage.setItem("workorders", JSON.stringify(data.data));
   }
+
+  //   const work = JSON.parse(localStorage.getItem("workorder"));
+  //   let finalData = {};
+  //   finalData.buildingNumber = work.buildingNumber;
+  //   finalData.apartmentNumber = work.apartmentNumber;
+  //   finalData.userId = work.userId;
+
+  //   // work.autosaveTime = new Date();
+  //   // work.jobs = jobs;
+  //   // localStorage.setItem("workorder", JSON.stringify(work));
+  //   // const finalData = JSON.parse(localStorage.getItem("workorder"));
+  //   console.log(finalData);
+  //   const data1 = await axios.post(
+  //     process.env.REACT_APP_API_URL + "/user/getTempWorkorder",
+  //     JSON.stringify(finalData)
+  //   );
+  //   console.log(data1);
+
+  //   if (data1.data.workorder) {
+  //     let _id = data1.data.workorder._id;
+  //     work._id = _id;
+  //     localStorage.setItem("workorder", JSON.stringify(work));
+  //     localStorage.setItem("jobs", JSON.stringify(data1.data.workorder.jobs));
+  //   }
+  // }
 
   handleBackButton = url => {
     // this.props.history.push("/rooms/" + this.props.match.params.id);
@@ -79,24 +134,58 @@ class Rooms extends Component {
       work.adress = adress;
       localStorage.setItem("workorder", JSON.stringify(work));
       let buildingNum = e.target.value;
+
       this.setState({ showing: true, adress, buildingNum });
     }
     localStorage.removeItem("jobs");
   };
 
-  handleAptNum = e => {
+  handleAptNum = async e => {
     let value = "";
 
     // const workOrder = JSON.parse(localStorage.getItem("workorder"));
     // workOrder.workorder.apartmentNumber = e.target.value;
-    const work = JSON.parse(localStorage.getItem("workorder"));
-    work.apartmentNumber = e.target.value;
-    localStorage.setItem("workorder", JSON.stringify(work));
-    // localStorage.setItem("workorder", JSON.stringify(workOrder));
-    // localStorage.removeItem("jobs");
+
     this.setState({
       value: e.target.value
     });
+
+    const work = JSON.parse(localStorage.getItem("workorder"));
+    // value = workorder.apartmentNumber;
+    work.apartmentNumber = e.target.value;
+
+    if (work.apartmentNumber == "") {
+      delete work._id;
+    }
+
+    localStorage.setItem("workorder", JSON.stringify(work));
+
+    // const work = JSON.parse(localStorage.getItem("workorder"));
+    let finalData = {};
+    finalData.buildingNumber = work.buildingNumber;
+    finalData.apartmentNumber = work.apartmentNumber;
+    finalData.userId = work.userId;
+
+    // work.autosaveTime = new Date();
+    // work.jobs = jobs;
+    // localStorage.setItem("workorder", JSON.stringify(work));
+    // const finalData = JSON.parse(localStorage.getItem("workorder"));
+    console.log(finalData);
+    const data1 = await axios.post(
+      process.env.REACT_APP_API_URL + "/user/getTempWorkorder",
+      JSON.stringify(finalData)
+    );
+    console.log(data1);
+
+    if (data1.data.workorder) {
+      let _id = data1.data.workorder._id;
+      work._id = _id;
+      localStorage.setItem("workorder", JSON.stringify(work));
+      localStorage.setItem("jobs", JSON.stringify(data1.data.workorder.jobs));
+      localStorage.setItem("allItems", JSON.stringify(data1.data.items));
+    }
+    // localStorage.setItem("workorder", JSON.stringify(workOrder));
+    // localStorage.removeItem("jobs");
   };
   handlelogOut() {
     const answer = window.confirm("Are you sure you want to log out?");
@@ -107,6 +196,7 @@ class Rooms extends Component {
   }
   constructor(props) {
     super(props);
+
     // toast.error("Please enter Building and Apartment number");
     // const build = [...this.state.build];
 
@@ -181,16 +271,17 @@ class Rooms extends Component {
     // let value = "";
 
     // console.log(buildNumber);
-    let buildings = JSON.parse(localStorage.getItem("buildings")).filter(
-      m => m.region == this.props.match.params.id
-    );
+    // let buildings = JSON.parse(localStorage.getItem("buildings")).filter(
+    //   m => m.region == this.props.match.params.id
+    // );
+    let workorder = JSON.parse(localStorage.getItem("workorder"));
     let value = "";
     value = this.state.value;
-
+    value = workorder.apartmentNumber;
     // if (localStorage.getItem("workorder")) {
-    let workorder = JSON.parse(localStorage.getItem("workorder"));
-    let build = workorder.buildingNumber;
-    let buildNumber = workorder.buildingNumber;
+
+    // let build = workorder.buildingNumber;
+    // let buildNumber = workorder.buildingNumber;
     // console.log(workorder.adress);
 
     // if (e.target.value) {
@@ -221,6 +312,8 @@ class Rooms extends Component {
 
       // adress = building.adress + " (" + building.zip + ")";
       // let { showing } = this.state;
+      // localStorage.delete()
+
       showing = true;
     } else {
       showing = false;

@@ -66,19 +66,29 @@ class Wo extends Component {
           comment: item.comment
         };
       });
+      const finalData = JSON.parse(localStorage.getItem("workorder"));
       const total = this.state.total;
       const woComment = this.state.woComment;
       // console.log(woComment);
-      const work = JSON.parse(localStorage.getItem("workorder"));
+      let work = {};
+      work.workorder = {};
+      work.id = finalData._id;
       work.jobs = finalItems;
-
-      work.workorder.totalPrice = total;
+      work.workorder.loginTime = new Date(finalData.loginTime);
+      work.workorder.completedTime = new Date();
+      work.workorder.buildingNumber = finalData.buildingNumber;
+      work.workorder.apartmentNumber = finalData.apartmentNumber;
+      work.workorder.userId = finalData.userId;
+      work.workorder.totalPrice = 34;
       work.workorder.comment = woComment;
       work.workorder.sendTime = new Date();
       work.workorder.status = "pending";
-      localStorage.setItem("workorder", JSON.stringify(work));
-      const finalData = JSON.parse(localStorage.getItem("workorder"));
-      console.log("final data", finalData);
+      // let jobs=work.jobs
+      //  let id= finalData._id
+      // delete work._id;
+      // localStorage.setItem("workorder", JSON.stringify(work));
+
+      console.log("final data", work);
       const data = await axios.post(
         process.env.REACT_APP_API_URL + "/user/newWorkorder",
         JSON.stringify(finalData)
@@ -87,11 +97,11 @@ class Wo extends Component {
       if (data.statusText === "OK") {
         const work = JSON.parse(localStorage.getItem("workorder"));
         // localStorage.removeItem("jobs");
-        work.workorder.buildingNumber = "";
-        work.workorder.apartmentNumber = "";
-        work.workorder.totalPrice = "";
-        work.workorder.comment = "";
-        work.workorder.loginTime = new Date();
+        work.buildingNumber = "";
+        work.apartmentNumber = "";
+        work.totalPrice = "";
+        work.comment = "";
+        work.loginTime = new Date();
         localStorage.setItem("workorder", JSON.stringify(work));
         localStorage.removeItem("jobs");
         let region = JSON.parse(localStorage.getItem("currentUser")).region;
