@@ -115,7 +115,7 @@ class FullRoom extends Form {
     const data = { ...this.state.data };
 
     data[input.name] = input.value;
-    console.log(input.value);
+    // console.log(input.value);
 
     // let number = e.currentTarget.value;
     // console.log(number);
@@ -126,6 +126,8 @@ class FullRoom extends Form {
 
     rooms.quantity = data[input.name];
 
+    console.log(data[input.name]);
+    console.log(rooms.quantity);
     localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
 
     // schema = {

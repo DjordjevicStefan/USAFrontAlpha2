@@ -67,6 +67,7 @@ class Wo extends Component {
         };
       });
       const finalData = JSON.parse(localStorage.getItem("workorder"));
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
       const total = this.state.total;
       const woComment = this.state.woComment;
       // console.log(woComment);
@@ -74,6 +75,7 @@ class Wo extends Component {
       work.workorder = {};
       work.id = finalData._id;
       work.jobs = finalItems;
+      work.user = currentUser;
       work.workorder.loginTime = new Date(finalData.loginTime);
       work.workorder.completedTime = new Date();
       work.workorder.buildingNumber = finalData.buildingNumber;
