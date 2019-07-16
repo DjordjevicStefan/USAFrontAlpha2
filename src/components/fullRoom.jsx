@@ -9,6 +9,7 @@ import "../css/fullroom.css";
 import { getRooms } from "../services/fakeRoomService";
 import axios from "axios";
 import SearchBox from "./common/searchbox";
+import { KeyObject } from "crypto";
 
 class FullRoom extends Form {
   state = {
@@ -119,16 +120,18 @@ class FullRoom extends Form {
 
     // let number = e.currentTarget.value;
     // console.log(number);
-
-    this.setState({ data, errors, value: input.value });
-
+    const allItems = JSON.parse(localStorage.getItem("allItems"));
     const rooms = this.state.allItems.find(room => room._id === input.id);
-
+    console.log(rooms);
     rooms.quantity = data[input.name];
 
     console.log(data[input.name]);
     console.log(rooms.quantity);
+
+    // localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
     localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
+    console.log(this.state.allItems);
+    this.setState({ data, errors, value: input.value });
 
     // schema = {
     //   [input.name]: Joi.number().label("quantity")
@@ -166,7 +169,7 @@ class FullRoom extends Form {
     const checked = { ...this.state.checked };
     // let value = this.state.value;
     // console.log(this.state.value);
-    let value;
+    let value = this.state.value;
     // if (this.state.value[0] == undefined) {
     //   value = 1;
     //   console.log("radi", value);
@@ -175,37 +178,57 @@ class FullRoom extends Form {
     //   value = this.state.value;
     // }
 
+    console.log(checked, value);
     // console.log(this.state.value);
     const rooms = this.state.allItems.find(
       room => room._id === e.currentTarget.id
     );
 
     if (e.target.checked === false) {
+      if (this.state.data[e.currentTarget.name] == undefined) {
+        value = "";
+      } else {
+        value = this.state.data[e.currentTarget.name];
+      }
       checked[e.currentTarget.name] = e.target.checked;
       rooms.checked = false;
 
       rooms.quantity = value;
       localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
-      localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
+      // localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
+
       this.setState({ checked });
     } else {
       checked[e.currentTarget.name] = e.target.checked;
       rooms.checked = true;
       // console.log(this.state.quantity);
-      if (this.state.value[0] == undefined) {
+
+      if (
+        this.state.data[e.currentTarget.name] == undefined ||
+        this.state.value[0] == undefined
+      ) {
         value = 1;
       }
-
-      rooms.quantity = value;
-      localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
-
-      const allItems = JSON.parse(localStorage.getItem("allItems"));
-
-      let checkedAllItems = allItems.filter(m => m.checked === true);
-      localStorage.setItem("jobs", JSON.stringify(checkedAllItems));
+      // if (value == undefined) {
+      //   value = 1;
+      // }
+      if (this.state.data[e.currentTarget.name] != undefined) {
+        value = this.state.data[e.currentTarget.name];
+        console.log("radi vrednost u data");
+      } else {
+        console.log("radivalue");
+        rooms.quantity = value;
+      }
 
       this.setState({ checked });
     }
+
+    localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
+
+    const allItems = JSON.parse(localStorage.getItem("allItems"));
+
+    let checkedAllItems = allItems.filter(m => m.checked === true);
+    localStorage.setItem("jobs", JSON.stringify(checkedAllItems));
     value = "";
     this.setState({ value });
   };
@@ -234,7 +257,7 @@ class FullRoom extends Form {
   // };
   constructor(props) {
     super(props);
-    const data = {};
+    let data = {};
     const errors = {};
     const value = {};
     const value1 = {};
@@ -247,7 +270,43 @@ class FullRoom extends Form {
     let allItems = [];
     if (JSON.parse(localStorage.getItem("jobs"))) {
       const jobs = JSON.parse(localStorage.getItem("jobs"));
+
       allItems = JSON.parse(localStorage.getItem("allItems"));
+      data = { ...this.state.data };
+      let newArr = [...jobs];
+      let datas = {};
+      newArr.forEach(i => {
+        let x = i.name;
+        datas[x] = i.quantity;
+      });
+      console.log(datas);
+      data = datas;
+      // let datas = [];
+
+      // let datass = [];
+
+      // newArr.map(m => {
+      //   datas.push(m.name);
+      // });
+
+      // let name = newArr.filter(m => datas.push(m.name));
+      // let kurac = newArr.map(k => k).map(v => v.quantity);
+      // datas.filter(m => (datas[m] = kurac.map(j => j)));
+      // console.log(datas);
+      // jobs.map(j => j).map(m => m.name);
+      // let name1 = Object.assign({}, datas);
+      // let quantity = newArr.filter(k => datass.push(k.quantity));
+      // let name2 = Object.assign({ datas }, name1);
+      // console.log(name2);
+
+      // console.log(datas, datass);
+
+      // const datass = { ...this.state.data };
+
+      // data[input.name] = input.value;
+      // {
+      //   renderedItems.map(item => (checked[item.name] = false));
+      // }
       // // jobs.filter(j => allItems.filter(m => (j.checked = true)));
 
       // let checked = jobs.filter(j => allItems.filter(m => m.name == j.name));
@@ -266,9 +325,9 @@ class FullRoom extends Form {
       room0 = rooms.filter(m => m.id == this.props.match.params.id);
 
       renderedItems = allItems.filter(m => m.room === room0[0].name);
-      {
-        renderedItems.map(item => (checked[item.name] = false));
-      }
+      // {
+      //   renderedItems.map(item => (checked[item.name] = false));
+      // }
     } else {
       allItems = JSON.parse(localStorage.getItem("allItems"));
       room = this.props.match.params.m;
@@ -276,9 +335,9 @@ class FullRoom extends Form {
       room0 = rooms.filter(m => m.id == this.props.match.params.id);
 
       renderedItems = allItems.filter(m => m.room === room0[0].name);
-      {
-        renderedItems.map(item => (checked[item.name] = false));
-      }
+      // {
+      //   renderedItems.map(item => (checked[item.name] = false));
+      // }
     }
     let schema = this.state.schema;
 
@@ -318,11 +377,14 @@ class FullRoom extends Form {
   }
 
   render() {
-    // console.log(this.state.value);
-    // let number = 1;
-    // if (this.state.value==undefined){
-    //   number=
-    // }
+    console.log(this.state.renderedItems);
+    console.log(this.state.data);
+    // console.log(this.state.data);
+    // // let number = 1;
+    // // if (this.state.value==undefined){
+    // //   number=
+    // // }
+    // console.log();
     let allItems = JSON.parse(localStorage.getItem("allItems"));
 
     const jobs = JSON.parse(localStorage.getItem("jobs"));

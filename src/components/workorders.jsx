@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "./navBar.jsx";
-
+import { Link } from "react-router-dom";
 import Form from "./common/form";
 
 import "../css/fullroom.css";
@@ -300,12 +300,12 @@ class Workorders extends Form {
     // console.log(datas);
     // let datas = this.state.allItems;
 
-    let allItems = [];
-    if (this.props.match.params.i === "saved") {
-      allItems = workorders.filter(m => m.status == this.props.match.params.i);
-    } else {
-      allItems = workorders.filter(m => m.status == this.props.match.params.i);
-    }
+    let allItems = workorders;
+    // if (this.props.match.params.i === "saved") {
+    //   allItems = workorders.filter(m => m.status == this.props.match.params.i);
+    // } else {
+    //   allItems = workorders.filter(m => m.status == this.props.match.params.i);
+    // }
 
     const region = JSON.parse(localStorage.getItem("currentUser")).region;
     // console.log(allItems);
@@ -370,8 +370,8 @@ class Workorders extends Form {
                     <td>{item.apartmentNumber}</td>
                     <td>{item.adress}</td>
                     <td>{item.status}</td>
-                    {/* <td>
-                      {/* <Link
+                    <td>
+                      <Link
                         to={{
                           pathname: `/rooms/${region}`,
                           state: {
@@ -383,8 +383,8 @@ class Workorders extends Form {
                         }}
                       >
                         Resume to Workorder
-                      </Link> */}
-                    {/* </td> */}
+                      </Link>
+                    </td>
                   </tr>
                 ))}
               </tbody>

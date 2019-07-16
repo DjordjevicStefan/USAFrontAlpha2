@@ -22,12 +22,25 @@ class NavBar extends Component {
     if (e.target.value == "saved") {
       e.preventDefault();
       console.log(this);
-      window.alert("In development...");
+      let userId = JSON.parse(localStorage.getItem("savedWorkorders"))._id;
+      let workorders = JSON.parse(localStorage.getItem("savedWorkorders"));
+      localStorage.setItem("workorders", JSON.stringify(workorders));
+      // let workorders = JSON.parse(localStorage.getItem("savedWorkorders"));
+      workorders = await axios.get(
+        process.env.REACT_APP_API_URL + `/user/getAllTempWorkorders/${userId}`
+      );
+      // workorders = data;
+      // window.alert("In development...");
+      this.props.history.push(`/user/workorders/${e.target.value}`);
+      document.location.reload();
     } else if (e.target.value == "pending") {
+      let userId = JSON.parse(localStorage.getItem("savedWorkorders")).userId;
       e.preventDefault();
 
       console.log(e.target.value);
       localStorage.removeItem("jobs");
+      let workorders = JSON.parse(localStorage.getItem("completedWorkorders"));
+      localStorage.setItem("workorders", JSON.stringify(workorders));
 
       // window.location.reload();
       this.props.history.push(`/user/workorders/${e.target.value}`);

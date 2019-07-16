@@ -39,7 +39,14 @@ class LoginForm extends Form {
       qs.stringify(params)
     );
 
-    localStorage.setItem("workorders", JSON.stringify(response.workorders));
+    localStorage.setItem(
+      "completedWorkorders",
+      JSON.stringify(response.workorders)
+    );
+    localStorage.setItem(
+      "savedWorkorders",
+      JSON.stringify(response.tempWorkorders)
+    );
 
     console.log(response);
 
