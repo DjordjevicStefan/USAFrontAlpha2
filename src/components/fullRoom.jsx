@@ -77,13 +77,13 @@ class FullRoom extends Form {
     const value = this.state.value1;
     console.log(input.name, value);
 
-    value[input.name] = input.value;
+    value[input.id] = input.value;
 
     this.setState({ value });
 
     const rooms = this.state.allItems.find(room => room._id === input.id);
 
-    rooms.comment = this.state.value[input.name];
+    rooms.comment = this.state.value[input.id];
 
     localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
   };
@@ -115,7 +115,7 @@ class FullRoom extends Form {
     else delete errors[input.name];
     const data = { ...this.state.data };
 
-    data[input.name] = input.value;
+    data[input.id] = input.value;
     // console.log(input.value);
 
     // let number = e.currentTarget.value;
@@ -123,7 +123,7 @@ class FullRoom extends Form {
     const allItems = JSON.parse(localStorage.getItem("allItems"));
     const rooms = this.state.allItems.find(room => room._id === input.id);
     console.log(rooms);
-    rooms.quantity = data[input.name];
+    rooms.quantity = data[input.id];
 
     console.log(data[input.name]);
     console.log(rooms.quantity);
@@ -185,12 +185,12 @@ class FullRoom extends Form {
     );
 
     if (e.target.checked === false) {
-      if (this.state.data[e.currentTarget.name] == undefined) {
+      if (this.state.data[e.currentTarget.id] == undefined) {
         value = "";
       } else {
-        value = this.state.data[e.currentTarget.name];
+        value = this.state.data[e.currentTarget.id];
       }
-      checked[e.currentTarget.name] = e.target.checked;
+      checked[e.currentTarget.id] = e.target.checked;
       rooms.checked = false;
 
       rooms.quantity = value;
@@ -199,12 +199,12 @@ class FullRoom extends Form {
 
       this.setState({ checked });
     } else {
-      checked[e.currentTarget.name] = e.target.checked;
+      checked[e.currentTarget.id] = e.target.checked;
       rooms.checked = true;
       // console.log(this.state.quantity);
 
       if (
-        this.state.data[e.currentTarget.name] == undefined ||
+        this.state.data[e.currentTarget.id] == undefined ||
         this.state.value[0] == undefined
       ) {
         value = 1;
@@ -212,8 +212,8 @@ class FullRoom extends Form {
       // if (value == undefined) {
       //   value = 1;
       // }
-      if (this.state.data[e.currentTarget.name] != undefined) {
-        value = this.state.data[e.currentTarget.name];
+      if (this.state.data[e.currentTarget.id] != undefined) {
+        value = this.state.data[e.currentTarget.id];
         console.log("radi vrednost u data");
       } else {
         console.log("radivalue");
@@ -276,7 +276,7 @@ class FullRoom extends Form {
       let newArr = [...jobs];
       let datas = {};
       newArr.forEach(i => {
-        let x = i.name;
+        let x = i._id;
         datas[x] = i.quantity;
       });
       console.log(datas);
@@ -377,7 +377,7 @@ class FullRoom extends Form {
   }
 
   render() {
-    console.log(this.state.renderedItems);
+    // console.log(this.state.renderedItems);
     console.log(this.state.data);
     // console.log(this.state.data);
     // // let number = 1;

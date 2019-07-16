@@ -21,20 +21,27 @@ class NavBar extends Component {
   handleWorkorders = async e => {
     if (e.target.value == "saved") {
       e.preventDefault();
-      console.log(this);
-      let userId = JSON.parse(localStorage.getItem("savedWorkorders"))._id;
-      let workorders = JSON.parse(localStorage.getItem("savedWorkorders"));
-      localStorage.setItem("workorders", JSON.stringify(workorders));
+      e.persist();
+      let userId = JSON.parse(localStorage.getItem("currentUser"))._id;
       // let workorders = JSON.parse(localStorage.getItem("savedWorkorders"));
-      workorders = await axios.get(
+
+      console.log(userId);
+      // let workorders = JSON.parse(localStorage.getItem("savedWorkorders"));
+      // let workorders1 =
+      const data = await axios.get(
         process.env.REACT_APP_API_URL + `/user/getAllTempWorkorders/${userId}`
       );
+      console.log(data.data);
+      localStorage.setItem("savedWorkorders", JSON.stringify(data.data));
+      localStorage.setItem("workorders", JSON.stringify(data.data));
+      // console.log(workorders1);
       // workorders = data;
       // window.alert("In development...");
+      // let value = "saved";
       this.props.history.push(`/user/workorders/${e.target.value}`);
       document.location.reload();
     } else if (e.target.value == "pending") {
-      let userId = JSON.parse(localStorage.getItem("savedWorkorders")).userId;
+      // let userId = JSON.parse(localStorage.getItem("savedWorkorders")).userId;
       e.preventDefault();
 
       console.log(e.target.value);
