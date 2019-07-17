@@ -15,6 +15,8 @@ class Rooms extends Component {
   };
 
   async handleAsync() {
+    console.log("radi async");
+
     const work = JSON.parse(localStorage.getItem("workorder"));
     let finalData = {};
     finalData.buildingNumber = work.buildingNumber;
@@ -43,14 +45,39 @@ class Rooms extends Component {
   }
 
   async componentDidMount() {
-    console.log("radi");
-
-    const data = await axios.get(
-      process.env.REACT_APP_API_URL + "/user/allWorkorders"
-    );
-    console.log(data);
-
-    localStorage.setItem("workorders", JSON.stringify(data.data));
+    // this.handleAsync();
+    // console.log("radi component");
+    // let work = JSON.parse(localStorage.getItem("workorder"));
+    // if ((work.apartmentNumber = "")) {
+    //   work = JSON.parse(localStorage.getItem("workorder"));
+    //   let finalData = {};
+    //   finalData.buildingNumber = work.buildingNumber;
+    //   finalData.apartmentNumber = work.apartmentNumber;
+    //   finalData.userId = work.userId;
+    //   // work.autosaveTime = new Date();
+    //   // work.jobs = jobs;
+    //   // localStorage.setItem("workorder", JSON.stringify(work));
+    //   // const finalData = JSON.parse(localStorage.getItem("workorder"));
+    //   console.log(finalData);
+    //   const data1 = await axios.post(
+    //     process.env.REACT_APP_API_URL + "/user/getTempWorkorder",
+    //     JSON.stringify(finalData)
+    //   );
+    //   console.log(data1);
+    //   if (data1.data.workorder) {
+    //     let _id = data1.data.workorder._id;
+    //     work._id = _id;
+    //     localStorage.setItem("workorder", JSON.stringify(work));
+    //     localStorage.setItem("jobs", JSON.stringify(data1.data.workorder.jobs));
+    //     localStorage.setItem("allItems", JSON.stringify(data1.data.items));
+    //   }
+    // }
+    // console.log("radi");
+    // const data = await axios.get(
+    //   process.env.REACT_APP_API_URL + "/user/allWorkorders"
+    // );
+    // console.log(data);
+    // localStorage.setItem("workorders", JSON.stringify(data.data));
   }
 
   //   const work = JSON.parse(localStorage.getItem("workorder"));
@@ -142,48 +169,26 @@ class Rooms extends Component {
 
   handleAptNum = async e => {
     let value = "";
-
+    let work = JSON.parse(localStorage.getItem("workorder"));
+    // value = workorder.apartmentNumber;
+    work.apartmentNumber = e.target.value;
     // const workOrder = JSON.parse(localStorage.getItem("workorder"));
     // workOrder.workorder.apartmentNumber = e.target.value;
+    localStorage.setItem("workorder", JSON.stringify(work));
 
     this.setState({
       value: e.target.value
     });
+    setTimeout(() => {
+      console.log("Our data is fetched");
 
-    const work = JSON.parse(localStorage.getItem("workorder"));
-    // value = workorder.apartmentNumber;
-    work.apartmentNumber = e.target.value;
+      this.handleAsync();
+    }, 2000);
+    // document.location.reload();
+    // if (work.apartmentNumber == "") {
+    //   delete work._id;
+    // }
 
-    if (work.apartmentNumber == "") {
-      delete work._id;
-    }
-
-    localStorage.setItem("workorder", JSON.stringify(work));
-
-    // const work = JSON.parse(localStorage.getItem("workorder"));
-    let finalData = {};
-    finalData.buildingNumber = work.buildingNumber;
-    finalData.apartmentNumber = work.apartmentNumber;
-    finalData.userId = work.userId;
-
-    // work.autosaveTime = new Date();
-    // work.jobs = jobs;
-    // localStorage.setItem("workorder", JSON.stringify(work));
-    // const finalData = JSON.parse(localStorage.getItem("workorder"));
-    console.log(finalData);
-    const data1 = await axios.post(
-      process.env.REACT_APP_API_URL + "/user/getTempWorkorder",
-      JSON.stringify(finalData)
-    );
-    console.log(data1);
-
-    if (data1.data.workorder) {
-      let _id = data1.data.workorder._id;
-      work._id = _id;
-      localStorage.setItem("workorder", JSON.stringify(work));
-      localStorage.setItem("jobs", JSON.stringify(data1.data.workorder.jobs));
-      localStorage.setItem("allItems", JSON.stringify(data1.data.items));
-    }
     // localStorage.setItem("workorder", JSON.stringify(workOrder));
     // localStorage.removeItem("jobs");
   };

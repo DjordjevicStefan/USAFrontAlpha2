@@ -76,13 +76,14 @@ class LoginForm extends Form {
         const user = response.user._id;
         const workorder = {
           loginTime: new Date(),
+
           // completedTime: "",
           apartmentNumber: "",
           // sendTime: "",
           userId: user,
           buildingNumber: "",
 
-          jobs: {}
+          jobs: []
         };
         localStorage.setItem("workorder", JSON.stringify(workorder));
         const { state } = this.props.location;

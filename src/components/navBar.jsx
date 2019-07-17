@@ -119,6 +119,7 @@ class NavBar extends Component {
         <div className="logoBenLeeds p-3">
           <img src={logo} alt="Ben Leeds Logo" />
         </div>
+
         <select
           className="select dropdown-primary form-control mb-3"
           name="country"
@@ -140,9 +141,26 @@ class NavBar extends Component {
                     return <option value={e}>{e}</option>;
                   })} */}
         </select>
+        <div className="row m-3 ">
+          <div className="col-sm-6 offset-3">
+            <div className="input-group ">
+              <div className="input-group-prepend ">
+                <div className="build input-group-text text-white ">
+                  Date/Time:
+                </div>
+              </div>
+              <input
+                disabled
+                type="text"
+                className="form-control"
+                defaultValue={dateNow}
+              />
+            </div>
+          </div>
+        </div>
         <div className="container mainPage">
           <div className="row nav-box">
-            <div className="col-sm-4">
+            <div className="col-sm-3">
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <div className="build input-group-text  text-white">
@@ -163,7 +181,7 @@ class NavBar extends Component {
                 ) : null}
               </div>
             </div>
-            <div className="col-sm-4">
+            <div className="col-sm-3">
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <div className="build input-group-text  text-white">
@@ -178,20 +196,20 @@ class NavBar extends Component {
               </div>
               {/* <label className="btn btn-secondary ">Workorders</label> */}
             </div>
-            <div className="col-sm-4">
+            <div className="col-sm-3">
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
-                  <div className="build input-group-text text-white">
-                    Date/Time:
+                  <div className="build input-group-text  text-white">
+                    Square Footage
                   </div>
                 </div>
-
                 <input
-                  type="text"
-                  className="form-control"
-                  defaultValue={dateNow}
+                  value={this.props.value}
+                  onChange={this.props.onHandleAptNum}
+                  className={`build-input ${this.props.classs}`}
                 />
               </div>
+              {/* <label className="btn btn-secondary ">Workorders</label> */}
             </div>
           </div>
         </div>
