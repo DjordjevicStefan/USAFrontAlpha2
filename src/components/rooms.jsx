@@ -42,9 +42,10 @@ class Rooms extends Component {
       localStorage.setItem("allItems", JSON.stringify(data1.data.items));
       localStorage.setItem("jobs", JSON.stringify(data1.data.workorder.jobs));
     }
+    this.setState({ start: true });
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     // this.handleAsync();
     // console.log("radi component");
     // let work = JSON.parse(localStorage.getItem("workorder"));
@@ -179,11 +180,11 @@ class Rooms extends Component {
     this.setState({
       value: e.target.value
     });
-    setTimeout(() => {
-      console.log("Our data is fetched");
+    // setTimeout(() => {
+    //   console.log("Our data is fetched");
 
-      this.handleAsync();
-    }, 2000);
+    //   this.handleAsync();
+    // }, 2000);
     // document.location.reload();
     // if (work.apartmentNumber == "") {
     //   delete work._id;
@@ -267,7 +268,10 @@ class Rooms extends Component {
       allItems = k.concat(p);
       console.log("itemsi", allItems);
       localStorage.setItem("allItems", JSON.stringify(allItems));
-      // localStorage.setItem("jobs", JSON.stringify(allItems));
+      localStorage.setItem(
+        "jobs",
+        JSON.stringify(this.props.location.state.jobs)
+      );
       work.adress = adress;
       work.jobs = this.props.location.state.jobs;
       value = this.props.location.state.apartmentNumber;
@@ -283,7 +287,8 @@ class Rooms extends Component {
       rooms: rooms,
       value,
       showing: false,
-      build
+      build,
+      start: false
     };
   }
 
@@ -422,34 +427,38 @@ class Rooms extends Component {
           onChangeBuildings={() => this.handleChangeBuilding()}
         />
         <div className="buttons">
-          <div>
+          <button
+            onClick={() => this.handleBackButton()}
+            className="btn btn-warning m-3"
+            hidden
+          >
+            ⏎ Back
+          </button>
+
+          <button
+            onClick={() => this.handleFinishedButton()}
+            className="btn btn-primary m-3"
+            hidden
+          >
+            Complete All
+          </button>
+
+          <div className="col-6 offset-3">
             <button
-              onClick={() => this.handleBackButton()}
-              className="btn btn-warning m-3"
-            >
-              ⏎ Home
-            </button>
-            <button
-              onClick={() => this.handlelogOut()}
-              className="btn btn-danger m-3"
-            >
-              &#x2716; Logout
-            </button>
-            <button
-              onClick={() => this.handleWorkOrder()}
+              onClick={() => this.handleAsync()}
               className="btn btn-success m-3"
             >
-              Save
-            </button>
-            <button
-              onClick={() => this.handleFinishedButton()}
-              className="btn btn-primary m-3"
-            >
-              Complete All
+              Start
             </button>
           </div>
+          <button
+            onClick={() => this.handlelogOut()}
+            className="btn btn-danger m-3 float-right"
+          >
+            &#x2716; Logout
+          </button>
         </div>
-        {adress && value ? <div className="row">{rooms}</div> : null}
+        {this.state.start && value ? <div className="row">{rooms}</div> : null}
       </div>
     );
   }

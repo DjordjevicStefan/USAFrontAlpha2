@@ -152,7 +152,7 @@ class NavBar extends Component {
               <input
                 disabled
                 type="text"
-                className="form-control"
+                className="form-control text-center"
                 defaultValue={dateNow}
               />
             </div>
@@ -160,7 +160,7 @@ class NavBar extends Component {
         </div>
         <div className="container mainPage">
           <div className="row nav-box">
-            <div className="col-sm-3">
+            <div className="col-sm-4">
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <div className="build input-group-text  text-white">
@@ -181,7 +181,7 @@ class NavBar extends Component {
                 ) : null}
               </div>
             </div>
-            <div className="col-sm-3">
+            <div className="col-sm-4">
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <div className="build input-group-text  text-white">
@@ -196,7 +196,7 @@ class NavBar extends Component {
               </div>
               {/* <label className="btn btn-secondary ">Workorders</label> */}
             </div>
-            <div className="col-sm-3">
+            <div className="col-sm-4">
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <div className="build input-group-text  text-white">
@@ -209,6 +209,7 @@ class NavBar extends Component {
                   className={`build-input ${this.props.classs}`}
                 />
               </div>
+
               {/* <label className="btn btn-secondary ">Workorders</label> */}
             </div>
           </div>
