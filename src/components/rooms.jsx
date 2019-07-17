@@ -168,7 +168,7 @@ class Rooms extends Component {
     localStorage.removeItem("jobs");
   };
 
-  handleAptNum = async e => {
+  handleAptNum = e => {
     let value = "";
     let work = JSON.parse(localStorage.getItem("workorder"));
     // value = workorder.apartmentNumber;
@@ -193,10 +193,23 @@ class Rooms extends Component {
     // localStorage.setItem("workorder", JSON.stringify(workOrder));
     // localStorage.removeItem("jobs");
   };
+  handleSquare = e => {
+    let value2 = "";
+    let work = JSON.parse(localStorage.getItem("workorder"));
+    // value = workorder.apartmentNumber;
+    work.squareFeet = e.target.value;
+    // const workOrder = JSON.parse(localStorage.getItem("workorder"));
+    // workOrder.workorder.apartmentNumber = e.target.value;
+    localStorage.setItem("workorder", JSON.stringify(work));
+
+    this.setState({
+      value2: e.target.value
+    });
+  };
   handlelogOut() {
     const answer = window.confirm("Are you sure you want to log out?");
     if (answer) {
-      localStorage.removeItem("jobs");
+      localStorage.clear();
       document.location = "/";
     }
   }
@@ -281,6 +294,13 @@ class Rooms extends Component {
       showing = true;
       this.state = { showing: showing, adress };
     }
+    let start = false;
+    let value2 = "";
+    console.log(localStorage.getItem("startBtn"));
+    if (localStorage.getItem("startBtn")) {
+      start = true;
+    }
+
     // let allItems;
     let rooms = getRooms();
     this.state = {
@@ -288,12 +308,14 @@ class Rooms extends Component {
       value,
       showing: false,
       build,
-      start: false
+      start,
+      value2
     };
   }
 
   render() {
     let adress = [];
+    let value2 = this.state.value2;
     // console.log(typeof this.state.buildingNum);
     let showing = this.state.showing;
     // console.log(this.props);
@@ -350,6 +372,7 @@ class Rooms extends Component {
 
     if (workorder.adress != "" && workorder.buildingNumber != "") {
       value = workorder.apartmentNumber;
+      value2 = workorder.squareFeet;
       adress = workorder.adress;
       showing = true;
       console.log(workorder.adress);
@@ -419,38 +442,42 @@ class Rooms extends Component {
           showing={showing}
           value={value}
           // build={build}
+          value2={value2}
           onHandleInput={this.handleInput}
           adress={adress}
           classs=""
           onHandleChange={this.handleChange1}
+          onHandleSquare={this.handleSquare}
           onHandleAptNum={this.handleAptNum}
           onChangeBuildings={() => this.handleChangeBuilding()}
         />
         <div className="buttons">
-          <button
-            onClick={() => this.handleBackButton()}
-            className="btn btn-warning m-3"
-            hidden
-          >
-            ⏎ Back
-          </button>
-
-          <button
-            onClick={() => this.handleFinishedButton()}
-            className="btn btn-primary m-3"
-            hidden
-          >
-            Complete All
-          </button>
-
-          <div className="col-6 offset-3">
+          {this.state.start ? (
             <button
-              onClick={() => this.handleAsync()}
-              className="btn btn-success m-3"
+              onClick={() => this.handleBackButton()}
+              className="btn btn-warning m-3"
             >
-              Start
+              ⏎ Back
             </button>
-          </div>
+          ) : null}
+          {this.state.start ? (
+            <button
+              onClick={() => this.handleFinishedButton()}
+              className="btn btn-primary m-3"
+            >
+              Complete All
+            </button>
+          ) : null}
+          {!this.state.start ? (
+            <div className="col-6 offset-3">
+              <button
+                onClick={() => this.handleAsync()}
+                className="btn btn-success m-3"
+              >
+                Start
+              </button>
+            </div>
+          ) : null}
           <button
             onClick={() => this.handlelogOut()}
             className="btn btn-danger m-3 float-right"

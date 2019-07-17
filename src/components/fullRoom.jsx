@@ -29,6 +29,8 @@ class FullRoom extends Form {
     return this.props.match.params.id;
   };
   handleBackButton = async () => {
+    let start = true;
+    localStorage.setItem("startBtn", JSON.stringify(start));
     const jobs = JSON.parse(localStorage.getItem("jobs"));
     const work = JSON.parse(localStorage.getItem("workorder"));
     work.autosaveTime = new Date();
@@ -49,7 +51,7 @@ class FullRoom extends Form {
   handlelogOut() {
     const answer = window.confirm("Are you sure you want to log out?");
     if (answer) {
-      localStorage.removeItem("jobs");
+      localStorage.clear();
       document.location = "/";
     }
   }
@@ -253,6 +255,19 @@ class FullRoom extends Form {
       this.setState({ target });
     }
   };
+  handleSquare = e => {
+    let value2 = "";
+    let work = JSON.parse(localStorage.getItem("workorder"));
+    // value = workorder.apartmentNumber;
+    work.squareFeet = e.target.value;
+    // const workOrder = JSON.parse(localStorage.getItem("workorder"));
+    // workOrder.workorder.apartmentNumber = e.target.value;
+    localStorage.setItem("workorder", JSON.stringify(work));
+
+    this.setState({
+      value2: e.target.value
+    });
+  };
   // handleLinksTarget = b => {
   //   b = "_blank";
   //   return b;
@@ -423,6 +438,7 @@ class FullRoom extends Form {
     }
     // let b = "";
     const workorder = JSON.parse(localStorage.getItem("workorder"));
+    const value2 = workorder.squareFeet;
     const value = workorder.apartmentNumber;
     // let number = this.state.data[0];
 
@@ -432,44 +448,40 @@ class FullRoom extends Form {
           <NavBar
             {...this.props}
             value={value}
+            value2={value2}
             adress={adress}
             showing={showing}
             classs="disabled"
             build={this.state.build}
             onHandleChange={this.handleChange1}
+            onHandleSquare={this.handleSquare}
             onHandleAptNum={this.handleAptNum}
             onBackButton={this.handleBackButton}
             onFinishedButton={this.handleFinishedButton}
           />
           <div className="buttons">
-            <div className="">
-              <button
-                onClick={() => this.handleBackButton()}
-                className="btn btn-warning m-3"
-              >
-                ⏎ Home
-              </button>
-              <button
-                onClick={() => this.handlelogOut()}
-                className="btn btn-danger m-3"
-              >
-                &#x2716; Logout
-              </button>
+            <button
+              onClick={() => this.handleBackButton()}
+              className="btn btn-warning m-3"
+            >
+              ⏎ Back
+            </button>
 
-              <button
-                onClick={() => this.handleWorkOrder()}
-                className="btn btn-success m-3"
-              >
-                Save
-              </button>
-              <button
-                onClick={() => this.handleFinishedButton()}
-                className="btn btn-primary m-3"
-              >
-                Complete All
-              </button>
-            </div>
-            {/* <Link
+            <button
+              onClick={() => this.handleFinishedButton()}
+              className="btn btn-primary m-3"
+            >
+              Complete All
+            </button>
+
+            <button
+              onClick={() => this.handlelogOut()}
+              className="btn btn-danger m-3 float-right"
+            >
+              &#x2716; Logout
+            </button>
+          </div>
+          {/* <Link
               to={"/rooms/new-workorder"}
               onClick={this.handleNewWorkorders}
               className="btn btn-secondary mt-3 mb-3 float-right"
@@ -483,7 +495,7 @@ class FullRoom extends Form {
             >
               My Workorders
             </Link> */}
-          </div>
+
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <div className="rooms border text-center">
             <h1 className="lead m-3">{title}</h1>
