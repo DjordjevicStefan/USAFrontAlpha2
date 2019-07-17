@@ -56,14 +56,18 @@ export default function WorkOrderJobs(props) {
           <thead>
           
             <tr>
-              <th>
-                Name:  <span className="font-weight-normal">{job.name}</span>{" "}
+              <th className="d-flex align-items-center">
+               {/* <span>name: </span>  <textarea className="font-weight-normal" rows="2" cols="25">
+                             {job.name}
+                        </textarea> */}
+
+                Name:  <span className="font-weight-normal">{job.name}</span>
               </th>
               <th>
                 Room:  <span className="font-weight-normal">{job.room}</span>{" "}
               </th>
               <th>
-                Price:  <span className="font-weight-normal"> &#36; {job.price}  </span>{" "}
+                Price:  <span className="font-weight-normal">  {job.price}  </span>{" "}
               </th>
               <th>
                 Quantity:  <span className="font-weight-normal">{job.quantity}</span>{" "}

@@ -78,7 +78,7 @@ class ModalMy2 extends Component {
         <div className="">
           <button
             onClick={this.hadnleModal}
-            className="mdc-button btn-sm btn"
+            className="form-items mdc-button btn-sm btn"
           >
             Show vendor schedule
           </button>

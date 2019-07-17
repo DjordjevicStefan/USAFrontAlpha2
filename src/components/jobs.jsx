@@ -130,6 +130,7 @@ export default class Jobs extends Component {
         </div>
         <div>
           <SearchBox 
+            resetPadding={true}
             options ={this.state.options}
             onOptionChange ={this.handleOptionsSearch}
             value = {this.state.searchQuery}
