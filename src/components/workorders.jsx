@@ -6,6 +6,7 @@ import Form from "./common/form";
 import "../css/fullroom.css";
 
 import SearchBox from "./common/searchbox";
+import { jsxClosingFragment } from "@babel/types";
 
 class Workorders extends Form {
   state = {
@@ -323,7 +324,14 @@ class Workorders extends Form {
     // const value = workorder.workorder.apartmentNumber;
     // const { adress } = this.state;
     // console.log(adress);
-    console.log(allItems);
+    let status = "";
+    if (this.props.match.params.i == "pending") {
+      status = false;
+      console.log("radi");
+    } else {
+      status = true;
+    }
+    // console.log(this.props.match.params.i);
     return (
       <React.Fragment>
         <div className="container mainPage">
@@ -356,9 +364,7 @@ class Workorders extends Form {
                   <th>Save/Send Date</th>
                   <th>Building Number</th>
                   <th>Apartment Number</th>
-                  <th>Adress</th>
-
-                  <th>Status</th>
+                  {/* <th>Adress</th> */}
 
                   {/* <th>Link</th> */}
                 </tr>
@@ -370,27 +376,27 @@ class Workorders extends Form {
                     <td>{new Date(item.sendTime).toLocaleString()}</td>
                     <td>{item.buildingNumber}</td>
                     <td>{item.apartmentNumber}</td>
-                    <td>{item.adress}</td>
-
-                    <td>
-                      {/* {this.state.start && value ? (
+                    {/* <td>{item.adress}</td> */}
+                    {/* {this.state.start && value ? (
                         <div className="row">{rooms}</div>
                       ) : null} */}
-
-                      <Link
-                        to={{
-                          pathname: `/rooms/${region}`,
-                          state: {
-                            buildingNumber: item.buildingNumber,
-                            apartmentNumber: item.apartmentNumber,
-                            jobs: item.jobs,
-                            id: item._id
-                          }
-                        }}
-                      >
-                        Resume to Workorder
-                      </Link>
-                    </td>
+                    {status ? (
+                      <td>
+                        <Link
+                          to={{
+                            pathname: `/rooms/${region}`,
+                            state: {
+                              buildingNumber: item.buildingNumber,
+                              apartmentNumber: item.apartmentNumber,
+                              jobs: item.jobs,
+                              id: item._id
+                            }
+                          }}
+                        >
+                          Resume to Workorder
+                        </Link>
+                      </td>
+                    ) : null}
                   </tr>
                 ))}
               </tbody>
