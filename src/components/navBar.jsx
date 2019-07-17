@@ -55,6 +55,7 @@ class NavBar extends Component {
       // window.location = `/user/workorders/${e.target.value}`;
     } else if ((e.target.value = "new")) {
       localStorage.removeItem("jobs");
+      localStorage.removeItem("startBtn");
 
       let work = JSON.parse(localStorage.getItem("workorder"));
       work.jobs = {};
@@ -204,8 +205,8 @@ class NavBar extends Component {
                   </div>
                 </div>
                 <input
-                  value={this.props.value}
-                  onChange={this.props.onHandleAptNum}
+                  value={this.props.value2}
+                  onChange={this.props.onHandleSquare}
                   className={`build-input ${this.props.classs}`}
                 />
               </div>

@@ -17,10 +17,23 @@ class Wo extends Component {
   handlelogOut() {
     const answer = window.confirm("Are you sure you want to log out?");
     if (answer) {
-      // window.location = `/`;
+      localStorage.clear();
       document.location = "/";
     }
   }
+  handleSquare = e => {
+    let value2 = "";
+    let work = JSON.parse(localStorage.getItem("workorder"));
+    // value = workorder.apartmentNumber;
+    work.squareFeet = e.target.value;
+    // const workOrder = JSON.parse(localStorage.getItem("workorder"));
+    // workOrder.workorder.apartmentNumber = e.target.value;
+    localStorage.setItem("workorder", JSON.stringify(work));
+
+    this.setState({
+      value2: e.target.value
+    });
+  };
   componentDidMount() {
     // this.hydrateStateWithLocalStorage();
     // add event listener to save state to localStorage
@@ -163,6 +176,7 @@ class Wo extends Component {
     const workorder = JSON.parse(localStorage.getItem("workorder"));
     const buildingNumber = workorder.buildingNumber;
     const value = workorder.apartmentNumber;
+    const value2 = workorder.squareFeet;
     return (
       <React.Fragment>
         <div className="container main-page">
@@ -172,8 +186,10 @@ class Wo extends Component {
             showing={showing}
             build={buildingNumber}
             value={value}
+            value2={value2}
             classs="disabled"
             onHandleAptNum={this.handleAptNum}
+            onHandleSquare={this.handleSquare}
             onChangeBuildings={() => this.handleChangeBuilding()}
             onBackButton={this.handleBackButton}
             onFinishedButton={this.handleFinishedButton}
