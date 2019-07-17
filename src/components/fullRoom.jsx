@@ -173,7 +173,25 @@ class FullRoom extends Form {
     // console.log(buildings);
     this.setState({ adress });
   };
+  handleHomeButton() {
+    let work = JSON.parse(localStorage.getItem("workorder"));
 
+    localStorage.removeItem("jobs");
+    localStorage.removeItem("startBtn");
+
+    work.jobs = {};
+    work.buildingNumber = "";
+    work.apartmentNumber = "";
+    work.adress = "";
+    work.squareFeet = "";
+    delete work._id;
+
+    localStorage.setItem("workorder", JSON.stringify(work));
+    const region = JSON.parse(localStorage.getItem("currentUser")).region;
+
+    this.props.history.push(`/rooms/${region}`);
+    document.location.reload();
+  }
   handleCheckboxChange = e => {
     const checked = { ...this.state.checked };
     // let value = this.state.value;
@@ -431,7 +449,7 @@ class FullRoom extends Form {
 
     if (searchQuery) {
       datas = this.state.renderedItems.filter(m =>
-        m.name.toLowerCase().startsWith(searchQuery.toLowerCase())
+        m.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
@@ -471,7 +489,14 @@ class FullRoom extends Form {
             >
               ⏎ Back
             </button>
-
+            <div className="float-left">
+              <button
+                onClick={() => this.handleHomeButton()}
+                className="btn btn-info  m-3"
+              >
+                Home
+              </button>
+            </div>
             <button
               onClick={() => this.handleFinishedButton()}
               className="btn btn-primary m-3"

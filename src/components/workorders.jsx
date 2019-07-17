@@ -261,6 +261,7 @@ class Workorders extends Form {
   render() {
     // console.log(this.state.allItems);
     let workorders = JSON.parse(localStorage.getItem("workorders"));
+
     // console.log(workorders);
     // const allItems = this.state.allItems;
     const searchQuery = this.state.searchQuery;
@@ -312,7 +313,7 @@ class Workorders extends Form {
     // console.log(allItems);
     if (searchQuery) {
       allItems = allItems.filter(m =>
-        m.adress.toLowerCase().startsWith(searchQuery.toLowerCase())
+        m.adress.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
     // if(){
@@ -370,11 +371,12 @@ class Workorders extends Form {
                     <td>{item.buildingNumber}</td>
                     <td>{item.apartmentNumber}</td>
                     <td>{item.adress}</td>
-                    <td>{item.status}</td>
+
                     <td>
                       {/* {this.state.start && value ? (
                         <div className="row">{rooms}</div>
                       ) : null} */}
+
                       <Link
                         to={{
                           pathname: `/rooms/${region}`,

@@ -18,31 +18,37 @@ class Rooms extends Component {
     console.log("radi async");
 
     const work = JSON.parse(localStorage.getItem("workorder"));
-    let finalData = {};
-    finalData.buildingNumber = work.buildingNumber;
-    finalData.apartmentNumber = work.apartmentNumber;
-    finalData.userId = work.userId;
+    if (work.buildingNumber && work.apartmentNumber) {
+      let finalData = {};
+      finalData.buildingNumber = work.buildingNumber;
+      finalData.apartmentNumber = work.apartmentNumber;
+      finalData.userId = work.userId;
 
-    // work.autosaveTime = new Date();
-    // work.jobs = jobs;
-    // localStorage.setItem("workorder", JSON.stringify(work));
-    // const finalData = JSON.parse(localStorage.getItem("workorder"));
-    console.log(finalData);
-    const data1 = await axios.post(
-      process.env.REACT_APP_API_URL + "/user/getTempWorkorder",
-      JSON.stringify(finalData)
-    );
-    console.log(data1);
+      // work.autosaveTime = new Date();
+      // work.jobs = jobs;
+      // localStorage.setItem("workorder", JSON.stringify(work));
+      // const finalData = JSON.parse(localStorage.getItem("workorder"));
+      console.log(finalData);
+      const data1 = await axios.post(
+        process.env.REACT_APP_API_URL + "/user/getTempWorkorder",
+        JSON.stringify(finalData)
+      );
+      console.log(data1);
 
-    if (data1.data.workorder) {
-      let _id = data1.data.workorder._id;
-      work._id = _id;
-      localStorage.setItem("workorder", JSON.stringify(work));
+      if (data1.data.workorder) {
+        let _id = data1.data.workorder._id;
+        work._id = _id;
+        localStorage.setItem("workorder", JSON.stringify(work));
 
-      localStorage.setItem("allItems", JSON.stringify(data1.data.items));
-      localStorage.setItem("jobs", JSON.stringify(data1.data.workorder.jobs));
+        localStorage.setItem("allItems", JSON.stringify(data1.data.items));
+        localStorage.setItem("jobs", JSON.stringify(data1.data.workorder.jobs));
+      }
+      let start = true;
+      localStorage.setItem("startBtn", JSON.stringify(start));
+      this.setState({ start: true });
+    } else {
+      alert("Please fill Building and Apartment Number!");
     }
-    this.setState({ start: true });
   }
 
   componentDidMount() {
@@ -105,7 +111,24 @@ class Rooms extends Component {
   //     localStorage.setItem("jobs", JSON.stringify(data1.data.workorder.jobs));
   //   }
   // }
+  handleHomeButton() {
+    localStorage.removeItem("jobs");
+    localStorage.removeItem("startBtn");
 
+    let work = JSON.parse(localStorage.getItem("workorder"));
+    work.jobs = {};
+    work.buildingNumber = "";
+    work.apartmentNumber = "";
+    work.adress = "";
+    work.squareFeet = "";
+    delete work._id;
+
+    localStorage.setItem("workorder", JSON.stringify(work));
+    const region = JSON.parse(localStorage.getItem("currentUser")).region;
+
+    this.props.history.push(`/rooms/${region}`);
+    document.location.reload();
+  }
   handleBackButton = url => {
     // this.props.history.push("/rooms/" + this.props.match.params.id);
     // return console.log(this.props.match.url);
@@ -476,6 +499,14 @@ class Rooms extends Component {
               ⏎ Back
             </button>
           ) : null}
+          <div className="float-left">
+            <button
+              onClick={() => this.handleHomeButton()}
+              className="btn btn-info m-3"
+            >
+              Home
+            </button>
+          </div>
           {this.state.start ? (
             <button
               onClick={() => this.handleFinishedButton()}
@@ -485,7 +516,7 @@ class Rooms extends Component {
             </button>
           ) : null}
           {!this.state.start ? (
-            <div className="col-6 offset-3">
+            <div className="col-6">
               <button
                 onClick={() => this.handleAsync()}
                 className="btn btn-success m-3"
@@ -494,12 +525,14 @@ class Rooms extends Component {
               </button>
             </div>
           ) : null}
-          <button
-            onClick={() => this.handlelogOut()}
-            className="btn btn-danger m-3 float-right"
-          >
-            &#x2716; Logout
-          </button>
+          <div className="">
+            <button
+              onClick={() => this.handlelogOut()}
+              className="btn btn-danger m-3"
+            >
+              &#x2716; Logout
+            </button>
+          </div>
         </div>
         {this.state.start && value ? <div className="row">{rooms}</div> : null}
       </div>
