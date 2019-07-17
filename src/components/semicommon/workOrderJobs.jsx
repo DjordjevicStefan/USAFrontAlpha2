@@ -56,7 +56,7 @@ export default function WorkOrderJobs(props) {
           <thead>
           
             <tr>
-              <th className="d-flex align-items-center">
+              <th>
                {/* <span>name: </span>  <textarea className="font-weight-normal" rows="2" cols="25">
                              {job.name}
                         </textarea> */}
