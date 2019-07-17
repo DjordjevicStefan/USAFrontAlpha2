@@ -82,7 +82,7 @@ export default function JobsTable(props) {
            <tr className={ (job.vendor) ? "" : "table-border-bottom"}>
              <th colSpan="5">Room: <span className="font-weight-normal mr-5"> {job.room} </span>
              Name: <span className="font-weight-normal mr-5"> {job.name} </span>
-             Price: <span className="font-weight-normal">&#36;</span> <span className="font-weight-normal mr-5"> {job.price} </span>
+             Price: <span className="font-weight-normal"></span> <span className="font-weight-normal mr-5"> {job.price} </span>
              Quantity: <span className="font-weight-normal mr-5"> {job.quantity} </span>
              {(job.endDate !== "") ?  <span className="font-weight-normal"> <span className="font-weight-bold">End Date:</span>  <span className="endDate">{job.endDate}</span></span> : null }</th>
            </tr>

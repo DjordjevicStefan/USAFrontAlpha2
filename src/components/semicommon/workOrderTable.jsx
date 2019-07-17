@@ -73,6 +73,7 @@ export default class workOrderTable extends Component {
           <div className="row">
             <div className="col-sm text-center"> <pre className="lead font-weight-bold mt-2"> J O B S    L I S T</pre> 
             <SearchBox 
+            // resetPadding={true}
             options ={this.state.options}
             onOptionChange ={this.handleOptionsSearch}
             value = {this.state.searchQuery}
