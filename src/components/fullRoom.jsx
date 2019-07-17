@@ -449,7 +449,7 @@ class FullRoom extends Form {
 
     return (
       <React.Fragment>
-        <div className="container mainPage">
+        <div className="container main-page">
           <NavBar
             {...this.props}
             value={value}

@@ -121,18 +121,18 @@ class NavBar extends Component {
         <div className="logoBenLeeds p-3">
           <img src={logo} alt="Ben Leeds Logo" />
         </div>
-
-        <select
-          className="select dropdown-primary form-control mb-3"
-          name="country"
-          onChange={this.handleWorkorders}
-        >
-          <option defaultValue>Choose your option</option>
-          <option value="new">New Work Order</option>
-          <option value="saved">Saved Work Orders</option>
-          <option value="pending">Sent Work Orders</option>
-          {/* <label class="mdb-main-label">Blue select</label> */}
-          {/* <option value="">Select building</option>
+        <div className="px-3">
+          <select
+            className="select dropdown-primary form-control mb-3 "
+            name="country"
+            onChange={this.handleWorkorders}
+          >
+            <option defaultValue>Choose your option</option>
+            <option value="new">New Work Order</option>
+            <option value="saved">Saved Work Orders</option>
+            <option value="pending">Sent Work Orders</option>
+            {/* <label class="mdb-main-label">Blue select</label> */}
+            {/* <option value="">Select building</option>
                   {this.props.build[0].map(e => {
                     console.log(e);
                     // console.log(e);
@@ -142,9 +142,10 @@ class NavBar extends Component {
 
                     return <option value={e}>{e}</option>;
                   })} */}
-        </select>
+          </select>
+        </div>
         <div className="row m-3 ">
-          <div className="col-sm-6 offset-3">
+          <div className="col-sm-5 offset-4">
             <div className="input-group ">
               <div className="input-group-prepend ">
                 <div className="build input-group-text text-white ">
