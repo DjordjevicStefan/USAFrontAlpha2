@@ -372,6 +372,9 @@ class Workorders extends Form {
                     <td>{item.adress}</td>
                     <td>{item.status}</td>
                     <td>
+                      {/* {this.state.start && value ? (
+                        <div className="row">{rooms}</div>
+                      ) : null} */}
                       <Link
                         to={{
                           pathname: `/rooms/${region}`,

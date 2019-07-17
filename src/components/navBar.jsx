@@ -62,6 +62,7 @@ class NavBar extends Component {
       work.buildingNumber = "";
       work.apartmentNumber = "";
       work.adress = "";
+      work.squareFeet = "";
       delete work._id;
 
       localStorage.setItem("workorder", JSON.stringify(work));

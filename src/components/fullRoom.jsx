@@ -56,10 +56,15 @@ class FullRoom extends Form {
     }
   }
   handleFinishedButton = async () => {
+    let start = true;
+    localStorage.setItem("startBtn", JSON.stringify(start));
     const jobs = JSON.parse(localStorage.getItem("jobs"));
     const work = JSON.parse(localStorage.getItem("workorder"));
     work.autosaveTime = new Date();
-    work.jobs = jobs;
+    if (jobs != null) {
+      work.jobs = jobs;
+    }
+
     localStorage.setItem("workorder", JSON.stringify(work));
     const finalData = JSON.parse(localStorage.getItem("workorder"));
     console.log(finalData);
