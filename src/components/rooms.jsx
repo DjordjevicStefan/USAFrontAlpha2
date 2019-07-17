@@ -267,7 +267,10 @@ class Rooms extends Component {
       allItems = k.concat(p);
       console.log("itemsi", allItems);
       localStorage.setItem("allItems", JSON.stringify(allItems));
-      // localStorage.setItem("jobs", JSON.stringify(allItems));
+      localStorage.setItem(
+        "jobs",
+        JSON.stringify(this.props.location.state.jobs)
+      );
       work.adress = adress;
       work.jobs = this.props.location.state.jobs;
       value = this.props.location.state.apartmentNumber;
@@ -422,32 +425,36 @@ class Rooms extends Component {
           onChangeBuildings={() => this.handleChangeBuilding()}
         />
         <div className="buttons">
-          <div>
-            <button
-              onClick={() => this.handleBackButton()}
-              className="btn btn-warning m-3"
-            >
-              ⏎ Home
-            </button>
-            <button
-              onClick={() => this.handlelogOut()}
-              className="btn btn-danger m-3"
-            >
-              &#x2716; Logout
-            </button>
+          <button
+            onClick={() => this.handleBackButton()}
+            className="btn btn-warning m-3"
+            hidden
+          >
+            ⏎ Back
+          </button>
+
+          <button
+            onClick={() => this.handleFinishedButton()}
+            className="btn btn-primary m-3"
+            hidden
+          >
+            Complete All
+          </button>
+
+          <div className="col-6 offset-3">
             <button
               onClick={() => this.handleWorkOrder()}
               className="btn btn-success m-3"
             >
-              Save
-            </button>
-            <button
-              onClick={() => this.handleFinishedButton()}
-              className="btn btn-primary m-3"
-            >
-              Complete All
+              Start
             </button>
           </div>
+          <button
+            onClick={() => this.handlelogOut()}
+            className="btn btn-danger m-3 float-right"
+          >
+            &#x2716; Logout
+          </button>
         </div>
         {adress && value ? <div className="row">{rooms}</div> : null}
       </div>
