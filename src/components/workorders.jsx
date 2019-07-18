@@ -334,7 +334,7 @@ class Workorders extends Form {
     // console.log(this.props.match.params.i);
     return (
       <React.Fragment>
-        <div className="container mainPage">
+        <div className="container main-page">
           <NavBar
             {...this.props}
             build={this.state.build}
@@ -373,7 +373,11 @@ class Workorders extends Form {
               <tbody>
                 {allItems.map(item => (
                   <tr key={item.name}>
-                    <td>{new Date(item.sendTime).toLocaleString()}</td>
+                    {item.autosaveTime ? (
+                      <td>{new Date(item.autosaveTime).toLocaleString()}</td>
+                    ) : (
+                      <td>{new Date(item.completedTime).toLocaleString()}</td>
+                    )}
                     <td>{item.buildingNumber}</td>
                     <td>{item.apartmentNumber}</td>
                     {/* <td>{item.adress}</td> */}

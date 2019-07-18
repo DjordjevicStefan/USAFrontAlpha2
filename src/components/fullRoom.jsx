@@ -349,14 +349,14 @@ class FullRoom extends Form {
       // }
       // // jobs.filter(j => allItems.filter(m => (j.checked = true)));
 
-      // let checked = jobs.filter(j => allItems.filter(m => m.name == j.name));
-      // // console.log(kurac);
-      // let checkedArr = jobs.map(j => j).map(m => m.name);
-      // let unchecked = allItems.filter(
-      //   d => d.name != checkedArr.find(m => m == d.name)
-      // );
+      let checked = jobs.filter(j => allItems.filter(m => m.name == j.name));
+      // console.log(kurac);
+      let checkedArr = jobs.map(j => j).map(m => m.name);
+      let unchecked = allItems.filter(
+        d => d.name != checkedArr.find(m => m == d.name)
+      );
 
-      // allItems = checked.concat(unchecked);
+      allItems = checked.concat(unchecked);
       // localStorage.setItem("allItems", JSON.stringify(allItems));
       // localStorage.setItem("jobs", JSON.stringify(jobs));
 
@@ -370,6 +370,7 @@ class FullRoom extends Form {
       // }
     } else {
       allItems = JSON.parse(localStorage.getItem("allItems"));
+
       room = this.props.match.params.m;
 
       room0 = rooms.filter(m => m.id == this.props.match.params.id);

@@ -47,7 +47,7 @@ class Rooms extends Component {
       localStorage.setItem("startBtn", JSON.stringify(start));
       this.setState({ start: true });
     } else {
-      alert("Please fill Building and Apartment Number!");
+      alert("Please enter Building and Apartment Number!");
     }
   }
 
@@ -320,10 +320,7 @@ class Rooms extends Component {
       allItems = k.concat(p);
       console.log("itemsi", allItems);
       localStorage.setItem("allItems", JSON.stringify(allItems));
-      localStorage.setItem(
-        "jobs",
-        JSON.stringify(this.props.location.state.jobs)
-      );
+      localStorage.setItem("jobs", JSON.stringify(allItems));
       work.adress = adress;
       work.jobs = this.props.location.state.jobs;
       value = this.props.location.state.apartmentNumber;
