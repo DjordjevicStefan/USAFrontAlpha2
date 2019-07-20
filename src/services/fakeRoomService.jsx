@@ -16,6 +16,7 @@ import Img14 from "../img/carpet.png";
 import Img15 from "../img/construction.png";
 import Img16 from "../img/other.png";
 import Img18 from "../img/clean.png";
+import Img19 from "../img/kitchen.png";
 
 const rooms = [
   {
@@ -34,8 +35,14 @@ const rooms = [
     itemId: [1, 2, 5]
   },
   {
-    id: "5b21ca3eeb7f6fbccd4718157",
+    id: "5b21ca3eeb7f6fbccd4718156",
     image: Img2,
+    name: "Dining Room",
+    itemId: [1, 2, 5]
+  },
+  {
+    id: "5b21ca3eeb7f6fbccd4718157",
+    image: Img19,
     name: "Kitchen",
     itemId: [2, 3, 5]
   },
@@ -45,16 +52,12 @@ const rooms = [
     name: "Master Bathroom",
     itemId: [1, 3, 5]
   },
-  {
-    id: "5b21ca3eeb7f6fbccd4718159",
-    image: Img4,
-    name: "Guest Bathroom",
-    itemId: [3]
-  },
+  // /
   {
     id: "5b21ca3eeb7f6fbccd47181590",
     image: Img5,
-    name: "Guest Bathroom 2",
+    name: "1/2 Bathroom",
+
     itemId: [1, 4]
   },
   {
@@ -65,20 +68,26 @@ const rooms = [
   },
   {
     id: "5b21ca3eeb7f6fbccd47181592",
+    name: "Guest Bedroom",
     image: Img7,
-    name: "Bedroom 2",
     itemId: [1, 2, 4, 5]
   },
-  {
-    id: "5b21ca3eeb7f6fbccd47181593",
-    image: Img8,
-    name: "Bedroom 3",
-    itemId: [1, 2, 4, 5, 6]
-  },
+  // {
+  //   id: "5b21ca3eeb7f6fbccd47181593",
+  //   image: Img8,
+  //   name: "Bedroom 3",
+  //   itemId: [1, 2, 4, 5, 6]
+  // },
   {
     id: "5b21ca3eeb7f6fbccd47181594",
     image: Img9,
     name: "Hallway",
+    itemId: [1, 2, 6]
+  },
+  {
+    id: "5b21ca3eeb7f6fbccd47181594",
+    image: Img4,
+    name: "Hallway Bathroom",
     itemId: [1, 2, 6]
   },
   {
@@ -99,30 +108,30 @@ const rooms = [
     name: "Laundry",
     itemId: [1, 2, 4]
   },
-  {
-    id: "5b21ca3eeb7f6fbccd47181598",
-    image: Img18,
-    name: "Clean",
-    itemId: [1, 2, 4, 5]
-  },
-  {
-    id: "5b21ca3eeb7f6fbccd47181598x",
-    image: Img13,
-    name: "Paint",
-    itemId: [1, 2, 4, 5]
-  },
-  {
-    id: "5b21ca3eeb7f6fbccd47181599",
-    image: Img14,
-    name: "Flooring",
-    itemId: [4, 5, 6]
-  },
-  {
-    id: "5b21ca3eeb7f6fbccd471815990",
-    image: Img15,
-    name: "Construction",
-    itemId: [1, 4, 5, 6]
-  },
+  // {
+  //   id: "5b21ca3eeb7f6fbccd47181598",
+  //   image: Img18,
+  //   name: "Clean",
+  //   itemId: [1, 2, 4, 5]
+  // },
+  // {
+  //   id: "5b21ca3eeb7f6fbccd47181598x",
+  //   image: Img13,
+  //   name: "Paint",
+  //   itemId: [1, 2, 4, 5]
+  // },
+  // {
+  //   id: "5b21ca3eeb7f6fbccd47181599",
+  //   image: Img14,
+  //   name: "Flooring",
+  //   itemId: [4, 5, 6]
+  // },
+  // {
+  //   id: "5b21ca3eeb7f6fbccd471815990",
+  //   image: Img15,
+  //   name: "Construction",
+  //   itemId: [1, 4, 5, 6]
+  // },
   {
     id: "5b21ca3eeb7f6fbccd471815991",
     image: Img16,
