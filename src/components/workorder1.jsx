@@ -94,7 +94,7 @@ class Wo extends Component {
       work.workorder.buildingNumber = finalData.buildingNumber;
       work.workorder.apartmentNumber = finalData.apartmentNumber;
       work.workorder.userId = finalData.userId;
-      work.workorder.totalPrice = 34;
+      work.workorder.totalPrice = total;
       work.workorder.comment = woComment;
       work.workorder.sendTime = new Date();
       work.workorder.status = "pending";
@@ -141,8 +141,9 @@ class Wo extends Component {
         m => m.checked == true
       );
       for (let i = 0; i < jobs.length; i++) {
-        total += Math.ceil(jobs[i].quantity * jobs[i].price);
+        total += jobs[i].quantity * jobs[i].price;
       }
+      total = total.toFixed(2);
     }
     // console.log(total);
     this.state = {
@@ -217,11 +218,12 @@ class Wo extends Component {
                         <td>{item.subCategory}</td>
 
                         <td>{item.quantity}</td>
-                        <td>{item.price}</td>
+                        <td>${item.price}</td>
                         <td>
                           {" "}
-                          {Math.ceil(item.quantity * item.price)
-                            ? Math.ceil(item.quantity * item.price)
+                          $
+                          {item.quantity * item.price
+                            ? item.quantity * item.price
                             : 0}
                         </td>
                         <td>{item.comment}</td>
@@ -232,7 +234,7 @@ class Wo extends Component {
                   <td colSpan="3" />
                   <td colSpan="2">Total Price:</td>
                   <td>
-                    <div> {total}</div>
+                    <div> ${total}</div>
                   </td>
                 </tr>
               </tbody>

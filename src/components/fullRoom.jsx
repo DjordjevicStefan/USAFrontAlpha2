@@ -56,10 +56,15 @@ class FullRoom extends Form {
     }
   }
   handleFinishedButton = async () => {
+    let start = true;
+    localStorage.setItem("startBtn", JSON.stringify(start));
     const jobs = JSON.parse(localStorage.getItem("jobs"));
     const work = JSON.parse(localStorage.getItem("workorder"));
     work.autosaveTime = new Date();
-    work.jobs = jobs;
+    if (jobs != null) {
+      work.jobs = jobs;
+    }
+
     localStorage.setItem("workorder", JSON.stringify(work));
     const finalData = JSON.parse(localStorage.getItem("workorder"));
     console.log(finalData);
@@ -168,7 +173,25 @@ class FullRoom extends Form {
     // console.log(buildings);
     this.setState({ adress });
   };
+  handleHomeButton() {
+    let work = JSON.parse(localStorage.getItem("workorder"));
 
+    localStorage.removeItem("jobs");
+    localStorage.removeItem("startBtn");
+
+    work.jobs = {};
+    work.buildingNumber = "";
+    work.apartmentNumber = "";
+    work.adress = "";
+    work.squareFeet = "";
+    delete work._id;
+
+    localStorage.setItem("workorder", JSON.stringify(work));
+    const region = JSON.parse(localStorage.getItem("currentUser")).region;
+
+    this.props.history.push(`/rooms/${region}`);
+    document.location.reload();
+  }
   handleCheckboxChange = e => {
     const checked = { ...this.state.checked };
     // let value = this.state.value;
@@ -326,14 +349,14 @@ class FullRoom extends Form {
       // }
       // // jobs.filter(j => allItems.filter(m => (j.checked = true)));
 
-      // let checked = jobs.filter(j => allItems.filter(m => m.name == j.name));
-      // // console.log(kurac);
-      // let checkedArr = jobs.map(j => j).map(m => m.name);
-      // let unchecked = allItems.filter(
-      //   d => d.name != checkedArr.find(m => m == d.name)
-      // );
+      let checked = jobs.filter(j => allItems.filter(m => m.name == j.name));
+      // console.log(kurac);
+      let checkedArr = jobs.map(j => j).map(m => m.name);
+      let unchecked = allItems.filter(
+        d => d.name != checkedArr.find(m => m == d.name)
+      );
 
-      // allItems = checked.concat(unchecked);
+      allItems = checked.concat(unchecked);
       // localStorage.setItem("allItems", JSON.stringify(allItems));
       // localStorage.setItem("jobs", JSON.stringify(jobs));
 
@@ -347,6 +370,7 @@ class FullRoom extends Form {
       // }
     } else {
       allItems = JSON.parse(localStorage.getItem("allItems"));
+
       room = this.props.match.params.m;
 
       room0 = rooms.filter(m => m.id == this.props.match.params.id);
@@ -426,7 +450,7 @@ class FullRoom extends Form {
 
     if (searchQuery) {
       datas = this.state.renderedItems.filter(m =>
-        m.name.toLowerCase().startsWith(searchQuery.toLowerCase())
+        m.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
@@ -444,7 +468,7 @@ class FullRoom extends Form {
 
     return (
       <React.Fragment>
-        <div className="container mainPage">
+        <div className="container main-page">
           <NavBar
             {...this.props}
             value={value}
@@ -466,7 +490,14 @@ class FullRoom extends Form {
             >
               ⏎ Back
             </button>
-
+            <div className="float-left">
+              <button
+                onClick={() => this.handleHomeButton()}
+                className="btn btn-info  m-3"
+              >
+                Home
+              </button>
+            </div>
             <button
               onClick={() => this.handleFinishedButton()}
               className="btn btn-primary m-3"
@@ -518,7 +549,7 @@ class FullRoom extends Form {
                   <tr>
                     <td className="item-name">{item.name}</td>
                     <td>{item.subCategory}</td>
-                    <td>{item.price}</td>
+                    <td>${item.price}</td>
                     <td>
                       <input
                         disabled={item.checked}
