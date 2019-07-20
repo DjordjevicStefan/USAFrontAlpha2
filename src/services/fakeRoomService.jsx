@@ -35,7 +35,7 @@ const rooms = [
     itemId: [1, 2, 5]
   },
   {
-    id: "5b21ca3eeb7f6fbccd4718156",
+    id: "5b21ca3eeb7f6fbccd47181561",
     image: Img2,
     name: "Dining Room",
     itemId: [1, 2, 5]
@@ -85,7 +85,7 @@ const rooms = [
     itemId: [1, 2, 6]
   },
   {
-    id: "5b21ca3eeb7f6fbccd47181594",
+    id: "5b21ca3eeb7f6fbccd471815941",
     image: Img4,
     name: "Hallway Bathroom",
     itemId: [1, 2, 6]

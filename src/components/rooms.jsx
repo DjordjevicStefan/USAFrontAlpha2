@@ -34,7 +34,7 @@ class Rooms extends Component {
         JSON.stringify(finalData)
       );
       console.log(data1);
-
+      localStorage.setItem("allItems", JSON.stringify(data1.data.items));
       if (data1.data.workorder) {
         let _id = data1.data.workorder._id;
         work._id = _id;
@@ -257,14 +257,13 @@ class Rooms extends Component {
 
     // toast.error("Please enter Building and Apartment number");
     // const build = [...this.state.build];
-
+    let start = "";
     let build = "";
     const adress = "";
     let showing = false;
     let value = "";
-
-    let allItems = JSON.parse(localStorage.getItem("allItems"));
-    // let workorder = JSON.parse(localStorage.getItem("workorder"));
+    let value2 = "";
+    let workorder = JSON.parse(localStorage.getItem("workorder"));
 
     // let jobs = JSON.parse(localStorage.getItem("jobs"));
 
@@ -296,47 +295,48 @@ class Rooms extends Component {
     // localStorage.setItem("allItems", JSON.stringify(allItems));
     // localStorage.setItem("jobs", JSON.stringify(allItems));
 
-    if (this.props.location.state) {
-      console.log(buildings);
+    console.log(this.props);
+    if (this.state.start || this.props.location.state) {
+      let allItems = JSON.parse(localStorage.getItem("allItems"));
+      if (this.props.location.state) {
+        console.log(buildings);
 
-      const buildNumber = this.props.location.state.buildingNumber;
-      console.log(buildNumber);
-      let building = buildings.find(m => m.number == buildNumber);
-      // }urac
-      console.log(building);
-      const adress = building.adress + " (" + building.zip + ")";
-      // console.log(buildings);
-      const work = JSON.parse(localStorage.getItem("workorder"));
-      //  allItems = JSON.parse(localStorage.getItem("allItems"));
-      // // work.workorder.id = this.props.location.state.id;
-      // work.workorder.buildingNumber = buildNumber;
-      // work.workorder.apartmentNumber = this.props.location.state.apartmentNumber;
-      let checkedJobs = this.props.location.state.jobs;
-      let k = checkedJobs.filter(j => allItems.filter(m => m.name == j.name));
-      // console.log(kurac);
-      let j = checkedJobs.map(j => j).map(m => m.name);
-      let p = allItems.filter(d => d.name != j.find(m => m == d.name));
+        const buildNumber = this.props.location.state.buildingNumber;
+        console.log(buildNumber);
+        let building = buildings.find(m => m.number == buildNumber);
+        // }urac
+        console.log(building);
+        const adress = building.adress + " (" + building.zip + ")";
+        // console.log(buildings);
+        const work = JSON.parse(localStorage.getItem("workorder"));
+        //  allItems = JSON.parse(localStorage.getItem("allItems"));
+        // // work.workorder.id = this.props.location.state.id;
+        // work.workorder.buildingNumber = buildNumber;
+        // work.workorder.apartmentNumber = this.props.location.state.apartmentNumber;
+        let checkedJobs = this.props.location.state.jobs;
+        let k = checkedJobs.filter(j => allItems.filter(m => m.name == j.name));
+        // console.log(kurac);
+        let j = checkedJobs.map(j => j).map(m => m.name);
+        let p = allItems.filter(d => d.name != j.find(m => m == d.name));
 
-      allItems = k.concat(p);
-      console.log("itemsi", allItems);
-      localStorage.setItem("allItems", JSON.stringify(allItems));
-      localStorage.setItem("jobs", JSON.stringify(allItems));
-      work.adress = adress;
-      work.jobs = this.props.location.state.jobs;
-      value = this.props.location.state.apartmentNumber;
-      work.apartmentNumber = value;
-      work.buildingNumber = buildNumber;
-      localStorage.setItem("workorder", JSON.stringify(work));
-      showing = true;
-      this.state = { showing: showing, adress };
+        allItems = k.concat(p);
+        console.log("itemsi", allItems);
+        localStorage.setItem("allItems", JSON.stringify(allItems));
+        localStorage.setItem("jobs", JSON.stringify(allItems));
+        work.adress = adress;
+        work.jobs = this.props.location.state.jobs;
+        value = this.props.location.state.apartmentNumber;
+        work.apartmentNumber = value;
+        work.buildingNumber = buildNumber;
+        localStorage.setItem("workorder", JSON.stringify(work));
+        showing = true;
+        this.state = { showing: showing, adress };
+      }
     }
-    let start = false;
-    let value2 = "";
     console.log(localStorage.getItem("startBtn"));
     if (localStorage.getItem("startBtn")) {
       start = true;
     }
-
     // let allItems;
     let rooms = getRooms();
     this.state = {

@@ -303,6 +303,7 @@ class Workorders extends Form {
     // console.log(datas);
     // let datas = this.state.allItems;
 
+    console.log(workorders);
     let allItems = workorders;
     // if (this.props.match.params.i === "saved") {
     //   allItems = workorders.filter(m => m.status == this.props.match.params.i);

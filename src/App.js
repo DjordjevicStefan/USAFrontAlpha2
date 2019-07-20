@@ -1,5 +1,11 @@
-import React, { Component } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import React, {
+  Component
+} from "react";
+import {
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
 
 import LoginForm from "./components/loginForm";
 import axios from "axios";
@@ -29,50 +35,112 @@ class App extends Component {
   state = {};
   async componentDidMount() {
     const response = await axios.get(process.env.REACT_APP_API_URL);
-    const allItems = response.data.items;
+
     const buildings = response.data.buildings;
-    localStorage.setItem("allItems", JSON.stringify(allItems));
+
     localStorage.setItem("buildings", JSON.stringify(buildings));
     console.log(response);
-    this.setState({ allItems });
+
   }
 
   render() {
-    return (
-      <div className="App">
-        <Switch>
-          <ProtectedRoute path="/admin/workorder/:id" component={WorkOrder} />
-          <ProtectedRoute path="/admin/users/:id" component={User} />
-          <ProtectedRoute path="/admin/users" component={Users} />
-          <ProtectedRoute path="/admin/vendor/:id" component={Vendor} />
-          <ProtectedRoute path="/admin/vendors" component={Vendors} />
-          <ProtectedRoute path="/admin/items" component={Items} />
-          <ProtectedRoute path="/admin/jobs" component={Jobs} />
-          <ProtectedRoute path="/admin" component={AdminPanel} />
-
-          <Route
-            path="/user/workorders/:i"
-            render={props => <Workorders props={this.state.rooms} {...props} />}
+      return ( <
+          div className = "App" >
+          <
+          Switch >
+          <
+          ProtectedRoute path = "/admin/workorder/:id"
+          component = {
+            WorkOrder
+          }
+          /> <
+          ProtectedRoute path = "/admin/users/:id"
+          component = {
+            User
+          }
+          /> <
+          ProtectedRoute path = "/admin/users"
+          component = {
+            Users
+          }
+          /> <
+          ProtectedRoute path = "/admin/vendor/:id"
+          component = {
+            Vendor
+          }
+          /> <
+          ProtectedRoute path = "/admin/vendors"
+          component = {
+            Vendors
+          }
+          /> <
+          ProtectedRoute path = "/admin/items"
+          component = {
+            Items
+          }
+          /> <
+          ProtectedRoute path = "/admin/jobs"
+          component = {
+            Jobs
+          }
+          /> <
+          ProtectedRoute path = "/admin"
+          component = {
+            AdminPanel
+          }
           />
-          <Route
-            path="/:id/:m/work-order"
-            render={props => <Wo props={this.state.rooms} {...props} />}
-          />
-          <Route path="/rooms/:id/:m" component={FullRoom} />
 
-          <Route
-            path="/rooms/:id"
-            render={props => <Rooms props={this.state.allItems} {...props} />}
-          />
+          <
+          Route path = "/user/workorders/:i"
+          render = {
+            props => < Workorders props = {
+              this.state.rooms
+            } {
+              ...props
+            }
+            />} / >
+            <
+            Route
+            path = "/:id/:m/work-order"
+            render = {
+              props => < Wo props = {
+                this.state.rooms
+              } {
+                ...props
+              }
+              />} / >
+              <
+              Route path = "/rooms/:id/:m"
+              component = {
+                FullRoom
+              }
+              />
 
-          <Route path="/login" component={LoginForm} />
-          <Redirect from="/" exact to="/login" />
+              <
+              Route
+              path = "/rooms/:id"
+              render = {
+                props => < Rooms {
+                  ...props
+                }
+                />} / >
 
-          {/* <Redirect to="/admin" /> */}
-        </Switch>
-      </div>
-    );
-  }
-}
+                <
+                Route path = "/login"
+                component = {
+                  LoginForm
+                }
+                /> <
+                Redirect from = "/"
+                exact to = "/login" / >
 
-export default App;
+                {
+                  /* <Redirect to="/admin" /> */
+                } <
+                /Switch> < /
+                div >
+              );
+            }
+          }
+
+          export default App;
