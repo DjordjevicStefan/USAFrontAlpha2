@@ -22,7 +22,8 @@ class ItemsTable extends Component {
       onSearch,
       searchOption,
       searchQuery,
-      options
+      options,
+      test
     } = this.props;
     const room = selectedRoom.room.name;
 
@@ -233,6 +234,11 @@ class ItemsTable extends Component {
               ))
             )}
           </tbody>
+             <div>
+              <button onClick={test} className="btn btn-sm btn-danger"> 
+                 TEST
+              </button>            
+            </div> 
         </table>
         <div className="row">
           <div className="col float-right">

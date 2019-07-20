@@ -9,7 +9,8 @@ import {
   getItemsFromRoom,
   saveNewItem,
   deleteItem,
-  editItem
+  editItem, 
+  deleteExtraItem
 } from '../services/items';
 
 import ItemsTable from './semicommon/itemsTable';
@@ -152,6 +153,15 @@ export default class Items extends Component {
     }
   };
 
+  deleteExtraItem = async () => {
+     console.log("kliknuto");
+     
+
+    const { data } = await deleteExtraItem();
+    console.log("test test",data);
+    
+  }
+
   //// paginate
   handlePaginate = number => {
     this.setState({
@@ -228,6 +238,7 @@ export default class Items extends Component {
             paginate={this.handlePaginate}
             somethingPerPage={this.state.itemsPerPage}
             currentPage={this.state.currentPage}
+            test={this.deleteExtraItem}
           />
         </div>
       </>
