@@ -10,10 +10,12 @@ import {
   saveNewItem,
   deleteItem,
   editItem, 
-  deleteExtraItem
+  deleteExtraItem,
+  editTest
 } from '../services/items';
 
 import ItemsTable from './semicommon/itemsTable';
+import { async } from 'q';
 
 export default class Items extends Component {
   state = {
@@ -153,13 +155,22 @@ export default class Items extends Component {
     }
   };
 
-  deleteExtraItem = async () => {
-     console.log("kliknuto");
+  // deleteExtraItem = async () => {
+  //    console.log("kliknuto");
      
 
-    const { data } = await deleteExtraItem();
-    console.log("test test",data);
+  //   const { data } = await deleteExtraItem();
+  //   console.log("test test",data);
     
+  // }
+
+  editTest = async () => {
+    console.log("kliknuto");
+     
+
+    const { data } = await editTest();
+    console.log("test test",data);
+
   }
 
   //// paginate
@@ -238,7 +249,7 @@ export default class Items extends Component {
             paginate={this.handlePaginate}
             somethingPerPage={this.state.itemsPerPage}
             currentPage={this.state.currentPage}
-            test={this.deleteExtraItem}
+            test={this.editTest}
           />
         </div>
       </>
