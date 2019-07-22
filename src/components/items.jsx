@@ -27,7 +27,7 @@ export default class Items extends Component {
     selectedRoom: { items: [], room: '' },
     itemsTableShow: false,
     currentPage: 1,
-    itemsPerPage: 10,
+    itemsPerPage: 20,
     newItem: {
       name: '',
       subCategory: '',
@@ -58,7 +58,7 @@ export default class Items extends Component {
       return;
     }
    
-    console.log("items",selectedRoom);
+    console.log("handle change selected room",selectedRoom);
     
 
     this.setState(() => ({
@@ -227,6 +227,7 @@ export default class Items extends Component {
                   {rooms.map(room => (
                     <option key={room._id}>{room.name}</option>
                   ))}
+                  <option>Items for all rooms</option>
                 </select>
               </div>
             </div>

@@ -6,6 +6,9 @@ export function getRooms() {
 }
 
 export function getItemsFromRoom(name) {
+  if (name === "Items for all rooms") {
+    return http.get(process.env.REACT_APP_API_URL + `/admin/extraItems`)
+  } 
   return http.get(process.env.REACT_APP_API_URL + `/admin/rooms/${name}`)
 }
 
@@ -68,7 +71,10 @@ export function editTest() {
   
   console.log("usao u funkciju");
   
+  console.log("status", item.status);
+  
 
+  
   return http.post(process.env.REACT_APP_API_URL + `/admin/editItem` , qs.stringify({
       _id : item._id ,
       name : "Flexxxx" ,

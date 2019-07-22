@@ -25,11 +25,33 @@ class ItemsTable extends Component {
       options,
       test
     } = this.props;
+    
+     console.log("selected room na tabeli" , selectedRoom );
+     
+
     const room = selectedRoom.room.name;
 
-    // console.log("room test",selectedRoom.items);
-    let sorted = _.orderBy(selectedRoom.items, [item => item.name.toLowerCase()],['asc']) ;
-    // console.log("sorted",sorted);
+    console.log("room name" , room );
+
+    let itemsVar = null ;
+
+    if (room !== "extra") {
+      itemsVar =  selectedRoom.items.filter(item => item.status === "regular");
+    } else {
+      
+      console.log("usao gde treba");
+      
+
+      itemsVar = selectedRoom.items ;
+    }
+    
+    console.log("itemsVar kad selektujem extra" ,  itemsVar);
+    
+    
+
+    //// lodash sort when i have case sensitive names !!!!
+    let sorted = _.orderBy(itemsVar, [item => item.name.toLowerCase()],['asc']) ;
+    
 
     let searchedArrey = null ; 
     let itemsPaginated =null ;
@@ -50,9 +72,7 @@ class ItemsTable extends Component {
       itemsPaginated = sorted.slice(indexOfFirst, indexOfLast)
     }
 
-
-
-
+   
     return (
       <>
         <table
@@ -234,11 +254,11 @@ class ItemsTable extends Component {
               ))
             )}
           </tbody>
-             <div>
+             {/* <div>
               <button onClick={test} className="btn btn-sm btn-danger"> 
                  TEST
               </button>            
-            </div> 
+            </div>  */}
         </table>
         <div className="row">
           <div className="col float-right">
