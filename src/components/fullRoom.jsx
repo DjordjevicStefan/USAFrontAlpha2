@@ -349,11 +349,11 @@ class FullRoom extends Form {
       // }
       // // jobs.filter(j => allItems.filter(m => (j.checked = true)));
 
-      let checked = jobs.filter(j => allItems.filter(m => m.name == j.name));
+      let checked = jobs.filter(j => allItems.filter(m => m._id == j._id));
       // console.log(kurac);
-      let checkedArr = jobs.map(j => j).map(m => m.name);
+      let checkedArr = jobs.map(j => j).map(m => m._id);
       let unchecked = allItems.filter(
-        d => d.name != checkedArr.find(m => m == d.name)
+        d => d._id != checkedArr.find(m => m == d._id)
       );
 
       allItems = checked.concat(unchecked);
@@ -541,7 +541,7 @@ class FullRoom extends Form {
                   {/* <th>Comment</th> */}
 
                   <th className="item">Link</th>
-                  <th>✔</th>
+                  <th className="item">✔</th>
                 </tr>
               </thead>
               {datas.map(item => (
