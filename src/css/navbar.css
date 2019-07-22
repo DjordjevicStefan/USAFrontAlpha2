@@ -33,13 +33,28 @@
   border-radius: 5px;
 }
 
+/* .card {
+  max-width: 18rem;
+} */
+
 .build-div {
   border: 2px solid #23408e;
   padding: 1px;
   /* background-color: #ffd740; */
 }
 
-@media only screen and (max-width: 350px) {
+@media only screen and (max-width: 4500px) {
+  .date {
+    width: 100%;
+
+
+  }
+
+  .buttons {
+    display: flex;
+    flex-wrap: wrap-reverse;
+  }
+
   .logoBenLeeds img {
     width: 250px !important;
   }

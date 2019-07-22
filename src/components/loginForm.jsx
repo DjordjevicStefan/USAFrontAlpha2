@@ -65,7 +65,9 @@ class LoginForm extends Form {
         localStorage.setItem("admin", JSON.stringify(data));
         this.props.history.push(`./admin`);
       } else {
+        console.log(response.user);
         const currentUser = {
+          name: response.user.name,
           email: response.user.email,
           password: response.user.password,
           region: response.user.region,

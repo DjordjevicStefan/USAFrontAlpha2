@@ -44,6 +44,7 @@ class Rooms extends Component {
         localStorage.setItem("jobs", JSON.stringify(data1.data.workorder.jobs));
       }
       let start = true;
+
       localStorage.setItem("startBtn", JSON.stringify(start));
       this.setState({ start: true });
     } else {
@@ -114,6 +115,7 @@ class Rooms extends Component {
   handleHomeButton() {
     localStorage.removeItem("jobs");
     localStorage.removeItem("startBtn");
+    localStorage.removeItem("building");
 
     let work = JSON.parse(localStorage.getItem("workorder"));
     work.jobs = {};
@@ -125,7 +127,7 @@ class Rooms extends Component {
 
     localStorage.setItem("workorder", JSON.stringify(work));
     const region = JSON.parse(localStorage.getItem("currentUser")).region;
-
+    this.setState({ buildingState: false });
     this.props.history.push(`/rooms/${region}`);
     document.location.reload();
   }
@@ -181,6 +183,9 @@ class Rooms extends Component {
     // }
     let building = buildings.find(m => m.number == e.target.value);
 
+    console.log(building);
+    localStorage.setItem("building", JSON.stringify(building));
+
     const work = JSON.parse(localStorage.getItem("workorder"));
 
     if (building === undefined) {
@@ -192,8 +197,11 @@ class Rooms extends Component {
 
       localStorage.setItem("workorder", JSON.stringify(work));
       let buildingNum = e.target.value;
-      this.setState({ showing: true, adress, buildingNum });
+      let buildingState = false;
+      this.setState({ showing: true, adress, buildingNum, buildingState });
     } else {
+      localStorage.setItem("building", JSON.stringify(building));
+
       const adress = building.adress + " (" + building.zip + ")";
 
       const work = JSON.parse(localStorage.getItem("workorder"));
@@ -201,8 +209,8 @@ class Rooms extends Component {
       work.adress = adress;
       localStorage.setItem("workorder", JSON.stringify(work));
       let buildingNum = e.target.value;
-
-      this.setState({ showing: true, adress, buildingNum });
+      let buildingState = true;
+      this.setState({ showing: true, adress, buildingNum, buildingState });
     }
     localStorage.removeItem("jobs");
   };
@@ -258,6 +266,7 @@ class Rooms extends Component {
     // toast.error("Please enter Building and Apartment number");
     // const build = [...this.state.build];
     let start = "";
+    let buildingState = "";
     let build = "";
     const adress = "";
     let showing = false;
@@ -333,10 +342,15 @@ class Rooms extends Component {
         this.state = { showing: showing, adress };
       }
     }
+
     console.log(localStorage.getItem("startBtn"));
     if (localStorage.getItem("startBtn")) {
       start = true;
     }
+    if (localStorage.getItem("building")) {
+      buildingState = true;
+    }
+
     // let allItems;
     let rooms = getRooms();
     this.state = {
@@ -345,7 +359,8 @@ class Rooms extends Component {
       showing: false,
       build,
       start,
-      value2
+      value2,
+      buildingState
     };
   }
 
@@ -478,6 +493,7 @@ class Rooms extends Component {
           showing={showing}
           value={value}
           // build={build}
+          buildingState={this.state.buildingState}
           value2={value2}
           onHandleInput={this.handleInput}
           adress={adress}
