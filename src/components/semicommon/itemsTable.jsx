@@ -244,7 +244,7 @@ class ItemsTable extends Component {
                       Edit
                     </button>
                     <button
-                      onClick={() => deleteItem(item._id)}
+                      onClick={() => deleteItem(item)}
                       className="btn btn-sm btn-danger"
                     >
                       Delete

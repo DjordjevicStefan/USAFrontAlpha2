@@ -39,35 +39,66 @@ export function saveNewItem(item) {
   }) ) ;
 }
 
-export function deleteItem(itemId){
-  return http.post(process.env.REACT_APP_API_URL + `/admin/items/${itemId}`)
-}
-
-export function deleteExtraItem(){
-
-  const item = {
-    room : "Entrance" ,
-    subCategory : "Appliances: Stove" ,  
-    name : "Flex" ,
-    price : "49.5" ,
-    link : "" 
-  } ;
-
-  console.log("usao u funkciju");
+export function deleteItem(item){
   
-
-  return http.post(process.env.REACT_APP_API_URL + `/admin/deleteItem` , qs.stringify({
-    status : "extra" ,
-    name : item.name ,
-    subCategory : item.subCategory,
-    room : item.room ,
-    price : item.price,
-    link : item.link
-})
+  console.log("item za delete",item);
   
   
+  if (item.status === "regular") {
+    return http.post(process.env.REACT_APP_API_URL + `/admin/deleteItem` , qs.stringify({
+      status : "regular" ,
+      name : item.name ,
+      subCategory : item.subCategory,
+      room : item.room ,
+      price : item.price,
+      link : item.link
+  })
   )
+
+  } else {
+     
+    console.log("usao u extra");
+
+    return http.post(process.env.REACT_APP_API_URL + `/admin/deleteItem` , qs.stringify({
+      status : "extra" ,
+      name : item.name ,
+      subCategory : item.subCategory,
+      room : "" ,
+      price : item.price,
+      link : item.link
+  })
+  )
+
+  } 
+
+ 
+
+
 }
+
+// export function deleteExtraItem(){
+
+//   const item = {
+//     room : "Entrance" ,
+//     subCategory : "Appliances: Stove" ,  
+//     name : "Flex" ,
+//     price : "49.5" ,
+//     link : "" 
+//   } ;
+
+//   console.log("usao u funkciju");
+  
+
+//   return http.post(process.env.REACT_APP_API_URL + `/admin/deleteItem` , qs.stringify({
+//     status : "extra" ,
+//     name : item.name ,
+//     subCategory : item.subCategory,
+//     room : item.room ,
+//     price : item.price,
+//     link : item.link
+// })
+// )
+// }
 
 
 export function editTest() {
