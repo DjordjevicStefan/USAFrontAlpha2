@@ -6,7 +6,7 @@ export function getRooms() {
 }
 
 export function getItemsFromRoom(name) {
-  if (name === "Items for all rooms") {
+  if (name === "Items for all rooms" || name === "extra" ) {
     return http.get(process.env.REACT_APP_API_URL + `/admin/extraItems`)
   } 
   return http.get(process.env.REACT_APP_API_URL + `/admin/rooms/${name}`)
@@ -16,6 +16,19 @@ export function getItemsFromRoom(name) {
 //// na isti path ce ici oba 
 //// room livingroom kada sejvujem one koji nemaju sobu, i drugi status za njih
 export function saveNewItem(item) {
+ 
+  if (item.room === "extra") {
+     
+    return http.post(process.env.REACT_APP_API_URL + "/admin/newItem" , qs.stringify({
+      status : "extra" ,
+      name : item.name ,
+      subCategory : item.subCategory,
+      room : "" ,
+      price : item.price,
+      link : item.link
+  }) ) ;
+  }
+  
   return http.post(process.env.REACT_APP_API_URL + "/admin/newItem" , qs.stringify({
       status : "regular" ,
       name : item.name ,

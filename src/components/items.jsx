@@ -70,7 +70,7 @@ export default class Items extends Component {
   //// new item submit , after the submit i re-render all items and clean the input fields
   handleNewSubmit = async name => {
     const itemReady = { ...this.state.newItem };
-    itemReady.room = name;
+    itemReady.room = name ;
 
     const { data } = await saveNewItem(itemReady);
     if (data.error) {
@@ -78,7 +78,9 @@ export default class Items extends Component {
     } else {
       toast.success('Item successfully added', { autoClose: 2700 });
     }
+     
 
+    
     const { data: selectedRoom } = await getItemsFromRoom(name);
     if (selectedRoom.error) {
       toast.error(selectedRoom.error);

@@ -130,7 +130,7 @@ class ItemsTable extends Component {
                       />
                     </div>
                     <label className="col col-form-label form-control-sm">
-                      Price:
+                      Price: &#36;
                     </label>
                     <div className="col-sm-2">
                       <input
@@ -204,7 +204,7 @@ class ItemsTable extends Component {
                           />
                         </div>
                         <label className="col col-form-label form-control-sm">
-                          Price:
+                          Price: &#36;
                         </label>
                         <div className="col-sm-2">
 
