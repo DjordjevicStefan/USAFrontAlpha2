@@ -2,9 +2,11 @@
   /* font-size: 1.5em; */
   /* color: #23408e; */
   border: 1px solid #8d98f2 !important;
-  box-shadow: 0 0 7px;
+  box-shadow: 0 0 8px;
 
 }
+
+
 
 .rooms h1 {
   font-size: 2em;
@@ -31,6 +33,14 @@
 }
 
 th {
+  background-color: #dee2e6;
+  color: black;
+
+  border-bottom: 1px solid #23408e !important;
+  border-top: 1px solid #23408e !important;
+}
+
+tr {
   border-color: #8d98f2 !important;
 }
 

@@ -530,7 +530,7 @@ class FullRoom extends Form {
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <div className="rooms  text-center">
             <h1 className="lead m-3">{title}</h1>
-            <table className="table text-left table-bordered">
+            <table className="table text-left ">
               <thead>
                 <tr>
                   <th className="item-name">Item</th>
