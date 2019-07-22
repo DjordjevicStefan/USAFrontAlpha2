@@ -1,6 +1,9 @@
 .rooms {
   /* font-size: 1.5em; */
   /* color: #23408e; */
+  border: 1px solid #8d98f2 !important;
+  box-shadow: 0 0 7px;
+
 }
 
 .rooms h1 {
@@ -25,6 +28,14 @@
 
 .item-name {
   width: 20rem
+}
+
+th {
+  border-color: #8d98f2 !important;
+}
+
+tbody {
+  border-color: #8d98f2 !important;
 }
 
 /* .main-page {

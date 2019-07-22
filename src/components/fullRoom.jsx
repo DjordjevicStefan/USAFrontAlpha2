@@ -528,7 +528,7 @@ class FullRoom extends Form {
             </Link> */}
 
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
-          <div className="rooms border text-center">
+          <div className="rooms  text-center">
             <h1 className="lead m-3">{title}</h1>
             <table className="table text-left table-bordered">
               <thead>

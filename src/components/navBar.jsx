@@ -3,6 +3,7 @@ import axios from "axios";
 import "../css/navbar.css";
 import logo from "../img/ben-leeds-logo.png";
 import WorkOrder from "./workOrder";
+import { BrowserRouter } from "react-router-dom";
 
 class NavBar extends Component {
   state = {
@@ -56,6 +57,7 @@ class NavBar extends Component {
     } else if ((e.target.value = "new")) {
       localStorage.removeItem("jobs");
       localStorage.removeItem("startBtn");
+      localStorage.removeItem("building");
 
       let work = JSON.parse(localStorage.getItem("workorder"));
       work.jobs = {};
@@ -106,6 +108,22 @@ class NavBar extends Component {
   render() {
     let start = "";
     let klasa = "";
+    let building = "";
+    let managerName = "";
+    let managerEmail = "";
+    let managerPhone = "";
+    if (this.props.buildingState) {
+      building = JSON.parse(localStorage.getItem("building"));
+      managerName = building.managerName;
+      managerEmail = building.managerEmail;
+      managerPhone = building.managerPhone;
+    } else {
+    }
+
+    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    let userName = currentUser.name;
+    let userEmail = currentUser.email;
+
     if (this.props.adress == "Wrong Building Number") {
       klasa = "build-div btn btn-danger";
     } else {
@@ -122,6 +140,7 @@ class NavBar extends Component {
     let dat = new Date(workorder.loginTime).toLocaleString();
     const dateNow =
       dat.substring(0, dat.length - 6) + dat.slice(dat.length - 3);
+
     return (
       <nav className="nav-box  text-center">
         <div className="logoBenLeeds p-3">
@@ -153,10 +172,42 @@ class NavBar extends Component {
             </select>
           </div>
         ) : null}
-        <div className="row m-3 ">
-          <div className="col-sm-5 offset-4">
+        <div className="row m-1 mb-3">
+          {/* <div className="col-sm-4">
+            <div class="card text-white bg-secondary mb-3">
+              <div class="card-header">Regional Info</div>
+              <div class="card-body">
+                <h5 class="card-title">{"Name: " + userName}</h5>
+
+                <p class="card-text">{"Email: " + userEmail}</p>
+              </div>
+            </div>
+
+            {/* <label className="btn btn-secondary ">Workorders</label> */}
+          {/* </div> */}
+
+          {/* <div className="col-sm-4">
+            <div className="input-group mb-3">
+              <div className="input-group-prepend">
+                <div className="build input-group-text  text-white">
+                  Manager Info
+                </div>
+              </div>
+              <textarea name="" id="" cols="30" rows="3">
+                {"Name: " + managerName + " " + "Phone: " + managerPhone}
+              </textarea>
+              {/* <input
+                  value={this.props.value2}
+                  onChange={this.props.onHandleSquare}
+                  className={`build-input ${this.props.classs}`}
+                /> */}
+          {/* </div> */}
+
+          {/* <label className="btn btn-secondary ">Workorders</label> */}
+          {/* </div> */}
+          <div className="date col-sm-4 offset-sm-4">
             <div className="input-group ">
-              <div className="input-group-prepend ">
+              <div className="input-group-prepend">
                 <div className="build input-group-text text-white ">
                   Date/Time:
                 </div>
@@ -224,6 +275,20 @@ class NavBar extends Component {
 
               {/* <label className="btn btn-secondary ">Workorders</label> */}
             </div>
+            {this.props.buildingState ? (
+              <div className="col-12">
+                <div class="card text-dark bg-light mb-3">
+                  <div class="card-header">Manager Info</div>
+                  <div class="card-body">
+                    <h5 class="card-title">{"Name: " + managerName}</h5>
+                    <p class="card-text">{"Phone: " + managerPhone}</p>
+                    <p class="card-text">{"Email: " + managerEmail}</p>
+                  </div>
+                </div>
+
+                {/* <label className="btn btn-secondary ">Workorders</label> */}
+              </div>
+            ) : null}
           </div>
         </div>
       </nav>
