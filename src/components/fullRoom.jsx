@@ -533,21 +533,21 @@ class FullRoom extends Form {
             <table className="table text-left ">
               <thead>
                 <tr>
-                  <th className="item-name">Item</th>
-                  <th>SubCategory</th>
-                  <th>Price</th>
-                  <th className="quantity">#</th>
+                  <th className="item">Item</th>
+                  <th className="item">Sub</th>
+                  <th className="item">$</th>
+                  <th className="item quantity">#</th>
                   {/* <th>Total Price</th> */}
                   {/* <th>Comment</th> */}
 
-                  <th>Link</th>
+                  <th className="item">Link</th>
                   <th>✔</th>
                 </tr>
               </thead>
               {datas.map(item => (
                 <tbody key={item._id}>
                   <tr>
-                    <td className="item-name">{item.name}</td>
+                    <td>{item.name}</td>
                     <td>{item.subCategory}</td>
                     <td>${item.price}</td>
                     <td>

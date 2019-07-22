@@ -29,10 +29,11 @@
 }
 
 .item-name {
-  width: 20rem
+  width: 10rem
 }
 
-th {
+tr .item {
+  width: max-content !important;
   background-color: #dee2e6;
   color: black;
 
@@ -51,3 +52,17 @@ tbody {
 /* .main-page {
   background-color: #eee !important;
 } */
+
+@media only screen and (max-width: 450px) {
+  .table td {
+    font-size: 12px !important;
+  }
+
+  .table th {
+    font-size: 12px !important;
+  }
+
+  .buttons {
+    flex-wrap: wrap;
+  }
+}
