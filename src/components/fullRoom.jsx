@@ -595,7 +595,7 @@ class FullRoom extends Form {
                         name={item.name}
                         value={item.comment}
                         id={item._id}
-                        className="form-control"
+                        className="form-control placeholderInput"
                       />
                     </td>
                   </tr>
