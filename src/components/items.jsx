@@ -9,9 +9,7 @@ import {
   getItemsFromRoom,
   saveNewItem,
   deleteItem,
-  editItem, 
-  deleteExtraItem,
-  editTest
+  editItem
 } from '../services/items';
 
 import ItemsTable from './semicommon/itemsTable';
@@ -19,9 +17,9 @@ import { async } from 'q';
 
 export default class Items extends Component {
   state = {
-    searchQuery : "" ,
-    searchOption : "name",
-    options : [ "name" , "subCategory" ] ,
+    searchQuery: '',
+    searchOption: 'name',
+    options: ['name', 'subCategory'],
     rooms: null,
     load: false,
     selectedRoom: { items: [], room: '' },
@@ -57,9 +55,8 @@ export default class Items extends Component {
       toast.error(selectedRoom.error);
       return;
     }
-   
-    console.log("handle change selected room",selectedRoom);
-    
+
+    console.log('handle change selected room', selectedRoom);
 
     this.setState(() => ({
       selectedRoom: selectedRoom,
@@ -70,7 +67,7 @@ export default class Items extends Component {
   //// new item submit , after the submit i re-render all items and clean the input fields
   handleNewSubmit = async name => {
     const itemReady = { ...this.state.newItem };
-    itemReady.room = name ;
+    itemReady.room = name;
 
     const { data } = await saveNewItem(itemReady);
     if (data.error) {
@@ -78,9 +75,7 @@ export default class Items extends Component {
     } else {
       toast.success('Item successfully added', { autoClose: 2700 });
     }
-     
 
-    
     const { data: selectedRoom } = await getItemsFromRoom(name);
     if (selectedRoom.error) {
       toast.error(selectedRoom.error);
@@ -159,21 +154,19 @@ export default class Items extends Component {
 
   // deleteExtraItem = async () => {
   //    console.log("kliknuto");
-     
 
   //   const { data } = await deleteExtraItem();
   //   console.log("test test",data);
-    
+
   // }
 
-  editTest = async () => {
-    console.log("kliknuto");
-     
+  // editTest = async () => {
+  //   console.log("kliknuto");
 
-    const { data } = await editTest();
-    console.log("test test",data);
+  //   const { data } = await editTest();
+  //   console.log("test test",data);
 
-  }
+  // }
 
   //// paginate
   handlePaginate = number => {
@@ -184,19 +177,18 @@ export default class Items extends Component {
 
   //// handle search
 
-  handleSearch = (query) => {
+  handleSearch = query => {
     this.setState({
-      searchQuery : query ,
-      currentPage : 1 
+      searchQuery: query,
+      currentPage: 1
     });
-  }
+  };
 
-  handleOptionsSearch = (e) => {
+  handleOptionsSearch = e => {
     this.setState({
-      searchOption : e.target.value
-    })
-  } 
-
+      searchOption: e.target.value
+    });
+  };
 
   render() {
     if (this.state.load === false) {
@@ -236,10 +228,10 @@ export default class Items extends Component {
           </form>
           <ItemsTable
             options={this.state.options}
-            searchQuery= {this.state.searchQuery}
+            searchQuery={this.state.searchQuery}
             searchOption={this.state.searchOption}
             onSearch={this.handleSearch}
-            onOptionChange ={this.handleOptionsSearch}
+            onOptionChange={this.handleOptionsSearch}
             itemsTableShow={this.state.itemsTableShow}
             selectedRoom={this.state.selectedRoom}
             submitNew={this.handleNewSubmit}
