@@ -35,6 +35,7 @@ class NavBar extends Component {
       console.log(data.data);
       localStorage.setItem("savedWorkorders", JSON.stringify(data.data));
       localStorage.setItem("workorders", JSON.stringify(data.data));
+      localStorage.setItem("chosenOpt", JSON.stringify("saved"));
       // console.log(workorders1);
       // workorders = data;
       // window.alert("In development...");
@@ -49,16 +50,16 @@ class NavBar extends Component {
       localStorage.removeItem("jobs");
       let workorders = JSON.parse(localStorage.getItem("completedWorkorders"));
       localStorage.setItem("workorders", JSON.stringify(workorders));
-
+      localStorage.setItem("chosenOpt", JSON.stringify("pending"));
       // window.location.reload();
       this.props.history.push(`/user/workorders/${e.target.value}`);
       document.location.reload();
       // window.location = `/user/workorders/${e.target.value}`;
-    } else if ((e.target.value = "new")) {
+    } else if (e.target.value == "new") {
       localStorage.removeItem("jobs");
       localStorage.removeItem("startBtn");
       localStorage.removeItem("building");
-
+      localStorage.setItem("chosenOpt", JSON.stringify("new"));
       let work = JSON.parse(localStorage.getItem("workorder"));
       work.jobs = {};
       work.buildingNumber = "";
@@ -73,6 +74,11 @@ class NavBar extends Component {
       this.props.history.push(`/rooms/${region}`);
       document.location.reload();
       // window.location = `/rooms/${region}`;
+    } else if (e.target.value == "optionNone") {
+      const region = JSON.parse(localStorage.getItem("currentUser")).region;
+      localStorage.setItem("chosenOpt", JSON.stringify("optionNone"));
+      this.props.history.push(`/rooms/${region}`);
+      document.location.reload();
     } else {
     }
   };
@@ -112,6 +118,25 @@ class NavBar extends Component {
     let managerName = "";
     let managerEmail = "";
     let managerPhone = "";
+    let chosenOpt = "";
+    let chosenOptNew = "";
+    let chosenOptSaved = "";
+    let chosenOptPending = "";
+    let optionNone = "";
+    if (localStorage.getItem("chosenOpt")) {
+      let chosenOpt = JSON.parse(localStorage.getItem("chosenOpt"));
+      if (chosenOpt == "new") {
+        chosenOptNew = true;
+      } else if (chosenOpt == "saved") {
+        chosenOptSaved = true;
+      } else if (chosenOpt == "pending") {
+        chosenOptPending = true;
+      } else if (chosenOpt == "optionNone") {
+        optionNone = true;
+      } else {
+        return;
+      }
+    }
     if (this.props.buildingState) {
       building = JSON.parse(localStorage.getItem("building"));
       managerName = building.managerName;
@@ -154,10 +179,34 @@ class NavBar extends Component {
               name="country"
               onChange={this.handleWorkorders}
             >
-              <option defaultValue>Choose your option</option>
-              <option value="new">New Work Order</option>
-              <option value="saved">Saved Work Orders</option>
-              <option value="pending">Sent Work Orders</option>
+              {optionNone ? (
+                <option selected value="optionNone">
+                  Choose your option
+                </option>
+              ) : (
+                <option value="optionNone">Choose your option</option>
+              )}
+              {chosenOptNew ? (
+                <option selected value="new">
+                  New Work Order
+                </option>
+              ) : (
+                <option value="new">New Work Order</option>
+              )}
+              {chosenOptSaved ? (
+                <option selected value="saved">
+                  Saved Work Orders
+                </option>
+              ) : (
+                <option value="saved">Saved Work Order</option>
+              )}
+              {chosenOptPending ? (
+                <option selected value="pending">
+                  Sent Work Orders
+                </option>
+              ) : (
+                <option value="pending">Sent Work Order</option>
+              )}
               {/* <label class="mdb-main-label">Blue select</label> */}
               {/* <option value="">Select building</option>
                   {this.props.build[0].map(e => {

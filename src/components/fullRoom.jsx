@@ -179,7 +179,7 @@ class FullRoom extends Form {
     localStorage.removeItem("jobs");
     localStorage.removeItem("startBtn");
     localStorage.removeItem("building");
-
+    localStorage.removeItem("chosenOpt");
     work.jobs = {};
     work.buildingNumber = "";
     work.apartmentNumber = "";
