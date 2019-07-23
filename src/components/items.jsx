@@ -252,7 +252,7 @@ export default class Items extends Component {
             paginate={this.handlePaginate}
             somethingPerPage={this.state.itemsPerPage}
             currentPage={this.state.currentPage}
-            test={this.editTest}
+            // test={this.editTest}
           />
         </div>
       </>

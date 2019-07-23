@@ -23,7 +23,6 @@ class ItemsTable extends Component {
       searchOption,
       searchQuery,
       options,
-      test
     } = this.props;
     
      console.log("selected room na tabeli" , selectedRoom );
@@ -244,7 +243,7 @@ class ItemsTable extends Component {
                       Edit
                     </button>
                     <button
-                      onClick={() => deleteItem(item._id)}
+                      onClick={() => deleteItem(item)}
                       className="btn btn-sm btn-danger"
                     >
                       Delete

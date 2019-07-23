@@ -52,9 +52,8 @@ class Wo extends Component {
   handleBackButton = url => {
     // console.log(this.props.match.params.m);
     const region = JSON.parse(localStorage.getItem("currentUser")).region;
-    this.props.history.push(
-      "/rooms/" + this.props.match.params.m + "/" + region
-    );
+    console.log(this.props.match.params);
+    this.props.history.push("/rooms/" + region);
   };
 
   handlePrintButton = () => {
@@ -206,38 +205,47 @@ class Wo extends Component {
                   <th>Quantity</th>
                   <th>Price</th>
                   <th>Total Price</th>
-                  <th>Comment</th>
+                  {/* <th>Comment</th> */}
                 </tr>
               </thead>
-              <tbody>
-                {jobs
-                  ? jobs.map(item => (
+              {jobs
+                ? jobs.map(item => (
+                    <tbody>
                       <tr>
-                        <td>{item.room}</td>
-                        <td>{item.name}</td>
-                        <td>{item.subCategory}</td>
-
-                        <td>{item.quantity}</td>
-                        <td>${item.price}</td>
+                        <td> {item.room}</td>
+                        <td> {item.name}</td>
+                        <td> {item.subCategory}</td>
+                        <td> {item.quantity}</td>
+                        <td> {item.price}</td>
                         <td>
-                          {" "}
                           $
-                          {item.quantity * item.price
-                            ? item.quantity * item.price
+                          {(item.quantity * item.price).toFixed(2)
+                            ? (item.quantity * item.price).toFixed(2)
                             : 0}
                         </td>
-                        <td>{item.comment}</td>
                       </tr>
-                    ))
-                  : null}
-                <tr>
-                  <td colSpan="3" />
-                  <td colSpan="2">Total Price:</td>
-                  <td>
-                    <div> ${total}</div>
-                  </td>
-                </tr>
-              </tbody>
+                      <tr>
+                        {/* <textarea name="" id="" cols="30" rows="10"></textarea> */}
+                        <td colSpan="6">
+                          <textarea
+                            disabled
+                            className="form-control placeholder-input"
+                          >
+                            {item.comment}
+                          </textarea>
+                        </td>
+                      </tr>
+                    </tbody>
+                  ))
+                : null}
+
+              <tr>
+                <td colSpan="3" />
+                <td colSpan="2">Total Price:</td>
+                <td>
+                  <div>${total}</div>
+                </td>
+              </tr>
             </table>
 
             <textarea

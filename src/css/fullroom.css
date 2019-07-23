@@ -41,17 +41,22 @@ tr .item {
   border-top: 1px solid #23408e !important;
 }
 
-tr {
+/* tr {
   border-color: #8d98f2 !important;
-}
+} */
 
 tbody {
-  border-color: #8d98f2 !important;
+  /* border: 1px solid #8d98f2 !important; */
+  border-color: grey !important;
 }
 
 /* .main-page {
   background-color: #eee !important;
 } */
+.placeholder-input {
+  background-color: white !important;
+
+}
 
 @media only screen and (max-width: 450px) {
   .table td {

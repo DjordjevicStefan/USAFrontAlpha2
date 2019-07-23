@@ -75,6 +75,8 @@ class LoginForm extends Form {
         };
         // console.log(user);
         localStorage.setItem("currentUser", JSON.stringify(currentUser));
+        localStorage.removeItem("building");
+        localStorage.removeItem("startBtn");
         const user = response.user._id;
         const workorder = {
           loginTime: new Date(),

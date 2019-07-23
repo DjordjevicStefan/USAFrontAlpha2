@@ -178,6 +178,7 @@ class FullRoom extends Form {
 
     localStorage.removeItem("jobs");
     localStorage.removeItem("startBtn");
+    localStorage.removeItem("building");
 
     work.jobs = {};
     work.buildingNumber = "";
@@ -188,7 +189,7 @@ class FullRoom extends Form {
 
     localStorage.setItem("workorder", JSON.stringify(work));
     const region = JSON.parse(localStorage.getItem("currentUser")).region;
-
+    // this.setState({ buildingState: false });
     this.props.history.push(`/rooms/${region}`);
     document.location.reload();
   }
@@ -349,11 +350,11 @@ class FullRoom extends Form {
       // }
       // // jobs.filter(j => allItems.filter(m => (j.checked = true)));
 
-      let checked = jobs.filter(j => allItems.filter(m => m.name == j.name));
+      let checked = jobs.filter(j => allItems.filter(m => m._id == j._id));
       // console.log(kurac);
-      let checkedArr = jobs.map(j => j).map(m => m.name);
+      let checkedArr = jobs.map(j => j).map(m => m._id);
       let unchecked = allItems.filter(
-        d => d.name != checkedArr.find(m => m == d.name)
+        d => d._id != checkedArr.find(m => m == d._id)
       );
 
       allItems = checked.concat(unchecked);
@@ -502,7 +503,7 @@ class FullRoom extends Form {
               onClick={() => this.handleFinishedButton()}
               className="btn btn-primary m-3"
             >
-              Complete All
+              Forward
             </button>
 
             <button
@@ -541,7 +542,7 @@ class FullRoom extends Form {
                   {/* <th>Comment</th> */}
 
                   <th className="item">Link</th>
-                  <th>✔</th>
+                  <th className="item">✔</th>
                 </tr>
               </thead>
               {datas.map(item => (
@@ -595,7 +596,7 @@ class FullRoom extends Form {
                         name={item.name}
                         value={item.comment}
                         id={item._id}
-                        className="form-control"
+                        className="form-control placeholder-input"
                       />
                     </td>
                   </tr>
