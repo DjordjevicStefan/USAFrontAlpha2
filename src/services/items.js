@@ -101,21 +101,32 @@ export function deleteItem(item){
 // }
 
 
-export function editItem(item) {
-
-  
-  console.log("status", item.status);
-  
-
+export function editItem(itemOrg, itemEdited) {
+  console.log("org item" , itemOrg);
+  console.log("edit item" , itemEdited);
   
   return http.post(process.env.REACT_APP_API_URL + `/admin/editItem` , qs.stringify({
-      _id : item._id ,
-      name : item.name ,
-      subCategory : item.subCategory,
-      room : item.room ,
-      price : item.price,
-      link : item.link,
-      status : item.status
+     
+    oldItem : {
+      _id : itemOrg._id ,
+      name : itemOrg.name ,
+      subCategory : itemOrg.subCategory,
+      room : itemOrg.room || "" ,
+      price : itemOrg.price,
+      link : itemOrg.link,
+      status : itemOrg.status
+    } ,
+    editItem : {
+      _id : itemEdited._id ,
+      name : itemEdited.name ,
+      subCategory : itemEdited.subCategory,
+      room : itemEdited.room  || "" ,
+      price : itemEdited.price,
+      link : itemEdited.link,
+      status : itemEdited.status
+    }
+
+     
   }) ) ;
 }
 

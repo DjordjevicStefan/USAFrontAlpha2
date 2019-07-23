@@ -10,12 +10,12 @@ import {
   saveNewItem,
   deleteItem,
   editItem, 
-  deleteExtraItem
+  
   
 } from '../services/items';
 
 import ItemsTable from './semicommon/itemsTable';
-import { async } from 'q';
+// import { async } from 'q';
 
 export default class Items extends Component {
   state = {
@@ -26,6 +26,7 @@ export default class Items extends Component {
     load: false,
     selectedRoom: { items: [], room: '' },
     itemsTableShow: false,
+    // selRoomForEditItems : null ,
     currentPage: 1,
     itemsPerPage: 20,
     newItem: {
@@ -60,9 +61,12 @@ export default class Items extends Component {
 
     console.log('handle change selected room', selectedRoom);
 
+    // let selRoomForEditItems = {...selectedRoom};
+
     this.setState(() => ({
       selectedRoom: selectedRoom,
-      itemsTableShow: true
+      itemsTableShow: true ,
+      // selRoomForEditItems : selRoomForEditItems
     }));
   };
 
@@ -107,7 +111,7 @@ export default class Items extends Component {
 
   //// all inputs hadnle.
   handleInputChange = event => {
-    const itemsProp = this.state.selectedRoom.items;
+    const itemsProp = [...this.state.selectedRoom.items];
 
     const itemArrey = itemsProp.filter(x => x._id === event.target.id);
     itemArrey[0][event.target.name] = event.target.value;
@@ -119,7 +123,18 @@ export default class Items extends Component {
 
   //// submiting edited item to database
   handleEdit = async item => {
-    const { data } = await editItem(item);
+    
+
+    const { data: orgSelRoom } = await getItemsFromRoom(item.room || "Living Room");
+
+    // console.log("org items arrej" ,orgSelRoom.items);
+    // console.log("kao izmenjen items arrej" ,this.state.selectedRoom.items);
+
+    let originalItem = orgSelRoom.items.find(i => i._id === item._id ) ;
+     
+    
+
+    const { data } = await editItem(originalItem, item);
     if (data.success) {
       toast.success('Item successfully edited', { autoClose: 2700 });
     } else {
@@ -154,22 +169,7 @@ export default class Items extends Component {
     // }
   };
 
-  // deleteExtraItem = async () => {
-  //    console.log("kliknuto");
-
-  //   const { data } = await deleteExtraItem();
-  //   console.log("test test",data);
-
-  // }
-
-  // editTest = async () => {
-  //   console.log("kliknuto");
-     
-
-  //   const { data } = await editTest();
-  //   console.log("test test",data);
-
-  // }
+  
 
   //// paginate
   handlePaginate = number => {
