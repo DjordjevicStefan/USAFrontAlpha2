@@ -116,6 +116,7 @@ class Rooms extends Component {
     localStorage.removeItem("jobs");
     localStorage.removeItem("startBtn");
     localStorage.removeItem("building");
+    // localStorage.removeItem("allItems");
 
     let work = JSON.parse(localStorage.getItem("workorder"));
     work.jobs = {};
@@ -323,10 +324,10 @@ class Rooms extends Component {
         // work.workorder.buildingNumber = buildNumber;
         // work.workorder.apartmentNumber = this.props.location.state.apartmentNumber;
         let checkedJobs = this.props.location.state.jobs;
-        let k = checkedJobs.filter(j => allItems.filter(m => m.name == j.name));
+        let k = checkedJobs.filter(j => allItems.filter(m => m._id == j._id));
         // console.log(kurac);
-        let j = checkedJobs.map(j => j).map(m => m.name);
-        let p = allItems.filter(d => d.name != j.find(m => m == d.name));
+        let j = checkedJobs.map(j => j).map(m => m._id);
+        let p = allItems.filter(d => d._id != j.find(m => m == d._id));
 
         allItems = k.concat(p);
         console.log("itemsi", allItems);
