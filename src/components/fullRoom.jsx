@@ -178,6 +178,7 @@ class FullRoom extends Form {
 
     localStorage.removeItem("jobs");
     localStorage.removeItem("startBtn");
+    localStorage.removeItem("building");
 
     work.jobs = {};
     work.buildingNumber = "";
@@ -188,7 +189,7 @@ class FullRoom extends Form {
 
     localStorage.setItem("workorder", JSON.stringify(work));
     const region = JSON.parse(localStorage.getItem("currentUser")).region;
-
+    // this.setState({ buildingState: false });
     this.props.history.push(`/rooms/${region}`);
     document.location.reload();
   }
