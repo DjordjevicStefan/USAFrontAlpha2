@@ -107,7 +107,7 @@ export function editItem(itemOrg, itemEdited) {
   
   return http.post(process.env.REACT_APP_API_URL + `/admin/editItem` , qs.stringify({
      
-    oldItem : {
+    old : {
       _id : itemOrg._id ,
       name : itemOrg.name ,
       subCategory : itemOrg.subCategory,
@@ -116,7 +116,7 @@ export function editItem(itemOrg, itemEdited) {
       link : itemOrg.link,
       status : itemOrg.status
     } ,
-    editItem : {
+    new : {
       _id : itemEdited._id ,
       name : itemEdited.name ,
       subCategory : itemEdited.subCategory,

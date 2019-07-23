@@ -124,7 +124,6 @@ export default class Items extends Component {
   //// submiting edited item to database
   handleEdit = async item => {
     
-
     const { data: orgSelRoom } = await getItemsFromRoom(item.room || "Living Room");
 
     // console.log("org items arrej" ,orgSelRoom.items);
@@ -132,8 +131,6 @@ export default class Items extends Component {
 
     let originalItem = orgSelRoom.items.find(i => i._id === item._id ) ;
      
-    
-
     const { data } = await editItem(originalItem, item);
     if (data.success) {
       toast.success('Item successfully edited', { autoClose: 2700 });

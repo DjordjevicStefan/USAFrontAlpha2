@@ -253,11 +253,7 @@ class ItemsTable extends Component {
               ))
             )}
           </tbody>
-             {/* <div>
-              <button onClick={test} className="btn btn-sm btn-danger"> 
-                 TEST
-              </button>            
-            </div>  */}
+           
         </table>
         <div className="row">
           <div className="col float-right">
