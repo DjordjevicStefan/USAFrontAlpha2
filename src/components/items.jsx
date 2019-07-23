@@ -10,8 +10,8 @@ import {
   saveNewItem,
   deleteItem,
   editItem, 
-  deleteExtraItem,
-  editTest
+  deleteExtraItem
+  
 } from '../services/items';
 
 import ItemsTable from './semicommon/itemsTable';
@@ -131,14 +131,14 @@ export default class Items extends Component {
   };
 
   //// delete item. if an error occurs the previous state is set back
-  handleDelete = async itemId => {
+  handleDelete = async itemX => {
     const selectedRoomCopy = { ...this.state.selectedRoom };
 
     let yesNo = window.confirm(`Are you sure you want to delete this item?`);
 
     if (yesNo === true) {
       const newItemsArrey = selectedRoomCopy.items.filter(
-        item => item._id !== itemId
+        item => item._id !== itemX._id 
       );
       this.setState({
         selectedRoom: {
@@ -150,11 +150,11 @@ export default class Items extends Component {
       return;
     }
 
-    const { data } = await deleteItem(itemId);
-    if (data.error) {
-      toast.error('Database error, please try again');
-      this.setState({ selectedRoom: selectedRoomCopy });
-    }
+    const { data } = await deleteItem(itemX);
+    // if (data.error) {
+    //   toast.error('Database error, please try again');
+    //   this.setState({ selectedRoom: selectedRoomCopy });
+    // }
   };
 
   // deleteExtraItem = async () => {
@@ -166,14 +166,14 @@ export default class Items extends Component {
     
   // }
 
-  editTest = async () => {
-    console.log("kliknuto");
+  // editTest = async () => {
+  //   console.log("kliknuto");
      
 
-    const { data } = await editTest();
-    console.log("test test",data);
+  //   const { data } = await editTest();
+  //   console.log("test test",data);
 
-  }
+  // }
 
   //// paginate
   handlePaginate = number => {
