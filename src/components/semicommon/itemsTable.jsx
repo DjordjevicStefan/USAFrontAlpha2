@@ -23,7 +23,6 @@ class ItemsTable extends Component {
       searchOption,
       searchQuery,
       options,
-      test
     } = this.props;
     
      console.log("selected room na tabeli" , selectedRoom );
