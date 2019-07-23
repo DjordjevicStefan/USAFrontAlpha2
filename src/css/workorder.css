@@ -15,5 +15,7 @@
 .text-area {
   width: 100%;
   background-color: white;
+  ;
+  color: black;
   font-weight: bold;
 }

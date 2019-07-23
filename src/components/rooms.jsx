@@ -526,7 +526,7 @@ class Rooms extends Component {
               onClick={() => this.handleFinishedButton()}
               className="btn btn-primary m-3"
             >
-              Complete All
+              Forward
             </button>
           ) : null}
           {!this.state.start ? (
