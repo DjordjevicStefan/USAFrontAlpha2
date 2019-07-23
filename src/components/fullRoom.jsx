@@ -503,7 +503,7 @@ class FullRoom extends Form {
               onClick={() => this.handleFinishedButton()}
               className="btn btn-primary m-3"
             >
-              Complete All
+              Forward
             </button>
 
             <button
@@ -596,7 +596,7 @@ class FullRoom extends Form {
                         name={item.name}
                         value={item.comment}
                         id={item._id}
-                        className="form-control placeholderInput"
+                        className="form-control placeholder-input"
                       />
                     </td>
                   </tr>
