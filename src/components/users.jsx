@@ -103,10 +103,10 @@ class Users extends Component {
         <table className="table table-bordered table-sm">
           <thead>
             <tr>
-              <th scope="col">Select</th>
-              <th scope="col">Name</th>
-              <th scope="col">Region</th>
-              <th scope="col">Delete User</th>
+              <th className="thUser-padding-adj" scope="col">Select</th>
+              <th className="thUser-padding-adj" scope="col">Name</th>
+              <th className="thUser-padding-adj" scope="col">Region</th>
+              <th className="thUser-padding-adj" scope="col">Delete User</th>
             </tr>
           </thead>
           <tbody>
@@ -124,8 +124,8 @@ class Users extends Component {
                 <td>
                   <Link to={`/admin/users/${user._id}`} className="mdc-button btn-sm btn">Select</Link>
                 </td>
-                <td>{user.name}</td>
-                <td>{user.region}</td>
+                <td className="linehight-adj">{user.name}</td>
+                <td className="linehight-adj">{user.region}</td>
                 <td>
                   <button  onClick={() => this.hadnleDeleteUser(user)} className="btn-sm btn btn-danger">Delete</button>
                 </td>

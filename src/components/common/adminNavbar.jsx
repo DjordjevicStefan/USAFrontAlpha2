@@ -57,7 +57,7 @@ const AdminNavbar = props => {
 
       <div className='jumbotron jumbotron-fluid'>
         <div className='container'>
-          <h1 className='display-4'>{props.pageName}</h1>
+          <h1 className='display-4 res-h'>{props.pageName}</h1>
         </div>
       </div>
     </div>
