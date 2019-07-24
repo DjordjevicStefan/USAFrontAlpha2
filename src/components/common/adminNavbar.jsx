@@ -1,51 +1,59 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {Navbar , Nav} from "react-bootstrap" ;
 
 const AdminNavbar = props => {
-  const kurac = function handleLogOut() {
+  const logOut = function handleLogOut() {
     localStorage.removeItem('admin');
     this.props.history.replace(`./login`);
   };
   return (
     <div>
-      <nav className='my-nav navbar navbar-expand-lg '>
+      <Navbar className='my-nav' collapseOnSelect expand="lg"  variant="dark">
+        <Navbar.Brand>
         <Link to='/admin' className='logo-color'>
           Homepage
         </Link>
-
-        <ul className='navbar-nav ml-auto'>
-          <li className='ml-2 nav-item'>
-            <Link className='nav-link my-nav-link' to='/admin/users'>
-              Users{' '}
+        </Navbar.Brand>
+        
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav className='ml-auto'>
+          
+            <Link className='ml-2 my-nav-link' to='/admin/users'>
+              Users
             </Link>
-          </li>
-          <li className='ml-2 nav-item'>
-            <Link className='nav-link my-nav-link' to='/admin/vendors'>
+          
+          
+            <Link className= 'ml-2 my-nav-link' to='/admin/vendors'>
               Vendors
             </Link>
-          </li>
-          <li className='ml-2 nav-item'>
-            <Link className='nav-link my-nav-link' to='/admin/items'>
+         
+         
+            <Link className=' ml-2 my-nav-link' to='/admin/items'>
               Items
             </Link>
-          </li>
-          <li className='ml-2 nav-item'>
-            <Link className='nav-link my-nav-link' to='/admin/jobs'>
+          
+          
+            <Link className='ml-2 my-nav-link' to='/admin/jobs'>
               Jobs
             </Link>
-          </li>
-          <li className='ml-2 nav-item'>
-            <Link className='nav-link my-nav-link' to='/admin'>
+          
+          
+            <Link className='ml-2 my-nav-link' to='/admin'>
               Work Orders
             </Link>
-          </li>
-          <li className='ml-2 nav-item'>
-            <Link onClick={kurac} className='nav-link my-nav-link' to='/'>
+          
+          
+            <Link onClick={logOut} className='ml-2 my-nav-link' to='/'>
               Log Out
             </Link>
-          </li>
-        </ul>
-      </nav>
+          
+        </Nav>
+   
+        </Navbar.Collapse>
+ 
+      </Navbar>
 
       <div className='jumbotron jumbotron-fluid'>
         <div className='container'>
@@ -57,3 +65,32 @@ const AdminNavbar = props => {
 };
 
 export default AdminNavbar;
+
+
+
+{/* <Navbar bg="light" expand="lg">
+  <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+  <Navbar.Toggle aria-controls="basic-navbar-nav" />
+  <Navbar.Collapse id="basic-navbar-nav">
+    <Nav className="mr-auto">
+      <Nav.Link href="#home">Home</Nav.Link>
+      <Nav.Link href="#link">Link</Nav.Link>
+      
+    </Nav>
+   
+  </Navbar.Collapse>
+</Navbar> */}
+
+
+{/* <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+  <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+  <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+  <Navbar.Collapse id="responsive-navbar-nav">
+    <Nav className="mr-auto">
+      <Nav.Link href="#features">Features</Nav.Link>
+      <Nav.Link href="#pricing">Pricing</Nav.Link>
+      
+    </Nav>
+    
+  </Navbar.Collapse>
+</Navbar> */}

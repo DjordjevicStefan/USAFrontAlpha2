@@ -160,6 +160,8 @@ export default class Items extends Component {
     }
 
     const { data } = await deleteItem(itemX);
+    console.log(data);
+    
     // if (data.error) {
     //   toast.error('Database error, please try again');
     //   this.setState({ selectedRoom: selectedRoomCopy });
