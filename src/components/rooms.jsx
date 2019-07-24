@@ -266,6 +266,7 @@ class Rooms extends Component {
     if (localStorage.getItem("building")) {
       buildingState = true;
     }
+    console.log(workorder);
 
     // let allItems;
     let rooms = getRooms();

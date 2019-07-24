@@ -41,7 +41,7 @@ class NavBar extends Component {
       // window.alert("In development...");
       // let value = "saved";
       this.props.history.push(`/user/workorders/${e.target.value}`);
-      document.location.reload();
+      // document.location.reload();
     } else if (e.target.value == "pending") {
       // let userId = JSON.parse(localStorage.getItem("savedWorkorders")).userId;
       e.preventDefault();
@@ -53,7 +53,7 @@ class NavBar extends Component {
       localStorage.setItem("chosenOpt", JSON.stringify("pending"));
       // window.location.reload();
       this.props.history.push(`/user/workorders/${e.target.value}`);
-      document.location.reload();
+      // document.location.reload();
       // window.location = `/user/workorders/${e.target.value}`;
     } else if (e.target.value == "new") {
       localStorage.removeItem("jobs");
