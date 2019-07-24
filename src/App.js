@@ -40,7 +40,6 @@ class App extends Component {
 
     localStorage.setItem("buildings", JSON.stringify(buildings));
     console.log(response);
-
   }
 
   render() {
@@ -53,44 +52,42 @@ class App extends Component {
           component = {
             WorkOrder
           }
-          /> <
+          />{" "} <
           ProtectedRoute path = "/admin/users/:id"
           component = {
             User
           }
-          /> <
+          />{" "} <
           ProtectedRoute path = "/admin/users"
           component = {
             Users
           }
-          /> <
+          />{" "} <
           ProtectedRoute path = "/admin/vendor/:id"
           component = {
             Vendor
           }
-          /> <
+          />{" "} <
           ProtectedRoute path = "/admin/vendors"
           component = {
             Vendors
           }
-          /> <
+          />{" "} <
           ProtectedRoute path = "/admin/items"
           component = {
             Items
           }
-          /> <
+          />{" "} <
           ProtectedRoute path = "/admin/jobs"
           component = {
             Jobs
           }
-          /> <
+          />{" "} <
           ProtectedRoute path = "/admin"
           component = {
             AdminPanel
           }
-          />
-
-          <
+          />{" "} <
           Route path = "/user/workorders/:i"
           render = {
             props => < Workorders props = {
@@ -98,7 +95,8 @@ class App extends Component {
             } {
               ...props
             }
-            />} / >
+            />} /
+            >
             <
             Route
             path = "/:id/:m/work-order"
@@ -108,37 +106,35 @@ class App extends Component {
               } {
                 ...props
               }
-              />} / >
+              />} /
+              >
               <
               Route path = "/rooms/:id/:m"
               component = {
                 FullRoom
               }
-              />
-
-              <
-              Route
-              path = "/rooms/:id"
+              />{" "} <
+              Route path = "/rooms/:id"
               render = {
                 props => < Rooms {
                   ...props
                 }
                 />} / >
-
                 <
                 Route path = "/login"
                 component = {
                   LoginForm
                 }
-                /> <
+                />{" "} <
                 Redirect from = "/"
-                exact to = "/login" / >
-
-                {
-                  /* <Redirect to="/admin" /> */
+                exact to = "/login" / > {
+                  " "
+                } {
+                  /* <Redirect to="/admin" /> */ } {
+                  " "
                 } <
-                /Switch> < /
-                div >
+                /Switch>{" "} <
+                /div>
               );
             }
           }

@@ -86,19 +86,19 @@ class NavBar extends Component {
   constructor(props) {
     super(props);
 
-    const buildings = JSON.parse(localStorage.getItem("buildings")).filter(
-      m => m.region === this.props.match.params.id
-    );
+    // const buildings = JSON.parse(localStorage.getItem("buildings")).filter(
+    //   m => m.region === this.props.match.params.id
+    // );
 
-    const data = [...this.state.data];
+    // const data = [...this.state.data];
 
-    const d = buildings.map(
-      element => (element.value = element.adress + " (" + element.zip + ")")
-    );
+    // const d = buildings.map(
+    //   element => (element.value = element.adress + " (" + element.zip + ")")
+    // );
 
-    const showing = false;
-    data.push(d);
-    this.state = { data, showing };
+    // const showing = false;
+    // data.push(d);
+    // this.state = { data, showing };
   }
 
   handleChange(e) {
