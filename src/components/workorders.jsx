@@ -362,12 +362,12 @@ class Workorders extends Form {
             <table className="table">
               <thead>
                 <tr>
-                  <th>Save/Send Date</th>
-                  <th>Building Number</th>
-                  <th>Apartment Number</th>
+                  <th className="item">Save/Send Date</th>
+                  <th className="item">Building Number</th>
+                  <th className="item">Apartment Number</th>
                   {/* <th>Adress</th> */}
 
-                  {/* <th>Link</th> */}
+                  {status ? <th className="item">Link</th> : null}
                 </tr>
               </thead>
 
@@ -375,18 +375,22 @@ class Workorders extends Form {
                 {allItems.map(item => (
                   <tr key={item.name}>
                     {item.autosaveTime ? (
-                      <td>{new Date(item.autosaveTime).toLocaleString()}</td>
+                      <td className="itemTd">
+                        {new Date(item.autosaveTime).toLocaleString()}
+                      </td>
                     ) : (
-                      <td>{new Date(item.completedTime).toLocaleString()}</td>
+                      <td className="itemTd">
+                        {new Date(item.completedTime).toLocaleString()}
+                      </td>
                     )}
-                    <td>{item.buildingNumber}</td>
-                    <td>{item.apartmentNumber}</td>
+                    <td className="itemTd">{item.buildingNumber}</td>
+                    <td className="itemTd">{item.apartmentNumber}</td>
                     {/* <td>{item.adress}</td> */}
                     {/* {this.state.start && value ? (
                         <div className="row">{rooms}</div>
                       ) : null} */}
                     {status ? (
-                      <td>
+                      <td className="itemTd btn btn-warning">
                         <Link
                           to={{
                             pathname: `/rooms/${region}`,
@@ -398,7 +402,7 @@ class Workorders extends Form {
                             }
                           }}
                         >
-                          Resume to Workorder
+                          Resume
                         </Link>
                       </td>
                     ) : null}
