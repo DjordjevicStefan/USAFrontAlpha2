@@ -322,33 +322,6 @@ class FullRoom extends Form {
       });
       console.log(datas);
       data = datas;
-      // let datas = [];
-
-      // let datass = [];
-
-      // newArr.map(m => {
-      //   datas.push(m.name);
-      // });
-
-      // let name = newArr.filter(m => datas.push(m.name));
-      // let kurac = newArr.map(k => k).map(v => v.quantity);
-      // datas.filter(m => (datas[m] = kurac.map(j => j)));
-      // console.log(datas);
-      // jobs.map(j => j).map(m => m.name);
-      // let name1 = Object.assign({}, datas);
-      // let quantity = newArr.filter(k => datass.push(k.quantity));
-      // let name2 = Object.assign({ datas }, name1);
-      // console.log(name2);
-
-      // console.log(datas, datass);
-
-      // const datass = { ...this.state.data };
-
-      // data[input.name] = input.value;
-      // {
-      //   renderedItems.map(item => (checked[item.name] = false));
-      // }
-      // // jobs.filter(j => allItems.filter(m => (j.checked = true)));
 
       let checked = jobs.filter(j => allItems.filter(m => m._id == j._id));
       // console.log(kurac);
@@ -366,9 +339,6 @@ class FullRoom extends Form {
       room0 = rooms.filter(m => m.id == this.props.match.params.id);
 
       renderedItems = allItems.filter(m => m.room === room0[0].name);
-      // {
-      //   renderedItems.map(item => (checked[item.name] = false));
-      // }
     } else {
       allItems = JSON.parse(localStorage.getItem("allItems"));
 

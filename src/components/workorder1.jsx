@@ -85,13 +85,14 @@ class Wo extends Component {
       // console.log(woComment);
       let work = {};
       work.workorder = {};
-      work.id = finalData._id;
+      // work.id = finalData._id;
       work.jobs = finalItems;
       work.user = currentUser;
       work.workorder.loginTime = new Date(finalData.loginTime);
       work.workorder.completedTime = new Date();
       work.workorder.buildingNumber = finalData.buildingNumber;
       work.workorder.apartmentNumber = finalData.apartmentNumber;
+      work.workorder.adress = finalData.adress;
       work.workorder.userId = finalData.userId;
       work.workorder.totalPrice = total;
       work.workorder.comment = woComment;
