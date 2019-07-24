@@ -59,13 +59,13 @@ tbody {
 }
 
 @media only screen and (max-width: 450px) {
-  .table td {
+  tr .itemTd {
     font-size: 12px !important;
   }
 
-  .table th {
+  /* .item {
     font-size: 12px !important;
-  }
+  } */
 
   .buttons {
     flex-wrap: wrap;

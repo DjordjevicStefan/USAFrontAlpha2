@@ -38,7 +38,7 @@
     background-color: #eee;
   }
 
-  .table th {
+  /* .table th {
     padding: 0px !important;
     font-size: 15px !important;
   }
@@ -46,7 +46,7 @@
   .table td {
     padding: 0px !important;
     font-size: 15px !important;
-  }
+  } */
 
   /* .main-page {
   padding: 1.5em;
@@ -86,12 +86,12 @@
     background-color: #eee;
   }
 
-  .table th {
+  tr .item {
     padding: 0px !important;
     font-size: 15px !important;
   }
 
-  .table td {
+  tr .itemTd {
     padding: 0px !important;
     font-size: 15px !important;
   }

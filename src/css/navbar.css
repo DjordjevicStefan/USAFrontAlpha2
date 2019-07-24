@@ -43,7 +43,7 @@
   /* background-color: #ffd740; */
 }
 
-@media only screen and (max-width: 4500px) {
+@media only screen and (max-width: 450px) {
   .date {
     width: 100%;
 

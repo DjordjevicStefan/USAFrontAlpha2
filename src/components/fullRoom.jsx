@@ -518,10 +518,10 @@ class FullRoom extends Form {
               {datas.map(item => (
                 <tbody key={item._id}>
                   <tr>
-                    <td>{item.name}</td>
-                    <td>{item.subCategory}</td>
-                    <td>${item.price}</td>
-                    <td>
+                    <td className="itemTd">{item.name}</td>
+                    <td className="itemTd">{item.subCategory}</td>
+                    <td className="itemTd">${item.price}</td>
+                    <td className="itemTd">
                       <input
                         disabled={item.checked}
                         name={item.name}
@@ -535,7 +535,7 @@ class FullRoom extends Form {
                       />{" "}
                     </td>
 
-                    <td>
+                    <td className="itemTd">
                       <Link
                         target={this.state.target}
                         onClick={e => this.handleLinks(e, item.link)}
@@ -543,7 +543,7 @@ class FullRoom extends Form {
                         Link
                       </Link>
                     </td>
-                    <td>
+                    <td className="itemTd">
                       <Checkbox
                         number={this.state.value}
                         type="checkbox"
@@ -556,7 +556,7 @@ class FullRoom extends Form {
                     </td>
                   </tr>
                   <tr>
-                    <td colSpan="6">
+                    <td className="itemTd" colSpan="6">
                       <textarea
                         // cols="38"
                         // rows="2"
