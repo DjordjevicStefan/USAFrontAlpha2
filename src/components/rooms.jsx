@@ -16,7 +16,7 @@ class Rooms extends Component {
 
   async handleAsync() {
     console.log("radi async");
-
+    this.setState({ start: true, isLoading: true });
     const work = JSON.parse(localStorage.getItem("workorder"));
     if (work.buildingNumber && work.apartmentNumber) {
       let finalData = {};
@@ -29,10 +29,12 @@ class Rooms extends Component {
       // localStorage.setItem("workorder", JSON.stringify(work));
       // const finalData = JSON.parse(localStorage.getItem("workorder"));
       console.log(finalData);
+
       const data1 = await axios.post(
         process.env.REACT_APP_API_URL + "/user/getTempWorkorder",
         JSON.stringify(finalData)
       );
+      this.setState({ isLoading: false });
       console.log(data1);
       localStorage.setItem("allItems", JSON.stringify(data1.data.items));
       if (data1.data.workorder) {
@@ -46,9 +48,10 @@ class Rooms extends Component {
       let start = true;
 
       localStorage.setItem("startBtn", JSON.stringify(start));
-      this.setState({ start: true });
+      this.setState({ start: true, isLoading: false });
     } else {
       alert("Please enter Building and Apartment Number!");
+      this.setState({ start: false, isLoading: false });
     }
   }
 
@@ -179,9 +182,9 @@ class Rooms extends Component {
     work.completedTime = date;
     localStorage.setItem("workorder", JSON.stringify(work));
   };
-  handleWorkOrder = async () => {
-    window.alert("In development...");
-  };
+  // handleWorkOrder = async () => {
+  //   window.alert("In development...");
+  // };
 
   handleInput = e => {
     // console.log(e.target.value);
@@ -283,7 +286,7 @@ class Rooms extends Component {
     let value = "";
     let value2 = "";
     let workorder = JSON.parse(localStorage.getItem("workorder"));
-
+    let isLoading = false;
     // let jobs = JSON.parse(localStorage.getItem("jobs"));
 
     console.log(localStorage.getItem("startBtn"));
@@ -304,7 +307,8 @@ class Rooms extends Component {
       build,
       start,
       value2,
-      buildingState
+      buildingState,
+      isLoading
     };
   }
 
@@ -314,6 +318,7 @@ class Rooms extends Component {
     // console.log(typeof this.state.buildingNum);
     let showing = this.state.showing;
     let saved = false;
+    let isLoading = this.state.isLoading;
     if (JSON.parse(localStorage.getItem("chosenOpt")) == "saved") {
       saved = true;
     }
@@ -379,7 +384,7 @@ class Rooms extends Component {
           onChangeBuildings={() => this.handleChangeBuilding()}
         />
         <div className="buttons">
-          {this.state.start ? (
+          {this.state.start && !this.state.isLoading ? (
             <button
               onClick={() => this.handleBackButton()}
               className="btn btn-warning m-3"
@@ -395,7 +400,7 @@ class Rooms extends Component {
               Home
             </button>
           </div>
-          {this.state.start ? (
+          {this.state.start && !this.state.isLoading ? (
             <button
               onClick={() => this.handleFinishedButton()}
               className="btn btn-primary m-3"
@@ -409,20 +414,27 @@ class Rooms extends Component {
                 onClick={() => this.handleAsync()}
                 className="btn btn-success m-3"
               >
-                Start
+                {saved ? "Continue Saved Workorder" : "Start"}
               </button>
             </div>
           ) : null}
-          {/* {!this.state.start  ? (
-            <div className="col-6">
-              <button
-                onClick={() => this.handleSavedWorkorders()}
-                className="btn btn-success m-3"
-              >
-                Show Saved Workorders
-              </button>
+
+          {isLoading ? (
+            <div className="col-6 m-3">
+              <div class="spinner-border text-success" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-border text-danger" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-border text-warning" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div class="spinner-border text-info" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
             </div>
-          ) : null} */}
+          ) : null}
           <div className="">
             <button
               onClick={() => this.handlelogOut()}
