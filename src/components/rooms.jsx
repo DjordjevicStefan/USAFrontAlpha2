@@ -287,16 +287,19 @@ class Rooms extends Component {
     let value2 = "";
     let workorder = JSON.parse(localStorage.getItem("workorder"));
     let isLoading = false;
+    let isLoadingFullRoom = true;
     // let jobs = JSON.parse(localStorage.getItem("jobs"));
 
-    console.log(localStorage.getItem("startBtn"));
+    // if (localStorage.getItem("isLoadingFullRoom") == false) {
+    //   isLoadingFullRoom = false;
+    // }
+
     if (localStorage.getItem("startBtn")) {
       start = true;
     }
     if (localStorage.getItem("building")) {
       buildingState = true;
     }
-    console.log(workorder);
 
     // let allItems;
     let rooms = getRooms();
@@ -308,7 +311,8 @@ class Rooms extends Component {
       start,
       value2,
       buildingState,
-      isLoading
+      isLoading,
+      isLoadingFullRoom
     };
   }
 
@@ -319,6 +323,17 @@ class Rooms extends Component {
     let showing = this.state.showing;
     let saved = false;
     let isLoading = this.state.isLoading;
+    let isLoadingFullRoom = this.state.isLoadingFullRoom;
+
+    console.log(isLoading);
+    // let isLoadingFullRoom;
+    // if (localStorage.getItem("isLoadingFullRoom") == true) {
+    //   isLoadingFullRoom = JSON.parse(localStorage.getItem("isLoadingFullRoom"));
+    // }
+    // {
+    //   isLoadingFullRoom = false;
+    // }
+    // console.log(isLoadingFullRoom);
     if (JSON.parse(localStorage.getItem("chosenOpt")) == "saved") {
       saved = true;
     }
@@ -345,7 +360,6 @@ class Rooms extends Component {
       value2 = workorder.squareFeet;
       adress = workorder.adress;
       showing = true;
-      console.log(workorder.adress);
     }
     if (workorder.buildingNumber == "") {
       value = "";
@@ -419,7 +433,7 @@ class Rooms extends Component {
             </div>
           ) : null}
 
-          {isLoading ? (
+          {isLoading || !isLoadingFullRoom ? (
             <div className="col-6 m-3">
               <div class="spinner-border text-success" role="status">
                 <span class="sr-only">Loading...</span>

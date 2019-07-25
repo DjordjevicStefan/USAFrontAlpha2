@@ -26,7 +26,11 @@ class Room extends Component {
   state = {};
 
   handleLinks = async () => {
-    this.setState({ isLoading: true });
+    let isLoadingFullRoom = false;
+    localStorage.setItem(
+      "isLoadingFullRoom",
+      JSON.stringify(isLoadingFullRoom)
+    );
     const work = JSON.parse(localStorage.getItem("workorder"));
     let finalData = {};
     finalData.buildingNumber = work.buildingNumber;
@@ -54,6 +58,9 @@ class Room extends Component {
     // const jobs = JSON.parse(localStorage.getItem("jobs"));
   };
   render() {
+    let isLoading = this.state.isLoading;
+
+    console.log(isLoading);
     return (
       <div className="col-4 p-3">
         <div className="card mb-3 text-center">
