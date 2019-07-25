@@ -5,8 +5,8 @@ const Input = props => {
   return (
     <> 
     <div className={`form-group row form-adj`}>
-      <label className="col-sm-2 col-form-label" htmlFor={props.name}>
-        <span >{props.label + "  :"}</span>{" "}
+      <label className={`col-sm-2 col-form-label ${props.newLabelClass}`} htmlFor={props.name}>
+        <span >{props.label + ":"}</span>{" "}
       </label>
       <div className="col-sm-10">
       <input  

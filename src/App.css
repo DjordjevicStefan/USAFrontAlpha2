@@ -276,4 +276,19 @@ a:active {
   .res-h {
     font-size: 2.8rem !important ;
   }
+
+  .thUser-padding-adj {
+    font-size: 0.9rem ;
+  }
 }
+
+@media  (max-width: 840px) {
+  .userInputLabel-adj {
+    font-size: 0.8rem !important ;
+    font-weight: 500 ;
+    padding-top: 0 !important ;
+  }
+
+ 
+}
+

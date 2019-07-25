@@ -29,6 +29,7 @@ class UserForm extends Component {
          
             <form onSubmit={onSubmit} className="form-css" >
               <Input  
+                newLabelClass={"userInputLabel-adj"}
                 error={error.name}
                 label="Name"
                 name="name"
@@ -37,7 +38,8 @@ class UserForm extends Component {
               />
               
                <Input
-               error={error.password}
+                newLabelClass={"userInputLabel-adj"}
+                error={error.password}
                 label="Password"
                 name="password"
                 value={password}
@@ -45,6 +47,7 @@ class UserForm extends Component {
                 type="password"
               />
                <Input
+                newLabelClass={"userInputLabel-adj"}
                 error={error.email}
                 label="Email"
                 name="email"
@@ -52,6 +55,7 @@ class UserForm extends Component {
                 onChange={onChange}
               />
               <Input
+                newLabelClass={"userInputLabel-adj"}
                 error={error.emailPassword}
                 label="Email Password"
                 name="emailPassword"
@@ -60,7 +64,7 @@ class UserForm extends Component {
               />
               <div className="form-group row">
               <label className="col-sm-2 col-form-label" >
-                    <span>{(id==="") ? "Region :" : "Select new region" }</span>
+                    <span className="userInputLabel-adj">{(id==="") ? "Region:" : "Select new region" }</span>
               </label>
                <div className="col-sm-10">
                  <select onChange={onRegionChange} className="form-control">
