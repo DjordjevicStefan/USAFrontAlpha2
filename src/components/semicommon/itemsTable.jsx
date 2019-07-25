@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import Pagination from "../common/pagination" ;
-import _ from "lodash" ;
+import Pagination from "../common/pagination";
+import _ from "lodash";
 import SearchBox from "../common/search";
 
 class ItemsTable extends Component {
-
   render() {
     const {
       selectedRoom,
@@ -22,56 +21,54 @@ class ItemsTable extends Component {
       onSearch,
       searchOption,
       searchQuery,
-      options,
+      options
     } = this.props;
-    
-     console.log("selected room na tabeli" , selectedRoom );
-     
+
+    console.log("selected room na tabeli", selectedRoom);
 
     const room = selectedRoom.room.name;
 
-    console.log("room name" , room );
+    console.log("room name", room);
 
-    let itemsVar = null ;
+    let itemsVar = null;
 
     if (room !== "extra") {
-      itemsVar =  selectedRoom.items.filter(item => item.status === "regular");
+      itemsVar = selectedRoom.items.filter(item => item.status === "regular");
     } else {
-      
       console.log("usao gde treba");
-      
 
-      itemsVar = selectedRoom.items ;
+      itemsVar = selectedRoom.items;
     }
-    
-    console.log("itemsVar kad selektujem extra" ,  itemsVar);
-    
-    
+
+    console.log("itemsVar kad selektujem extra", itemsVar);
 
     //// lodash sort when i have case sensitive names !!!!
-    let sorted = _.orderBy(itemsVar, [item => item.name.toLowerCase()],['asc']) ;
-    
+    let sorted = _.orderBy(
+      itemsVar,
+      [item => item.name.toLowerCase()],
+      ["asc"]
+    );
 
-    let searchedArrey = null ; 
-    let itemsPaginated =null ;
-  
-    //// first check if the search is active and then paginate searched Arrey !!!! 
+    let searchedArrey = null;
+    let itemsPaginated = null;
+
+    //// first check if the search is active and then paginate searched Arrey !!!!
     if (searchQuery !== "") {
-      searchedArrey = sorted.filter(items => items[searchOption].toLowerCase().includes(searchQuery.toLowerCase()))
-      
-    const indexOfLast = currentPage * somethingPerPage ;
-    const indexOfFirst = indexOfLast - somethingPerPage ;
-    itemsPaginated = searchedArrey.slice(indexOfFirst, indexOfLast)
-    
-    
-    //// if not , just paginate the initial arrey !!!!
+      searchedArrey = sorted.filter(items =>
+        items[searchOption].toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
+      const indexOfLast = currentPage * somethingPerPage;
+      const indexOfFirst = indexOfLast - somethingPerPage;
+      itemsPaginated = searchedArrey.slice(indexOfFirst, indexOfLast);
+
+      //// if not , just paginate the initial arrey !!!!
     } else {
-      const indexOfLast = currentPage * somethingPerPage ;
-      const indexOfFirst = indexOfLast - somethingPerPage ;
-      itemsPaginated = sorted.slice(indexOfFirst, indexOfLast)
+      const indexOfLast = currentPage * somethingPerPage;
+      const indexOfFirst = indexOfLast - somethingPerPage;
+      itemsPaginated = sorted.slice(indexOfFirst, indexOfLast);
     }
 
-   
     return (
       <>
         <table
@@ -82,76 +79,98 @@ class ItemsTable extends Component {
           <thead>
             <tr>
               <th scope="col">
-                
-           <span>Item name,subcategory and price</span>     
-              
-               <div>
-               <SearchBox 
-                 resetPadding={true}
-                 options ={options}
-                 onOptionChange ={onOptionChange}
-                 value = {searchQuery}
-                 onChange ={onSearch}
-                 />     
+                <span>Item name,subcategory and price</span>
+
+                <div>
+                  <SearchBox
+                    resetPadding={true}
+                    options={options}
+                    onOptionChange={onOptionChange}
+                    value={searchQuery}
+                    onChange={onSearch}
+                  />
                 </div>
-                
-                 </th>
-              <th className="dsp-block border-bottom-reset" scope="col"><span>Action</span></th>
+              </th>
+              <th className="dsp-block border-bottom-reset" scope="col">
+                <span>Action</span>
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td className="padding-b">
-                <form >
+                <form>
                   <div className="form-group row">
-                    <label className="col col-form-label form-control-sm">
-                      Name:
-                    </label>
-                    <div className="col-sm-2">
-                      <input
-                        onChange={onChangeNew}
-                        name="name"
-                        type="text"
-                        className="form-control form-control-sm"
-                        value={newItem.name}
-                      />
+                    <div className="col-sm-3">
+                      <div className="row">
+                        <label className="col-sm-3 col-form-label form-control-sm font-weigt-700">
+                          Name:
+                        </label>
+                        <div className="col-sm-9">
+                          <input
+                            onChange={onChangeNew}
+                            name="name"
+                            type="text"
+                            className="form-control form-control-sm"
+                            value={newItem.name}
+                          />
+                        </div>
+                      </div>
                     </div>
-                    <label className="col col-form-label form-control-sm">
-                      Subcategory:
-                    </label>
-                    <div className="col-sm-2">
-                      <input
-                        onChange={onChangeNew}
-                        name="subCategory"
-                        type="text"
-                        className="form-control form-control-sm"
-                        value={newItem.subCategory}
-                      />
+
+                    <div className="col-sm-3">
+                      <div className="row">
+                        <label className="col-sm-6 col-form-label form-control-sm font-weigt-700">
+                          Subcategory:
+                        </label>
+
+                        <div className="col-sm-6">
+                          <input
+                            onChange={onChangeNew}
+                            name="subCategory"
+                            type="text"
+                            className="form-control form-control-sm"
+                            value={newItem.subCategory}
+                          />
+                        </div>
+                      </div>
                     </div>
-                    <label className="col col-form-label form-control-sm">
-                      Price: &#36;
-                    </label>
-                    <div className="col-sm-2">
-                      <input
-                        onChange={onChangeNew}
-                        name="price"
-                        step=".01"
-                        type="number"
-                        className="form-control form-control-sm"
-                        value={newItem.price}
-                      />
+
+                    <div className="col-sm-3">
+                      <div className="row">
+                        <label className="col-sm-3 col-form-label form-control-sm font-weigt-700">
+                          Price:&#36;
+                        </label>
+
+                        <div className="col-sm-9">
+                          <input
+                            onChange={onChangeNew}
+                            name="price"
+                            step=".01"
+                            type="number"
+                            className="form-control form-control-sm"
+                            value={newItem.price}
+                          />
+                        </div>
+                      </div>
                     </div>
-                    <label className="col col-form-label form-control-sm">
-                      Link:
-                    </label>
-                    <div className="col-sm-2">
-                      <input
-                        onChange={onChangeNew}
-                        name="link"
-                        type="text"
-                        className="form-control form-control-sm"
-                        value={newItem.link}
-                      />
+
+                    <div className="col-sm-3">
+                      <div className="row">
+                        <label className="col-sm-3 col-form-label form-control-sm font-weigt-700">
+                          Link:
+                        </label>
+
+                        <div className="col-sm-9">
+                          <input
+                            onChange={onChangeNew}
+                            name="link"
+                            type="text"
+                            className="form-control form-control-sm"
+                            value={newItem.link}
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </form>
@@ -159,8 +178,7 @@ class ItemsTable extends Component {
               <td className="padding-b">
                 <button
                   onClick={() => submitNew(room)}
-                  className="btn-table-end btn-line-hight"
-
+                  className="btn-table-end btn-line-hight reset-top-margin"
                 >
                   Add
                 </button>
@@ -176,23 +194,33 @@ class ItemsTable extends Component {
                   <td className="padding-b">
                     <form className="form-items">
                       <div className="form-group row">
-                        <label className="col col-form-label form-control-sm">
+
+                        <div className="col-sm-3">
+                           <div className="row">
+                        <label className="col-sm-3 col-form-label form-control-sm">
                           Name:
                         </label>
-                        <div className="col-sm-2">
-                          <textarea rows="3" cols="50"
+                        <div className="col-sm-9">
+                          <textarea
+                            rows="3"
+                            cols="50"
                             value={item.name}
                             onChange={onChange}
                             name="name"
                             type="text"
                             className="form-control form-control-sm"
                             id={item._id}
-                            />
+                          />
                         </div>
-                        <label className="col col-form-label form-control-sm">
+                        </div>
+                        </div>
+
+                        <div className="col-sm-3">
+                          <div className="row">
+                        <label className="col-sm-6 col-form-label form-control-sm">
                           Subcategory:
-                        </label>
-                        <div className="col-sm-2">
+                        </label>        
+                        <div className="col-sm-6">
                           <input
                             value={item.subCategory}
                             onChange={onChange}
@@ -202,36 +230,47 @@ class ItemsTable extends Component {
                             id={item._id}
                           />
                         </div>
-                        <label className="col col-form-label form-control-sm">
-                          Price: &#36;
-                        </label>
-                        <div className="col-sm-2">
+                      </div>
+                      </div>
 
+                      <div className="col-sm-3">
+                         <div className="row">
+                        <label className="col-sm-3 col-form-label form-control-sm">
+                          Price:&#36;
+                        </label>
+                        <div className="col-sm-9">
                           <input
-                             
                             value={item.price}
                             onChange={onChange}
                             id={item._id}
                             name="price"
-                            // step=".01"
-                            // type="number"
-                            type ="text"
+                            step=".01"
+                            type="number"
+                            type="text"
                             className="form-control form-control-sm"
                           />
                         </div>
-                        <label className="col col-form-label form-control-sm">
-                      Link:
-                    </label>
-                    <div className="col-sm-2">
-                      <input
-                        onChange={onChange}
-                        name="link"
-                        type="text"
-                        className="form-control form-control-sm"
-                        value={item.link}
-                        id={item._id}
-                      />
-                    </div>
+                        </div>
+                     </div>
+                        
+                     <div className="col-sm-3">
+                        <div className="row">
+                        <label className="col-sm-3 col-form-label form-control-sm">
+                          Link:
+                        </label>
+                        <div className="col-sm-9">
+                          <input
+                            onChange={onChange}
+                            name="link"
+                            type="text"
+                            className="form-control form-control-sm"
+                            value={item.link}
+                            id={item._id}
+                          />
+                        </div>
+                        </div>
+                        </div>
+
                       </div>
                     </form>
                   </td>
@@ -253,16 +292,15 @@ class ItemsTable extends Component {
               ))
             )}
           </tbody>
-           
         </table>
         <div className="row">
           <div className="col float-right">
-          <Pagination 
+            <Pagination
               currentPage={currentPage}
-              total={(searchQuery !== "") ? searchedArrey.length : sorted.length} 
+              total={searchQuery !== "" ? searchedArrey.length : sorted.length}
               somethingPerPage={somethingPerPage}
-              paginate ={paginate}
-           /> 
+              paginate={paginate}
+            />
           </div>
         </div>
       </>

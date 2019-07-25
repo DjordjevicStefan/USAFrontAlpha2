@@ -5,7 +5,9 @@ const TableName = props => {
   const tz = props.timeZone;
 
   return (
-    <div className="container">
+    
+
+    <div className={`container ${props.customClass}`}>
       <div className="table-name clearfix">
         <span
           className={

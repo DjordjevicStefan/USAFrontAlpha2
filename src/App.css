@@ -41,8 +41,16 @@
   margin-bottom: 0 !important ;
 }
 
+.reset-top-margin {
+  margin-top: 0 !important ;
+}
+
 .reset-padding {
   padding: 0 !important;
+}
+
+.font-weigt-700 {
+  font-weight: 700 ;
 }
 
 .pagination-custom {
@@ -150,12 +158,14 @@
 }
 
 .form-container {
-  width: 70vw;
+  
   background-color: #eeeeee;
   color: black;
-  height: auto;
-  margin: 0 auto;
+  /* height: auto;
+  margin: 0 auto; */
   padding-top: 1rem;
+  /* padding-left: 0 ;
+  padding-right: 0 ; */
 }
 
 .form-css {
@@ -190,6 +200,10 @@
 
 .padding-jobs {
   padding-top: 0.2rem;
+}
+.padding-left-right-reset {
+  padding-right: 0 !important ;
+  padding-left: 0 !important ;
 }
 
 /* custom buttons  */

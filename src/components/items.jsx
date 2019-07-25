@@ -209,11 +209,11 @@ export default class Items extends Component {
       <>
         <ToastContainer />
         <AdminNavbar pageName='Master List By Rooms' />
-        <TableName tablename='Add, Edit And Delete Items From Rooms' />
-        <div className='form-container padding-bottom-1rem'>
+        <TableName customClass={"padding-left-right-reset"} tablename='Add, Edit And Delete Items From Rooms' />
+        <div className='form-container container padding-bottom-1rem'>
           <form>
             <div className='form-group row'>
-              <span className='col-sm-2 lead'>Select Room :</span>
+              <span className='col-sm-2 font-weigt-700'>Select Room:</span>
               <div className='col-sm-10'>
                 <select
                   onChange={this.handleChange}
