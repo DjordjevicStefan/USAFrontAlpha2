@@ -105,7 +105,7 @@ export function editItem(itemOrg, itemEdited) {
   console.log("org item" , itemOrg);
   console.log("edit item" , itemEdited);
   
-  return http.post(process.env.REACT_APP_API_URL + `/admin/editItem` , qs.stringify({
+  return http.post(process.env.REACT_APP_API_URL + `/admin/editItem` , JSON.stringify({
      
     old : {
       _id : itemOrg._id ,
