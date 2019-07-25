@@ -143,10 +143,10 @@ class Vendors extends Component {
           <table className="table table-bordered  table-sm">
             <thead>
               <tr>
-                <th scope="col">Select</th>
-                <th scope="col">Name</th>
-                <th scope="col">Profession</th>
-                <th scope="col">Delete Vendor</th>
+                <th className="vendorTh-adj" scope="col">Select</th>
+                <th className="vendorTh-adj" scope="col">Name</th>
+                <th className="vendorTh-adj" scope="col">Profession</th>
+                <th  scope="col">Delete Vendor</th>
               </tr>
             </thead>
             <tbody>

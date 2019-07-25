@@ -258,6 +258,10 @@ a:active {
   padding: 0.5rem 0 0.5rem !important;
 }
 
+.jumbotron-adj {
+  margin-bottom:  1rem !important ;
+}
+
 
 
 /* cutom pagination  */
@@ -276,9 +280,12 @@ a:active {
   .res-h {
     font-size: 2.8rem !important ;
   }
-
-  .thUser-padding-adj {
+ .thUser-padding-adj {
     font-size: 0.9rem ;
+  }
+
+  .vendorTh-adj {
+    line-height:  3rem ;
   }
 }
 
@@ -288,7 +295,5 @@ a:active {
     font-weight: 500 ;
     padding-top: 0 !important ;
   }
-
- 
 }
 
