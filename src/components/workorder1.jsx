@@ -119,9 +119,16 @@ class Wo extends Component {
         work.apartmentNumber = "";
         work.totalPrice = "";
         work.comment = "";
+        work.adress = "";
+        work.autosaveTime = "";
+        work.jobs = [];
+        work._id = "";
         work.loginTime = new Date();
         localStorage.setItem("workorder", JSON.stringify(work));
+
         localStorage.removeItem("jobs");
+        localStorage.removeItem("startBtn");
+        localStorage.removeItem("building");
         let region = JSON.parse(localStorage.getItem("currentUser")).region;
 
         this.props.history.push(`/rooms/${region}`);
