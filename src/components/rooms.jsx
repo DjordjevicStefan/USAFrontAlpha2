@@ -62,6 +62,7 @@ class Rooms extends Component {
     );
 
     console.log(this.props);
+
     if (this.state.start || this.props.location.state) {
       let allItems = JSON.parse(localStorage.getItem("allItems"));
       if (this.props.location.state) {
@@ -79,16 +80,20 @@ class Rooms extends Component {
         // // work.workorder.id = this.props.location.state.id;
         // work.workorder.buildingNumber = buildNumber;
         // work.workorder.apartmentNumber = this.props.location.state.apartmentNumber;
-        let checkedJobs = this.props.location.state.jobs;
-        let k = checkedJobs.filter(j => allItems.filter(m => m._id == j._id));
-        // console.log(kurac);
-        let j = checkedJobs.map(j => j).map(m => m._id);
-        let p = allItems.filter(d => d._id != j.find(m => m == d._id));
+        if (this.state.start) {
+          let checkedJobs = this.props.location.state.jobs;
+          let k = checkedJobs.filter(j => allItems.filter(m => m._id == j._id));
+          // console.log(kurac);
+          let j = checkedJobs.map(j => j).map(m => m._id);
+          let p = allItems.filter(d => d._id != j.find(m => m == d._id));
 
-        allItems = k.concat(p);
-        console.log("itemsi", allItems);
-        localStorage.setItem("allItems", JSON.stringify(allItems));
-        localStorage.setItem("jobs", JSON.stringify(allItems));
+          allItems = k.concat(p);
+          console.log("itemsi", allItems);
+          localStorage.setItem("allItems", JSON.stringify(allItems));
+          localStorage.setItem("jobs", JSON.stringify(allItems));
+        }
+
+        localStorage.removeItem("chosenOpt");
         work.adress = adress;
         work.jobs = this.props.location.state.jobs;
         value = this.props.location.state.apartmentNumber;
@@ -100,6 +105,28 @@ class Rooms extends Component {
       }
     }
   }
+  // async handleSavedWorkorders() {
+  //   localStorage.removeItem("chosenOpt");
+  //   const work = JSON.parse(localStorage.getItem("workorder"));
+  //   let finalData = {};
+  //   finalData.buildingNumber = work.buildingNumber;
+  //   finalData.apartmentNumber = work.apartmentNumber;
+  //   finalData.userId = work.userId;
+
+  //   // work.autosaveTime = new Date();
+  //   // work.jobs = jobs;
+  //   // localStorage.setItem("workorder", JSON.stringify(work));
+  //   // const finalData = JSON.parse(localStorage.getItem("workorder"));
+  //   console.log(finalData);
+  //   const data1 = await axios.post(
+  //     process.env.REACT_APP_API_URL + "/user/getTempWorkorder",
+  //     JSON.stringify(finalData)
+  //   );
+  //   console.log(data1);
+  //   localStorage.setItem("allItems", JSON.stringify(data1.data.items));
+  //   this.props.history.push(`/user/workorders/saved`);
+  //   document.location.reload();
+  // }
 
   handleHomeButton() {
     localStorage.removeItem("jobs");
@@ -286,7 +313,10 @@ class Rooms extends Component {
     let value2 = this.state.value2;
     // console.log(typeof this.state.buildingNum);
     let showing = this.state.showing;
-
+    let saved = false;
+    if (JSON.parse(localStorage.getItem("chosenOpt")) == "saved") {
+      saved = true;
+    }
     // );
     let workorder = JSON.parse(localStorage.getItem("workorder"));
     let value = "";
@@ -383,6 +413,16 @@ class Rooms extends Component {
               </button>
             </div>
           ) : null}
+          {/* {!this.state.start  ? (
+            <div className="col-6">
+              <button
+                onClick={() => this.handleSavedWorkorders()}
+                className="btn btn-success m-3"
+              >
+                Show Saved Workorders
+              </button>
+            </div>
+          ) : null} */}
           <div className="">
             <button
               onClick={() => this.handlelogOut()}

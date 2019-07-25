@@ -42,6 +42,7 @@ class NavBar extends Component {
       // let value = "saved";
       this.props.history.push(`/user/workorders/${e.target.value}`);
       // document.location.reload();
+      document.location.reload();
     } else if (e.target.value == "pending") {
       // let userId = JSON.parse(localStorage.getItem("savedWorkorders")).userId;
       e.preventDefault();
