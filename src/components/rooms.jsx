@@ -136,6 +136,7 @@ class Rooms extends Component {
     localStorage.removeItem("startBtn");
     localStorage.removeItem("building");
     localStorage.removeItem("chosenOpt");
+    localStorage.removeItem("isLoadingFullRoom");
     // localStorage.removeItem("allItems");
 
     let work = JSON.parse(localStorage.getItem("workorder"));
