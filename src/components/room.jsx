@@ -26,6 +26,7 @@ class Room extends Component {
   state = {};
 
   handleLinks = async () => {
+    this.setState({ isLoading: true });
     const work = JSON.parse(localStorage.getItem("workorder"));
     let finalData = {};
     finalData.buildingNumber = work.buildingNumber;
