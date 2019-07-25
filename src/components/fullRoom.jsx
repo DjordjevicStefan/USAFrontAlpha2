@@ -30,7 +30,13 @@ class FullRoom extends Form {
   };
   handleBackButton = async () => {
     let start = true;
+    let isLoadingFullRoom = false;
+
     localStorage.setItem("startBtn", JSON.stringify(start));
+    localStorage.setItem(
+      "isLoadingFullRoom",
+      JSON.stringify(isLoadingFullRoom)
+    );
     const jobs = JSON.parse(localStorage.getItem("jobs"));
     const work = JSON.parse(localStorage.getItem("workorder"));
     work.autosaveTime = new Date();
@@ -274,9 +280,9 @@ class FullRoom extends Form {
       target = "#";
       this.setState({ target });
     } else {
-      window.location = `${link}`;
       target = "_blank";
       this.setState({ target });
+      window.location = `${link}`;
     }
   };
   handleSquare = e => {
@@ -307,6 +313,7 @@ class FullRoom extends Form {
     let renderedItems = [];
     let room0 = "";
     let room = "";
+    let target = "_blank";
 
     let allItems = [];
     if (JSON.parse(localStorage.getItem("jobs"))) {
@@ -370,8 +377,13 @@ class FullRoom extends Form {
     build.push(build1);
     const adress = [];
     const searchQuery = "";
-
+    let isLoadingFullRoom = true;
+    localStorage.setItem(
+      "isLoadingFullRoom",
+      JSON.stringify(isLoadingFullRoom)
+    );
     this.state = {
+      target,
       room0,
       searchQuery,
       adress,
@@ -390,7 +402,7 @@ class FullRoom extends Form {
 
   render() {
     // console.log(this.state.renderedItems);
-    console.log(this.state.data);
+
     // console.log(this.state.data);
     // // let number = 1;
     // // if (this.state.value==undefined){

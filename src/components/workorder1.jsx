@@ -88,6 +88,9 @@ class Wo extends Component {
       // work.id = finalData._id;
       work.jobs = finalItems;
       work.user = currentUser;
+      if (finalData._id) {
+        work.tempWorkorderId = finalData._id;
+      }
       work.workorder.loginTime = new Date(finalData.loginTime);
       work.workorder.completedTime = new Date();
       work.workorder.buildingNumber = finalData.buildingNumber;
@@ -97,7 +100,7 @@ class Wo extends Component {
       work.workorder.totalPrice = total;
       work.workorder.comment = woComment;
       work.workorder.sendTime = new Date();
-      work.workorder.status = "pending";
+
       // let jobs=work.jobs
       //  let id= finalData._id
       // delete work._id;
@@ -116,9 +119,16 @@ class Wo extends Component {
         work.apartmentNumber = "";
         work.totalPrice = "";
         work.comment = "";
+        work.adress = "";
+        work.autosaveTime = "";
+        work.jobs = [];
+        work._id = "";
         work.loginTime = new Date();
         localStorage.setItem("workorder", JSON.stringify(work));
+
         localStorage.removeItem("jobs");
+        localStorage.removeItem("startBtn");
+        localStorage.removeItem("building");
         let region = JSON.parse(localStorage.getItem("currentUser")).region;
 
         this.props.history.push(`/rooms/${region}`);

@@ -78,6 +78,7 @@ class LoginForm extends Form {
         localStorage.removeItem("building");
         localStorage.removeItem("startBtn");
         localStorage.removeItem("chosenOpt");
+        localStorage.removeItem("isLoadingFullRoom");
         const user = response.user._id;
         const workorder = {
           loginTime: new Date(),

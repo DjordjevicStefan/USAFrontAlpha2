@@ -138,6 +138,8 @@ class NavBar extends Component {
         return;
       }
     }
+
+    console.log(this.props.buildingState);
     if (this.props.buildingState) {
       building = JSON.parse(localStorage.getItem("building"));
       managerName = building.managerName;
