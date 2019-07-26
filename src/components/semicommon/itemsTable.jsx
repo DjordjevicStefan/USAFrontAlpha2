@@ -98,7 +98,7 @@ class ItemsTable extends Component {
           </thead>
           <tbody>
             <tr>
-              <td className="padding-b">
+              <td className="padding-b items-table-padding-td">
                 <form>
                   <div className="form-group row">
                     <div className="col-sm-3">
@@ -118,7 +118,7 @@ class ItemsTable extends Component {
                       </div>
                     </div>
 
-                    <div className="col-sm-3">
+                    <div className="col-sm-4">
                       <div className="row">
                         <label className="col-sm-6 col-form-label form-control-sm font-weigt-700">
                           Subcategory:
@@ -136,7 +136,7 @@ class ItemsTable extends Component {
                       </div>
                     </div>
 
-                    <div className="col-sm-3">
+                    <div className="col-sm-2">
                       <div className="row">
                         <label className="col-sm-3 col-form-label form-control-sm font-weigt-700">
                           Price:&#36;
@@ -190,8 +190,8 @@ class ItemsTable extends Component {
               </tr>
             ) : (
               itemsPaginated.map(item => (
-                <tr key={item._id}>
-                  <td className="padding-b">
+                <tr className="mob-box-responsive" key={item._id}>
+                  <td className="padding-b items-table-padding-td">
                     <form className="form-items">
                       <div className="form-group row">
 
@@ -215,7 +215,7 @@ class ItemsTable extends Component {
                         </div>
                         </div>
 
-                        <div className="col-sm-3">
+                        <div className="col-sm-4">
                           <div className="row">
                         <label className="col-sm-6 col-form-label form-control-sm">
                           Subcategory:
@@ -233,7 +233,7 @@ class ItemsTable extends Component {
                       </div>
                       </div>
 
-                      <div className="col-sm-3">
+                      <div className="col-sm-2">
                          <div className="row">
                         <label className="col-sm-3 col-form-label form-control-sm">
                           Price:&#36;

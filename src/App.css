@@ -98,6 +98,10 @@
   /* padding-top: 1rem  !important; */
 }
 
+.items-table-padding-td {
+  padding-left: 0.5rem !important ;
+}
+
 .item-table-show {
   display: none;
 }
@@ -301,6 +305,11 @@ a:active {
   .vendorTh-adj {
     line-height:  3rem ;
   }
+
+.mob-box-responsive {
+  box-shadow: 0 4px 4px -2px black; 
+} 
+  
 }
 
 @media  (max-width: 840px) {
