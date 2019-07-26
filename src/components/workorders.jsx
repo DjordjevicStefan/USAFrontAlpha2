@@ -198,6 +198,7 @@ class Workorders extends Form {
 
   constructor(props) {
     super(props);
+    this.firstInput = React.createRef();
     // const data = {};
     // const errors = {};
     // const value = {};
@@ -357,8 +358,17 @@ class Workorders extends Form {
             <h1 className="lead m-2">
               All {this.props.match.params.i} workorders
             </h1>
-
-            <SearchBox value={searchQuery} onChange={this.handleSearch} />
+            <span
+              onClick={e => this.firstInput.current.focus()}
+              className="btn btn-secondary btn-sm mb-1"
+            >
+              Search by the Adress:
+            </span>
+            <SearchBox
+              firstInput={this.firstInput}
+              value={searchQuery}
+              onChange={this.handleSearch}
+            />
             <table className="table">
               <thead>
                 <tr>

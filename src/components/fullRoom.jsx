@@ -165,6 +165,11 @@ class FullRoom extends Form {
   handleSearch = query => {
     this.setState({ searchQuery: query });
   };
+
+  handleSearchFocus = () => {
+    this.textInput.focus();
+  };
+
   handleInput = e => {
     const { showing } = this.state;
     const buildNumber = JSON.parse(localStorage.getItem("workorder")).workorder
@@ -326,12 +331,13 @@ class FullRoom extends Form {
     const value = {};
     const value1 = {};
     const checked = {};
+    this.firstInput = React.createRef();
     const rooms = getRooms();
     let renderedItems = [];
     let room0 = "";
     let room = "";
     let target = "_blank";
-
+    this.textInput = null;
     let allItems = [];
     if (JSON.parse(localStorage.getItem("jobs"))) {
       const jobs = JSON.parse(localStorage.getItem("jobs"));
@@ -527,7 +533,19 @@ class FullRoom extends Form {
               My Workorders
             </Link> */}
 
-          <SearchBox value={searchQuery} onChange={this.handleSearch} />
+          <span
+            onClick={e => this.firstInput.current.focus()}
+            className="btn btn-secondary btn-sm"
+          >
+            Search by Item's:
+          </span>
+          <SearchBox
+            firstInput={this.firstInput}
+            // className="form-control"
+            value={searchQuery}
+            onChange={this.handleSearch}
+          />
+
           <div className="rooms  text-center">
             <h1 className="lead m-3">{title}</h1>
             <table className="table text-left ">

@@ -94,11 +94,6 @@ class NavBar extends Component {
       this.props.history.push(`/rooms/${region}`);
       document.location.reload();
       // window.location = `/rooms/${region}`;
-    } else if (e.target.value == "optionNone") {
-      const region = JSON.parse(localStorage.getItem("currentUser")).region;
-      localStorage.setItem("chosenOpt", JSON.stringify("optionNone"));
-      this.props.history.push(`/rooms/${region}`);
-      document.location.reload();
     } else {
     }
   };
@@ -142,7 +137,7 @@ class NavBar extends Component {
     let chosenOptNew = "";
     let chosenOptSaved = "";
     let chosenOptPending = "";
-    let optionNone = "";
+
     if (localStorage.getItem("chosenOpt")) {
       let chosenOpt = JSON.parse(localStorage.getItem("chosenOpt"));
       if (chosenOpt == "new") {
@@ -151,8 +146,6 @@ class NavBar extends Component {
         chosenOptSaved = true;
       } else if (chosenOpt == "pending") {
         chosenOptPending = true;
-      } else if (chosenOpt == "optionNone") {
-        optionNone = true;
       } else {
         return;
       }
@@ -196,18 +189,19 @@ class NavBar extends Component {
 
         {!start ? (
           <div className="px-3">
+            <span className="btn text-bold">Choose your option ⇩</span>
             <select
               className="select dropdown-primary form-control mb-3 "
               name="country"
               onChange={this.handleWorkorders}
             >
-              {optionNone ? (
+              {/* {optionNone ? (
                 <option selected value="optionNone">
                   Choose your option
                 </option>
               ) : (
                 <option value="optionNone">Choose your option</option>
-              )}
+              )} */}
               {chosenOptNew ? (
                 <option selected value="new">
                   New Work Order
@@ -292,75 +286,78 @@ class NavBar extends Component {
             </div>
           </div>
         </div>
+
         <div className="container mainPage">
-          <div className="row nav-box">
-            <div className="col-sm-4">
-              <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                  <div className="build input-group-text  text-white">
-                    Building#
+          {!chosenOptSaved && !chosenOptPending ? (
+            <div className="row nav-box">
+              <div className="col-sm-4">
+                <div className="input-group mb-3">
+                  <div className="input-group-prepend">
+                    <div className="build input-group-text  text-white">
+                      Building#
+                    </div>
                   </div>
-                </div>
 
-                <input
-                  type="number"
-                  min="1"
-                  value={this.props.build}
-                  className={`build-input ${this.props.classs}`}
-                  onChange={this.props.onHandleInput}
-                />
-                <br />
-                {this.props.showing ? (
-                  <div className={klasa}>{this.props.adress}</div>
-                ) : null}
-              </div>
-            </div>
-            <div className="col-sm-4">
-              <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                  <div className="build input-group-text  text-white">
-                    Apartment#
-                  </div>
+                  <input
+                    type="number"
+                    min="1"
+                    value={this.props.build}
+                    className={`build-input ${this.props.classs}`}
+                    onChange={this.props.onHandleInput}
+                  />
+                  <br />
+                  {this.props.showing ? (
+                    <div className={klasa}>{this.props.adress}</div>
+                  ) : null}
                 </div>
-                <input
-                  value={this.props.value}
-                  onChange={this.props.onHandleAptNum}
-                  className={`build-input ${this.props.classs}`}
-                />
               </div>
-              {/* <label className="btn btn-secondary ">Workorders</label> */}
-            </div>
-            <div className="col-sm-4">
-              <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                  <div className="build input-group-text  text-white">
-                    Square Footage
+              <div className="col-sm-4">
+                <div className="input-group mb-3">
+                  <div className="input-group-prepend">
+                    <div className="build input-group-text  text-white">
+                      Apartment#
+                    </div>
                   </div>
+                  <input
+                    value={this.props.value}
+                    onChange={this.props.onHandleAptNum}
+                    className={`build-input ${this.props.classs}`}
+                  />
                 </div>
-                <input
-                  value={this.props.value2}
-                  onChange={this.props.onHandleSquare}
-                  className={`build-input ${this.props.classs}`}
-                />
+                {/* <label className="btn btn-secondary ">Workorders</label> */}
               </div>
-
-              {/* <label className="btn btn-secondary ">Workorders</label> */}
-            </div>
-            {this.props.buildingState ? (
-              <div className="col-12">
-                <div class="card text-dark bg-light mb-3">
-                  <div class="card-header">Manager Info</div>
-                  <div class="card-body">
-                    <h5 class="card-title">{"Name: " + managerName}</h5>
-                    <p class="card-text">{"Phone: " + managerPhone}</p>
-                    <p class="card-text">{"Email: " + managerEmail}</p>
+              <div className="col-sm-4">
+                <div className="input-group mb-3">
+                  <div className="input-group-prepend">
+                    <div className="build input-group-text  text-white">
+                      Square Footage
+                    </div>
                   </div>
+                  <input
+                    value={this.props.value2}
+                    onChange={this.props.onHandleSquare}
+                    className={`build-input ${this.props.classs}`}
+                  />
                 </div>
 
                 {/* <label className="btn btn-secondary ">Workorders</label> */}
               </div>
-            ) : null}
-          </div>
+              {this.props.buildingState ? (
+                <div className="col-12">
+                  <div class="card text-dark bg-light mb-3">
+                    <div class="card-header">Manager Info</div>
+                    <div class="card-body">
+                      <h5 class="card-title">{"Name: " + managerName}</h5>
+                      <p class="card-text">{"Phone: " + managerPhone}</p>
+                      <p class="card-text">{"Email: " + managerEmail}</p>
+                    </div>
+                  </div>
+
+                  {/* <label className="btn btn-secondary ">Workorders</label> */}
+                </div>
+              ) : null}
+            </div>
+          ) : null}
         </div>
       </nav>
     );
