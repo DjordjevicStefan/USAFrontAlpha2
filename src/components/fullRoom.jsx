@@ -103,28 +103,30 @@ class FullRoom extends Form {
     localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
   };
 
-  validate = () => {
-    const options = { abortEarly: false };
-    const { error } = Joi.validate(this.state.data, this.state.schema, options);
-    if (!error) return null;
+  // validate = () => {
+  //   const options = { abortEarly: false };
+  //   const { error } = Joi.validate(this.state.data, this.state.schema, options);
+  //   if (!error) return null;
 
-    const errors = {};
-    for (let item of error.details) errors[item.path[0]] = item.message;
-    return errors;
-  };
+  //   const errors = {};
+  //   for (let item of error.details) errors[item.path[0]] = item.message;
+  //   return errors;
+  // };
 
   validateProperty = ({ name, value }) => {
     const obj = { [name]: value };
     const schema = { [name]: this.state.schema[name] };
     const { error } = Joi.validate(obj, schema);
+    console.log(error);
+
     return error ? error.details[0].message : null;
   };
 
-  handleChange = e => {
-    const input = e.currentTarget;
+  handleChange = ({ currentTarget: input }) => {
+    // const input = e.currentTarget;
 
     const errors = { ...this.state.errors };
-    const schema = { ...this.state.schema };
+
     const errorMessage = this.validateProperty(input);
     if (errorMessage) errors[input.name] = errorMessage;
     else delete errors[input.name];
@@ -471,7 +473,7 @@ class FullRoom extends Form {
     const value2 = workorder.squareFeet;
     const value = workorder.apartmentNumber;
     // let number = this.state.data[0];
-
+    console.log(this.state);
     return (
       <React.Fragment>
         <div className="container main-page">
