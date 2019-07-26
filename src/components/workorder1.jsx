@@ -121,7 +121,7 @@ class Wo extends Component {
         work.comment = "";
         work.adress = "";
         work.autosaveTime = "";
-        work.jobs = [];
+        delete work.jobs;
         delete work._id;
         work.loginTime = new Date();
         localStorage.setItem("workorder", JSON.stringify(work));
