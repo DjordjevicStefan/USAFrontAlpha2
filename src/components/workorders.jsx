@@ -261,9 +261,14 @@ class Workorders extends Form {
   }
 
   render() {
+    let message = false;
     // console.log(this.state.allItems);
     let workorders = JSON.parse(localStorage.getItem("workorders"));
+    console.log(workorders);
 
+    if (workorders[0] == undefined) {
+      message = true;
+    }
     // console.log(workorders);
     // const allItems = this.state.allItems;
     const searchQuery = this.state.searchQuery;
@@ -369,6 +374,7 @@ class Workorders extends Form {
               value={searchQuery}
               onChange={this.handleSearch}
             />
+
             <table className="table">
               <thead>
                 <tr>
@@ -420,6 +426,12 @@ class Workorders extends Form {
                 ))}
               </tbody>
             </table>
+            {message ? (
+              <h4 className="p-4">
+                {" "}
+                You have no {this.props.match.params.i} workorders...
+              </h4>
+            ) : null}
           </div>
         </div>
       </React.Fragment>
