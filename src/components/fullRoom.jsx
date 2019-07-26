@@ -46,12 +46,12 @@ class FullRoom extends Form {
 
     localStorage.setItem("workorder", JSON.stringify(work));
     const finalData = JSON.parse(localStorage.getItem("workorder"));
-    console.log(finalData);
+
     const data = await axios.post(
       process.env.REACT_APP_API_URL + "/user/newTempWorkorder",
       JSON.stringify(finalData)
     );
-    console.log(data);
+
     this.props.history.push("/rooms/" + this.props.match.params.m);
   };
   handlelogOut() {
@@ -61,32 +61,7 @@ class FullRoom extends Form {
       document.location = "/";
     }
   }
-  // handleFinishedButton = async () => {
-  //   let start = true;
-  //   localStorage.setItem("startBtn", JSON.stringify(start));
-  //   const jobs = JSON.parse(localStorage.getItem("jobs"));
-  //   const work = JSON.parse(localStorage.getItem("workorder"));
-  //   work.autosaveTime = new Date();
-  //   if (jobs != null) {
-  //     work.jobs = jobs;
-  //   }
 
-  //   localStorage.setItem("workorder", JSON.stringify(work));
-  //   const finalData = JSON.parse(localStorage.getItem("workorder"));
-  //   console.log(finalData);
-  //   const data = await axios.post(
-  //     process.env.REACT_APP_API_URL + "/user/newTempWorkorder",
-  //     JSON.stringify(finalData)
-  //   );
-
-  //   this.props.history.push(
-  //     "/rooms/" + this.props.match.params.id + "/work-order"
-  //   );
-  //   // const work = JSON.parse(localStorage.getItem("workorder"));
-  //   const date = new Date();
-  //   work.completedTime = date;
-  //   localStorage.setItem("workorder", JSON.stringify(work));
-  // };
   handleFinishedButton = async () => {
     let start = true;
     localStorage.setItem("startBtn", JSON.stringify(start));
@@ -165,15 +140,12 @@ class FullRoom extends Form {
     // console.log(number);
     const allItems = JSON.parse(localStorage.getItem("allItems"));
     const rooms = this.state.allItems.find(room => room._id === input.id);
-    console.log(rooms);
-    rooms.quantity = data[input.id];
 
-    console.log(data[input.name]);
-    console.log(rooms.quantity);
+    rooms.quantity = data[input.id];
 
     // localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
     localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
-    console.log(this.state.allItems);
+
     this.setState({ data, errors, value: input.value });
 
     // schema = {
@@ -222,12 +194,12 @@ class FullRoom extends Form {
 
     localStorage.setItem("workorder", JSON.stringify(work));
     const finalData = JSON.parse(localStorage.getItem("workorder"));
-    console.log(finalData);
+
     const data = await axios.post(
       process.env.REACT_APP_API_URL + "/user/newTempWorkorder",
       JSON.stringify(finalData)
     );
-    console.log(data);
+
     if (data.statusText === "OK") {
       let work = JSON.parse(localStorage.getItem("workorder"));
 
@@ -291,9 +263,7 @@ class FullRoom extends Form {
       // }
       if (this.state.data[e.currentTarget.id] != undefined) {
         value = this.state.data[e.currentTarget.id];
-        console.log("radi vrednost u data");
       } else {
-        console.log("radivalue");
         rooms.quantity = value;
       }
 
@@ -371,7 +341,7 @@ class FullRoom extends Form {
         let x = i._id;
         datas[x] = i.quantity;
       });
-      console.log(datas);
+
       data = datas;
 
       let checked = jobs.filter(j => allItems.filter(m => m._id == j._id));
@@ -539,20 +509,6 @@ class FullRoom extends Form {
               &#x2716; Logout
             </button>
           </div>
-          {/* <Link
-              to={"/rooms/new-workorder"}
-              onClick={this.handleNewWorkorders}
-              className="btn btn-secondary mt-3 mb-3 float-right"
-            >
-              New Workorder
-            </Link>
-            <Link
-              to={"/user/workorders"}
-              onClick={this.handleWorkorders}
-              className="btn btn-warning mt-3 mb-3"
-            >
-              My Workorders
-            </Link> */}
 
           <span
             onClick={e => this.firstInput.current.focus()}
