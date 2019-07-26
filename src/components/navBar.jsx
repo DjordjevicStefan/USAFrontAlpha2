@@ -54,21 +54,21 @@ class NavBar extends Component {
       // let workorders = JSON.parse(localStorage.getItem("savedWorkorders"));
       // let workorders1 =
       const data = await axios.get(
-        process.env.REACT_APP_API_URL + `/user/getAllTempWorkorders/${userId}`
+        process.env.REACT_APP_API_URL + `/user/allUserWorkorders/${userId}`
       );
       console.log(data.data);
       // if (data) {
       // localStorage.setItem("savedWorkorders", JSON.stringify(data.data));
-      localStorage.setItem("workorders", JSON.stringify(data.data));
+      localStorage.setItem("completedWorkorders", JSON.stringify(data.data));
       console.log(e.target.value);
 
       localStorage.removeItem("jobs");
-      let allWorkorders = JSON.parse(localStorage.getItem("workorders"));
-      let completedWorkorders = allWorkorders.filter(
-        m => m.status == "pending"
-      );
-      let workorders = completedWorkorders;
-      localStorage.setItem("workorders", JSON.stringify(workorders));
+      // let allWorkorders = JSON.parse(localStorage.getItem("workorders"));
+      // let completedWorkorders = allWorkorders.filter(
+      //   m => m.status == "pending"
+      // );
+      // let workorders = completedWorkorders;
+      localStorage.setItem("workorders", JSON.stringify(data.data));
       localStorage.setItem("chosenOpt", JSON.stringify("pending"));
       // window.location.reload();
       this.props.history.push(`/user/workorders/${e.target.value}`);
