@@ -11,7 +11,7 @@ const TableName = props => {
       <div className="table-name clearfix">
         <span
           className={
-            tz ? "p-display-inline float-left reset-bottom-margin" : null
+            tz ? "p-display-inline float-left reset-bottom-margin admin-disp-none" : null
           }
         >
           {props.tablename === "Loading..." ? (
@@ -23,7 +23,7 @@ const TableName = props => {
           )}
         </span>
         {tz ? (
-          <div className="float-right">
+          <div className="float-right-clock">
             <span>
               <Clock
                 format="dddd Do, MMMM, HH:mm:ss"

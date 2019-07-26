@@ -98,6 +98,10 @@
   /* padding-top: 1rem  !important; */
 }
 
+.float-right-clock {
+  float: right ;
+}
+
 .items-table-padding-td {
   padding-left: 0.5rem !important ;
 }
@@ -309,6 +313,14 @@ a:active {
 .mob-box-responsive {
   box-shadow: 0 4px 4px -2px black; 
 } 
+
+.line-hight-admin {
+  line-height: 3rem ;
+}
+
+.font-resp-admin {
+  font-size: 0.7rem ;
+} 
   
 }
 
@@ -317,6 +329,15 @@ a:active {
     font-size: 0.8rem !important ;
     font-weight: 500 ;
     padding-top: 0 !important ;
+  }
+
+  .float-right-clock {
+    float: none ;
+  }
+
+  .admin-disp-none {
+    display: none ;
+    
   }
 }
 

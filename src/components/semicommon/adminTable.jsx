@@ -51,8 +51,8 @@ const AdminTable = ({
 
   const btnStatusText = status => {
     if (status === "pending") return "sent";
-    if (status === "sent") return "saved";
-    if (status === "saved") return "pending";
+    if (status === "sent") return "pending";
+    // if (status === "saved") return "pending";
   };
 
   
@@ -61,10 +61,10 @@ const AdminTable = ({
     <div className="container">
       
       {checkEmpty()}
-      <table className="table table-hover table-sm">
+      <table className="table table-hover table-responsive-sm">
         <thead>
-          <tr>
-            {status === "saved" ? <th /> : <th scope="col">Select</th>}
+          <tr className="font-resp-admin">
+            {status === "saved" ? <th /> : <th className="line-hight-admin" scope="col">Select</th>}
             <th
               className="click-th"
               onClick={() => onSort("buildingNumber")}
@@ -82,7 +82,7 @@ const AdminTable = ({
               Apartment Number
             </th>
             <th
-              className="click-th"
+              className="click-th line-hight-admin"
               onClick={() => onSort("firstName")}
               scope="col"
             >
@@ -90,7 +90,7 @@ const AdminTable = ({
               User
             </th>
             <th
-              className="click-th"
+              className="click-th line-hight-admin"
               onClick={() => onSort("sendTime")}
               scope="col"
             >
@@ -98,7 +98,7 @@ const AdminTable = ({
               {status === "saved" ? "Save time" : "Send time"}
             </th>
             <th scope="col">
-              <button onClick={onChange} className="btn btn-primary">
+              <button onClick={onChange} className="btn btn-primary font-resp-admin">
                 show {btnStatusText(status)}
               </button>
             </th>
@@ -114,7 +114,7 @@ const AdminTable = ({
           ) : null}
 
           {woPaginated.map(order => (
-            <tr key={order._id}>
+            <tr className="font-resp-admin" key={order._id}>
               {status === "saved" ? (
                 <td />
               ) : (
@@ -122,7 +122,7 @@ const AdminTable = ({
                   
                   <Link
                     to={`/admin/workorder/${order._id}`}
-                    className="mdc-button btn-sm btn"
+                    className="mdc-button btn-sm btn font-resp-admin"
                   >
                     Select
                   </Link>
