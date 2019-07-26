@@ -16,7 +16,7 @@ export default class Jobs extends Component {
     vendors : null ,
     jobs: null,
     currentPage : 1,
-    jobsPerPage : 8,
+    jobsPerPage : 16,
     searchQuery : "" ,
     searchOption : "name",
     options : [ "name" , "room" ] ,
