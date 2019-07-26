@@ -61,6 +61,32 @@ class FullRoom extends Form {
       document.location = "/";
     }
   }
+  // handleFinishedButton = async () => {
+  //   let start = true;
+  //   localStorage.setItem("startBtn", JSON.stringify(start));
+  //   const jobs = JSON.parse(localStorage.getItem("jobs"));
+  //   const work = JSON.parse(localStorage.getItem("workorder"));
+  //   work.autosaveTime = new Date();
+  //   if (jobs != null) {
+  //     work.jobs = jobs;
+  //   }
+
+  //   localStorage.setItem("workorder", JSON.stringify(work));
+  //   const finalData = JSON.parse(localStorage.getItem("workorder"));
+  //   console.log(finalData);
+  //   const data = await axios.post(
+  //     process.env.REACT_APP_API_URL + "/user/newTempWorkorder",
+  //     JSON.stringify(finalData)
+  //   );
+
+  //   this.props.history.push(
+  //     "/rooms/" + this.props.match.params.id + "/work-order"
+  //   );
+  //   // const work = JSON.parse(localStorage.getItem("workorder"));
+  //   const date = new Date();
+  //   work.completedTime = date;
+  //   localStorage.setItem("workorder", JSON.stringify(work));
+  // };
   handleFinishedButton = async () => {
     let start = true;
     localStorage.setItem("startBtn", JSON.stringify(start));
@@ -228,13 +254,6 @@ class FullRoom extends Form {
     // let value = this.state.value;
     // console.log(this.state.value);
     let value = this.state.value;
-    // if (this.state.value[0] == undefined) {
-    //   value = 1;
-    //   console.log("radi", value);
-    //   // this.setState({ value });
-    // } else {
-    //   value = this.state.value;
-    // }
 
     console.log(checked, value);
     // console.log(this.state.value);
@@ -611,6 +630,7 @@ class FullRoom extends Form {
                         // rows="2"
                         placeholder="Comment"
                         disabled={item.checked}
+                        onPaste={this.handleChangeArea}
                         onChange={this.handleChangeArea}
                         name={item.name}
                         value={item.comment}

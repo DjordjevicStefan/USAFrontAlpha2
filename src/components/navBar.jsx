@@ -26,13 +26,13 @@ class NavBar extends Component {
       let userId = JSON.parse(localStorage.getItem("currentUser"))._id;
       // let workorders = JSON.parse(localStorage.getItem("savedWorkorders"));
 
-      console.log(userId);
+      // console.log(userId);
       // let workorders = JSON.parse(localStorage.getItem("savedWorkorders"));
       // let workorders1 =
       const data = await axios.get(
         process.env.REACT_APP_API_URL + `/user/getAllTempWorkorders/${userId}`
       );
-      console.log(data.data);
+      console.log(data);
       localStorage.setItem("savedWorkorders", JSON.stringify(data.data));
       localStorage.setItem("workorders", JSON.stringify(data.data));
       localStorage.setItem("chosenOpt", JSON.stringify("saved"));
