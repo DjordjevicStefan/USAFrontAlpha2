@@ -28,12 +28,13 @@ import Jobs from "./components/jobs";
 class App extends Component {
   state = {};
   async componentDidMount() {
-    const response = await axios.get(process.env.REACT_APP_API_URL);
-
-    const buildings = response.data.buildings;
-
-    localStorage.setItem("buildings", JSON.stringify(buildings));
-    console.log(response);
+    console.log(window.location);
+    if (window.location.pathname === "/login") {
+      const response = await axios.get(process.env.REACT_APP_API_URL);
+      const buildings = response.data.buildings;
+      localStorage.setItem("buildings", JSON.stringify(buildings));
+      console.log(response);
+    }
   }
 
   render() {
@@ -47,7 +48,7 @@ class App extends Component {
           <ProtectedRoute path="/admin/vendors" component={Vendors} />{" "}
           <ProtectedRoute path="/admin/items" component={Items} />{" "}
           <ProtectedRoute path="/admin/jobs" component={Jobs} />{" "}
-          <ProtectedRoute path="/admin" component={AdminPanel} />
+          <ProtectedRoute path="/admin" component={AdminPanel} />{" "}
           <Route
             path="/user/workorders/:i"
             render={props => <Workorders props={this.state.rooms} {...props} />}
@@ -56,11 +57,10 @@ class App extends Component {
             path="/:id/:m/work-order"
             render={props => <Wo props={this.state.rooms} {...props} />}
           />
-          <Route path="/rooms/:id/:m" component={FullRoom} />
+          <Route path="/rooms/:id/:m" component={FullRoom} />{" "}
           <Route path="/rooms/:id" render={props => <Rooms {...props} />} />
-          <Route path="/login" component={LoginForm} />
+          <Route path="/login" component={LoginForm} />{" "}
           <Redirect from="/" exact to="/login" />
-          
         </Switch>{" "}
       </div>
     );
