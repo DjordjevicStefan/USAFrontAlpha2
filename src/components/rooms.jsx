@@ -20,6 +20,7 @@ class Rooms extends Component {
     const work = JSON.parse(localStorage.getItem("workorder"));
     if (work.buildingNumber && work.apartmentNumber) {
       let finalData = {};
+
       finalData.buildingNumber = work.buildingNumber;
       finalData.apartmentNumber = work.apartmentNumber;
       finalData.userId = work.userId;
