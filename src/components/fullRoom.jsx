@@ -179,21 +179,38 @@ class FullRoom extends Form {
     // console.log(buildings);
     this.setState({ adress });
   };
-  handleHomeButton() {
-    let work = JSON.parse(localStorage.getItem("workorder"));
-
-    localStorage.removeItem("jobs");
-    localStorage.removeItem("startBtn");
-    localStorage.removeItem("building");
-    localStorage.removeItem("chosenOpt");
-    work.jobs = {};
-    work.buildingNumber = "";
-    work.apartmentNumber = "";
-    work.adress = "";
-    work.squareFeet = "";
-    delete work._id;
+  async handleHomeButton() {
+    const jobs = JSON.parse(localStorage.getItem("jobs"));
+    const work = JSON.parse(localStorage.getItem("workorder"));
+    work.autosaveTime = new Date();
+    if (jobs != null) {
+      work.jobs = jobs;
+    }
 
     localStorage.setItem("workorder", JSON.stringify(work));
+    const finalData = JSON.parse(localStorage.getItem("workorder"));
+    console.log(finalData);
+    const data = await axios.post(
+      process.env.REACT_APP_API_URL + "/user/newTempWorkorder",
+      JSON.stringify(finalData)
+    );
+    console.log(data);
+    if (data.statusText === "OK") {
+      let work = JSON.parse(localStorage.getItem("workorder"));
+
+      localStorage.removeItem("jobs");
+      localStorage.removeItem("startBtn");
+      localStorage.removeItem("building");
+      localStorage.removeItem("chosenOpt");
+      work.jobs = {};
+      work.buildingNumber = "";
+      work.apartmentNumber = "";
+      work.adress = "";
+      work.squareFeet = "";
+      delete work._id;
+
+      localStorage.setItem("workorder", JSON.stringify(work));
+    }
     const region = JSON.parse(localStorage.getItem("currentUser")).region;
     // this.setState({ buildingState: false });
     this.props.history.push(`/rooms/${region}`);

@@ -46,15 +46,34 @@ class NavBar extends Component {
     } else if (e.target.value == "pending") {
       // let userId = JSON.parse(localStorage.getItem("savedWorkorders")).userId;
       e.preventDefault();
+      e.persist();
+      let userId = JSON.parse(localStorage.getItem("currentUser"))._id;
+      // let workorders = JSON.parse(localStorage.getItem("savedWorkorders"));
 
+      console.log(userId);
+      // let workorders = JSON.parse(localStorage.getItem("savedWorkorders"));
+      // let workorders1 =
+      const data = await axios.get(
+        process.env.REACT_APP_API_URL + `/user/getAllTempWorkorders/${userId}`
+      );
+      console.log(data.data);
+      // if (data) {
+      // localStorage.setItem("savedWorkorders", JSON.stringify(data.data));
+      localStorage.setItem("workorders", JSON.stringify(data.data));
       console.log(e.target.value);
+
       localStorage.removeItem("jobs");
-      let workorders = JSON.parse(localStorage.getItem("completedWorkorders"));
+      let allWorkorders = JSON.parse(localStorage.getItem("workorders"));
+      let completedWorkorders = allWorkorders.filter(
+        m => m.status == "pending"
+      );
+      let workorders = completedWorkorders;
       localStorage.setItem("workorders", JSON.stringify(workorders));
       localStorage.setItem("chosenOpt", JSON.stringify("pending"));
       // window.location.reload();
       this.props.history.push(`/user/workorders/${e.target.value}`);
       // document.location.reload();
+      // }
       // window.location = `/user/workorders/${e.target.value}`;
     } else if (e.target.value == "new") {
       localStorage.removeItem("jobs");
