@@ -58,6 +58,10 @@
   box-shadow: 0 3px 3px black;
 }
 
+.wo-line-hight {
+  line-height: 2.7rem !important ;
+}
+
 .login {
   padding: 30px;
   background-color: #eeeeee;
@@ -79,6 +83,10 @@
 
 .dsp-block {
   display: block;
+}
+
+.text-aligne-left {
+  text-align: left;
 }
 
 .border-bottom-reset {
@@ -321,6 +329,26 @@ a:active {
 .font-resp-admin {
   font-size: 0.7rem ;
 } 
+
+.font-resp-wo {
+  font-size: 0.70rem !important ;
+}
+
+.wo-line-hight {
+  line-height: 2.5rem !important ;
+}
+
+.wo-font-room {
+  font-size: 8px ;
+}
+
+.wo-font-textarea-and-button {
+ font-size: 0.7rem !important ;
+}
+
+.input-date-wo-margin {
+  margin-top: 1.1rem !important ;
+}
   
 }
 
@@ -338,6 +366,10 @@ a:active {
   .admin-disp-none {
     display: none ;
     
+  }
+
+  .font-resp-wo {
+    font-size: 0.75rem !important ;
   }
 }
 
