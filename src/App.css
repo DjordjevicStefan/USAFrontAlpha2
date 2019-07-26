@@ -341,3 +341,9 @@ a:active {
   }
 }
 
+@media  (max-width: 1050px) {
+   .line-hight-jobs {
+     line-height: 3rem !important ;
+   }
+}
+

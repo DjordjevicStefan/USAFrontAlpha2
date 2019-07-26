@@ -61,90 +61,99 @@ export default function JobsTable(props) {
 
   return (
     <>
-      {jobsPaginated.map(job => (
-        <table
-          key={job._id}
-          className="table table-bordered table-hover table-sm"
-        >
-          <thead>
-            <tr className="text-left">
-              <th>Comment</th>
-              <th>Building Number</th>
-              <th>Apartment Number</th>
-              <th>Vendor</th>
-              <th>Assignment Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="text-left">
-              <td>{job.comment}</td>
-              <td>{job.workorder.buildingNumber}</td>
-              <td>{job.workorder.apartmentNumber}</td>
-              <td>
-                {job.vendor ? job.vendor.name : "not selected or deleted"}
-              </td>
-              <td>
-                {job.assignmentDate
-                  ? formatDate(job.assignmentDate)
-                  : "not assigned"}
-              </td>
-            </tr>
-            <tr className={job.vendor ? "" : "table-border-bottom"}>
-              <th colSpan="5">
-                Room:
-                <span className="font-weight-normal mr-5"> {job.room} </span>
-                Name:
-                <span className="font-weight-normal mr-5"> {job.name} </span>
-                Price: <span className="font-weight-normal" />
-                <span className="font-weight-normal mr-5"> {job.price} </span>
-                Quantity:
-                <span className="font-weight-normal mr-5">
-                  
-                  {job.quantity}
-                </span>
-                {job.endDate !== "" ? (
-                  <span className="font-weight-normal">
-                    
-                    <span className="font-weight-bold">End Date:</span>{" "}
-                    <span className="endDate">{job.endDate}</span>
+      <table className="table table-bordered table-hover table-responsive-sm">
+        <thead>
+          <tr className="font-resp-admin">
+            <th className="line-hight-jobs">Comment</th>
+            <th>Building Number</th>
+            <th>Apartment Number</th>
+            <th className="line-hight-jobs">Vendor</th>
+            <th>Assignment Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {jobsPaginated.map(job => (
+            <>
+              <tr className="font-resp-admin" >
+                <td>
+                     <textarea
+                        rows="2"
+                        cols="40"
+                        value={job.comment}
+                        name="name"
+                        type="text"
+                        className="form-control form-control-sm"
+                      /> 
+                </td>
+                <td>{job.workorder.buildingNumber}</td>
+                <td>{job.workorder.apartmentNumber}</td>
+                <td>
+                  {job.vendor ? job.vendor.name : "not selected or deleted"}
+                </td>
+                <td>
+                  {job.assignmentDate
+                    ? formatDate(job.assignmentDate)
+                    : "not assigned"}
+                </td>
+              </tr>
+              <tr className={job.vendor ? "font-resp-admin" : "table-border-bottom font-resp-admin"}>
+                <th colSpan="5">
+                  Room:
+                  <span className="font-weight-normal mr-5"> {job.room} </span>
+                  Name:
+                  <span className="font-weight-normal mr-5"> {job.name} </span>
+                  Price: <span className="font-weight-normal" />
+                  <span className="font-weight-normal mr-5"> {job.price} </span>
+                  Quantity:
+                  <span className="font-weight-normal mr-5">
+                    {job.quantity}
                   </span>
-                ) : null}
-              </th>
-            </tr>
-            {job.vendor && job.endDate === "" ? (
-              <tr className={job.vendor ? "table-border-bottom" : null}>
-                <th colSpan="3">Finish Job : </th>
-                <th colSpan="2">
                   
-                  <button
-                    className="btn btn-sm mdc-button"
-                    onClick={() => onFinish(job._id)}
-                  >
-                    Finish
-                  </button>
                 </th>
               </tr>
-            ) : null}
+              {job.endDate !== "" ? (
+                   <tr className= "table-border-bottom" >
+                      <td colSpan="5">
+                    <span className="font-weight-normal ">
+                      <span className="font-weight-bold">End Date:</span>{" "}
+                      <span className="endDate">{job.endDate}</span>
+                    </span>
+                    </td>
+                    </tr>
+                  ) : null}
 
-           {/* <tr>
-             <td colSpan="6">
-             <Pagination
-            currentPage={currentPage}
-            total={
-              searchQuery !== "" ? searchedArrey.length : jobsSorted.length
-            }
-            somethingPerPage={jobsPerPage}
-            paginate={paginate}
-          />
-             </td>
+              {job.vendor && job.endDate === "" ? (
+                <tr className={job.vendor ? "table-border-bottom" : null}>
+                  <th colSpan="3">Finish Job : </th>
+                  <th colSpan="2">
+                    <button
+                      className="btn btn-sm mdc-button"
+                      onClick={() => onFinish(job._id)}
+                    >
+                      Finish
+                    </button>
+                  </th>
+                </tr>
+              ) : null}
+            </>
+          ))}
 
-           </tr> */}
+          <tr>
+            <td colSpan="6">
+              <Pagination
+                currentPage={currentPage}
+                total={
+                  searchQuery !== "" ? searchedArrey.length : jobsSorted.length
+                }
+                somethingPerPage={jobsPerPage}
+                paginate={paginate}
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-          </tbody>
-        </table>
-      ))}
-
-      <div className="row">
+      {/* <div className="row">
         <div className="col">
           <Pagination
             currentPage={currentPage}
@@ -155,7 +164,7 @@ export default function JobsTable(props) {
             paginate={paginate}
           />
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
