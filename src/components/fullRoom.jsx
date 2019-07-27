@@ -51,7 +51,8 @@ class FullRoom extends Form {
       process.env.REACT_APP_API_URL + "/user/newTempWorkorder",
       JSON.stringify(finalData)
     );
-
+    console.log(finalData);
+    console.log(data);
     this.props.history.push("/rooms/" + this.props.match.params.m);
   };
   handlelogOut() {
@@ -200,6 +201,7 @@ class FullRoom extends Form {
       JSON.stringify(finalData)
     );
 
+    console.log(data);
     if (data.statusText === "OK") {
       let work = JSON.parse(localStorage.getItem("workorder"));
 
