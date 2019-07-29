@@ -367,7 +367,7 @@ class Workorders extends Form {
               onClick={e => this.firstInput.current.focus()}
               className="btn btn-secondary btn-sm mb-1"
             >
-              Search by the Adress:
+              Search by the Address:
             </span>
             <SearchBox
               firstInput={this.firstInput}
@@ -381,7 +381,7 @@ class Workorders extends Form {
                   <th className="item">Save/Send Date</th>
                   <th className="item">Building Number</th>
                   <th className="item">Apartment Number</th>
-                  {/* <th>Adress</th> */}
+                  <th className="item">Address</th>
 
                   {status ? <th className="item">Link</th> : null}
                 </tr>
@@ -401,7 +401,7 @@ class Workorders extends Form {
                     )}
                     <td className="itemTd">{item.buildingNumber}</td>
                     <td className="itemTd">{item.apartmentNumber}</td>
-                    {/* <td>{item.adress}</td> */}
+                    <td className="itemTd">{item.adress}</td>
                     {/* {this.state.start && value ? (
                         <div className="row">{rooms}</div>
                       ) : null} */}

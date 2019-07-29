@@ -15,7 +15,6 @@ class Rooms extends Component {
   };
 
   async handleAsync() {
-    console.log("radi async");
     this.setState({ start: true, isLoading: true });
     const work = JSON.parse(localStorage.getItem("workorder"));
     if (work.buildingNumber && work.apartmentNumber) {
@@ -25,18 +24,12 @@ class Rooms extends Component {
       finalData.apartmentNumber = work.apartmentNumber;
       finalData.userId = work.userId;
 
-      // work.autosaveTime = new Date();
-      // work.jobs = jobs;
-      // localStorage.setItem("workorder", JSON.stringify(work));
-      // const finalData = JSON.parse(localStorage.getItem("workorder"));
-      console.log(finalData);
-
       const data1 = await axios.post(
         process.env.REACT_APP_API_URL + "/user/getTempWorkorder",
         JSON.stringify(finalData)
       );
       this.setState({ isLoading: false });
-      console.log(data1);
+
       localStorage.setItem("allItems", JSON.stringify(data1.data.items));
       if (data1.data.workorder) {
         let _id = data1.data.workorder._id;
@@ -70,13 +63,11 @@ class Rooms extends Component {
     if (this.state.start || this.props.location.state) {
       let allItems = JSON.parse(localStorage.getItem("allItems"));
       if (this.props.location.state) {
-        console.log(buildings);
-
         const buildNumber = this.props.location.state.buildingNumber;
-        console.log(buildNumber);
+
         let building = buildings.find(m => m.number == buildNumber);
         // }urac
-        console.log(building);
+
         const adress = building.adress + " (" + building.zip + ")";
         // console.log(buildings);
         const work = JSON.parse(localStorage.getItem("workorder"));
@@ -92,7 +83,7 @@ class Rooms extends Component {
           let p = allItems.filter(d => d._id != j.find(m => m == d._id));
 
           allItems = k.concat(p);
-          console.log("itemsi", allItems);
+
           localStorage.setItem("allItems", JSON.stringify(allItems));
           localStorage.setItem("jobs", JSON.stringify(allItems));
         }
@@ -170,7 +161,7 @@ class Rooms extends Component {
 
     localStorage.setItem("workorder", JSON.stringify(work));
     const finalData = JSON.parse(localStorage.getItem("workorder"));
-    console.log(finalData);
+
     const data = await axios.post(
       process.env.REACT_APP_API_URL + "/user/newTempWorkorder",
       JSON.stringify(finalData)
@@ -198,7 +189,6 @@ class Rooms extends Component {
 
     let building = buildings.find(m => m.number == e.target.value);
 
-    console.log(building);
     localStorage.setItem("building", JSON.stringify(building));
 
     const work = JSON.parse(localStorage.getItem("workorder"));
@@ -242,18 +232,6 @@ class Rooms extends Component {
     this.setState({
       value: e.target.value
     });
-    // setTimeout(() => {
-    //   console.log("Our data is fetched");
-
-    //   this.handleAsync();
-    // }, 2000);
-    // document.location.reload();
-    // if (work.apartmentNumber == "") {
-    //   delete work._id;
-    // }
-
-    // localStorage.setItem("workorder", JSON.stringify(workOrder));
-    // localStorage.removeItem("jobs");
   };
   handleSquare = e => {
     let value2 = "";
@@ -327,15 +305,6 @@ class Rooms extends Component {
     let isLoading = this.state.isLoading;
     let isLoadingFullRoom = this.state.isLoadingFullRoom;
 
-    console.log(isLoading);
-    // let isLoadingFullRoom;
-    // if (localStorage.getItem("isLoadingFullRoom") == true) {
-    //   isLoadingFullRoom = JSON.parse(localStorage.getItem("isLoadingFullRoom"));
-    // }
-    // {
-    //   isLoadingFullRoom = false;
-    // }
-    // console.log(isLoadingFullRoom);
     if (JSON.parse(localStorage.getItem("chosenOpt")) == "saved") {
       saved = true;
     }
