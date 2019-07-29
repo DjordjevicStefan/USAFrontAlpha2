@@ -16,6 +16,8 @@ class UserForm extends Component {
       emailPassword,
       error,
       id,
+      pictureSelect,
+      pictureUpload
         
     } = this.props;
 
@@ -75,6 +77,8 @@ class UserForm extends Component {
                  </div> 
               </div>
 
+              
+
 
               <div className="row">
               <div className="col-6">
@@ -88,6 +92,15 @@ class UserForm extends Component {
             </div>
             </form>
            
+
+            <div className="row">
+                <div className="col-sm-6">
+                <input type='file' accept="image/*" onChange={pictureSelect} /> 
+                </div>
+                <div className="col-sm-6">
+               <button className="btn btn-sm btn-info" onClick={pictureUpload} >Save picture</button>
+                </div>
+              </div>
            
           </div>
         </div>

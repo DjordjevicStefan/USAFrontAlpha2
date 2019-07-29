@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getUser, saveUser } from "../services/users";
+import { getUser, saveUser, imgUpload } from "../services/users";
 
 import { toast, ToastContainer } from "react-toastify";
 import Joi from "joi";
@@ -11,10 +11,12 @@ import UserForm from "./semicommon/userForm";
 import ModalMy from "./common/modal/modal";
 
 import getAllWorkorders from "../services/workOrders";
+import { async } from "q";
 
 class User extends Component {
   state = {
     orders: null ,
+    images : [] ,
     user: {
       _id: "",
       email: "",
@@ -184,6 +186,28 @@ class User extends Component {
     })
   }
 
+  hadnlePictureSelect = (e) => {
+    let images = []
+       for (var i = 0; i < e.target.files.length; i++) {
+       images[i] = e.target.files.item(i);
+    }
+   this.setState({
+     images : images
+   })   
+
+  }
+handlePictureUpload = async () => {
+    let data = new FormData();
+     
+     console.log("sta mu saljem" , this.state.images[0] );
+    
+     
+     data.append("image", this.state.images[0]  ,  this.state.images[0].name );
+         const test = await imgUpload(data) ;
+         console.log("response" , test);
+         
+  }
+
   render() {
     if (this.state.load === false) {
       return (
@@ -236,6 +260,8 @@ class User extends Component {
           onChange={this.handleInputChange}
           onBack={this.handleBack}
           onSubmit={this.handleSubmit}
+          pictureSelect={this.hadnlePictureSelect}
+          pictureUpload ={this.handlePictureUpload}
         />
       </div>
     );

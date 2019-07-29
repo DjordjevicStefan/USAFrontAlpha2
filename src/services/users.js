@@ -52,9 +52,7 @@ export function saveUser(user) {
   console.log(user);
 
   if (user._id === "") {
-     
     console.log(user);
-    
 
     return http.post(process.env.REACT_APP_API_URL + `/admin/newUser`, qs.stringify({
     email: user.email,
@@ -88,6 +86,13 @@ export function deleteUser(user) {
     region: user.region,
     status : "disabled"
 })) ;
+
+}
+
+
+export function imgUpload(data) { 
+  
+  return http.post(process.env.REACT_APP_API_URL + `/admin/imgTest`, data) ;
 
 }
 
