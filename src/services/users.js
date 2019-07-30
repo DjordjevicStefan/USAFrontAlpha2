@@ -91,6 +91,15 @@ export function deleteUser(user) {
 
 
 export function imgUpload(data) { 
+   
+  console.log("form data" , data);
+  data.append("email" , "test2") ; 
+  data.append("password" , "test2") ; 
+  data.append("emailPassword" , "test2") ; 
+  data.append("name" , "test2") ; 
+  data.append("region" , "test2") ; 
+  data.append("status" , "test2") ; 
+
 
   const headers = {
     "Content-Type": "multipart/form-data"
