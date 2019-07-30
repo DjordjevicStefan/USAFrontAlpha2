@@ -40,7 +40,7 @@ class ModalMy extends Component {
         <div className="showWoBtn clearfix">
           <button
             onClick={onShowModal}
-            className="mdc-button btn-sm btn float-right"
+            className="mdc-button btn-sm btn"
           >
             Show all work orders
           </button>

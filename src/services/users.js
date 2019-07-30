@@ -48,37 +48,49 @@ export function getUser(id) {
   return http.get(process.env.REACT_APP_API_URL + `/admin/users/${id}`)
 }
 
-export function saveUser(user) {
+export function saveUser(user,data) {
+
+  const headers = {
+    "Content-Type": "multipart/form-data"
+  }
+  
   console.log(user);
 
   if (user._id === "") {
-    console.log(user);
+    
+    data.append("email" , user.email ) ;
+    data.append("password" , user.password ) ;
+    data.append("emailPassword" , user.emailPassword ) ;
+    data.append("name" , user.name ) ;
+    data.append("region" , user.region ) ;
+    data.append("status" , "active" ) ;
 
-    return http.post(process.env.REACT_APP_API_URL + `/admin/newUser`, qs.stringify({
-    email: user.email,
-    password: user.password,
-    emailPassword: user.emailPassword,
-    name : user.name,
-    region: user.region,
-    status : "active"
-})) ;
+    return http.post(process.env.REACT_APP_API_URL + `/admin/newUser`, data , {
+      headers : headers 
+    }
+    )
   } 
 
+
+  data.append("_id" , user._id ) ;
+  data.append("email" , user.email ) ;
+  data.append("password" , user.password ) ;
+  data.append("emailPassword" , user.emailPassword ) ;
+  data.append("name" , user.name ) ;
+  data.append("region" , user.region ) ;
+  data.append("status" , "active" ) ;
+
   
-  return http.post(process.env.REACT_APP_API_URL + `/admin/editUser/${user._id}`, qs.stringify({
-      email: user.email,
-      password: user.password,
-      emailPassword: user.emailPassword,
-      name : user.name,
-      region: user.region,
-      status : "active"
-  })) ;
+  return http.post(process.env.REACT_APP_API_URL + `/admin/editUser`, data, {
+    headers : headers 
+  } ) ;
  
 }
 
 export function deleteUser(user) { 
   
-  return http.post(process.env.REACT_APP_API_URL + `/admin/editUser/${user._id}`, qs.stringify({
+  return http.post(process.env.REACT_APP_API_URL + `/admin/editUser`, qs.stringify({
+    _id : user._id ,
     email: user.email,
     password: user.password,
     emailPassword: user.emailPassword,

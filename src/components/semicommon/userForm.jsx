@@ -25,7 +25,7 @@ class UserForm extends Component {
 
     return (
       
-      <div>
+     
         <div className="form-container">
           <div>
          
@@ -77,6 +77,13 @@ class UserForm extends Component {
                  </div> 
               </div>
 
+              <div className="row">
+                <div className="col-sm-6">
+                <input type='file' accept="image/*" onChange={pictureSelect} /> 
+                </div>
+               
+              </div>
+
               
 
 
@@ -93,18 +100,11 @@ class UserForm extends Component {
             </form>
            
 
-            <div className="row">
-                <div className="col-sm-6">
-                <input type='file' accept="image/*" onChange={pictureSelect} /> 
-                </div>
-                <div className="col-sm-6">
-               <button className="btn btn-sm btn-info" onClick={pictureUpload} >Save picture</button>
-                </div>
-              </div>
+           
            
           </div>
         </div>
-      </div>
+      
     );
   }
 }

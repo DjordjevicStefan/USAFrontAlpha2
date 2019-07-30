@@ -135,6 +135,15 @@ class User extends Component {
   //// submit , create new user or edit one
   handleSubmit = async e => {
     e.preventDefault();
+
+    let data = new FormData();
+    if (this.state.images[0]) {
+      data.append("image", this.state.images[0]  ,  this.state.images[0].name );
+    } else {
+      data.append("image", "noImage.jpg");
+    }
+    
+    
     
     
 
@@ -144,7 +153,7 @@ class User extends Component {
     if (errors) return;
 
     //// new user submit or edit old one
-    const result = await saveUser(this.state.user);
+    const result = await saveUser(this.state.user, data);
        
 
     if (result.data.success) {
@@ -199,17 +208,9 @@ class User extends Component {
 handlePictureUpload = async () => {
     let data = new FormData();
     
-
-    //  console.log("name log" , this.state.images[0].name);
-     
-     console.log("sta mu saljem" , this.state.images[0] );
-    
-     
      data.append("image", this.state.images[0]  ,  this.state.images[0].name );
-        // data.append("test1" , "test2") ; 
-
-         const test = await imgUpload(data) ;
-         console.log("response" , test);
+     const test = await imgUpload(data) ;
+         
          
   }
 
@@ -244,6 +245,7 @@ handlePictureUpload = async () => {
           }
         />
 
+       <div className="container">
         {(this.state.user._id !== "") ?
           <ModalMy
             workOrders ={this.getUserWorkOrders(id)}
@@ -268,6 +270,7 @@ handlePictureUpload = async () => {
           pictureSelect={this.hadnlePictureSelect}
           pictureUpload ={this.handlePictureUpload}
         />
+        </div>
       </div>
     );
   }
