@@ -198,6 +198,8 @@ class User extends Component {
   }
 handlePictureUpload = async () => {
     let data = new FormData();
+    
+    //  console.log("name log" , this.state.images[0].name);
      
      console.log("sta mu saljem" , this.state.images[0] );
     

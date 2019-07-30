@@ -91,8 +91,14 @@ export function deleteUser(user) {
 
 
 export function imgUpload(data) { 
+
+  const headers = {
+    "Content-Type": "multipart/form-data"
+  }
   
-  return http.post(process.env.REACT_APP_API_URL + `/admin/imgTest`, data) ;
+  return http.post(process.env.REACT_APP_API_URL + `/admin/imgTest`, data, {
+    headers : headers 
+  }) ;
 
 }
 
