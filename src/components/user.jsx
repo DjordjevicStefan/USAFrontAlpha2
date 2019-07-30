@@ -204,7 +204,9 @@ handlePictureUpload = async () => {
      console.log("sta mu saljem" , this.state.images[0] );
     
      
-     data.append("image", this.state.images[0]  ,  this.state.images[0].name );
+    //  data.append("image", this.state.images[0]  ,  this.state.images[0].name );
+        data.append("test1" , "test2") ; 
+
          const test = await imgUpload(data) ;
          console.log("response" , test);
          
