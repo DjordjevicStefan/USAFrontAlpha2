@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "../css/navbar.css";
 import logo from "../img/ben-leeds-logo.png";
+import user from "../img/user.jpg";
 import WorkOrder from "./workOrder";
 import { BrowserRouter } from "react-router-dom";
 
@@ -137,7 +138,7 @@ class NavBar extends Component {
     let chosenOptNew = "";
     let chosenOptSaved = "";
     let chosenOptPending = "";
-
+    let region = JSON.parse(localStorage.getItem("currentUser")).region;
     if (localStorage.getItem("chosenOpt")) {
       let chosenOpt = JSON.parse(localStorage.getItem("chosenOpt"));
       if (chosenOpt == "new") {
@@ -183,10 +184,20 @@ class NavBar extends Component {
 
     return (
       <nav className="nav-box  text-center">
-        <div className="logoBenLeeds p-3">
-          <img src={logo} alt="Ben Leeds Logo" />
+        <div className="row">
+          <div className="logoBenLeeds col-12 p-3">
+            <img src={logo} alt="Ben Leeds Logo" />
+          </div>
+          <div class="card card-user col-4 offset-4">
+            <img src={user} class="card-img-top user-img" alt="..." />
+            <div class="card-body user-name">
+              <h5 class="card-title">{userName}</h5>
+            </div>
+            <div class="card-footer user-info">
+              <small class="text-center">{region}</small>
+            </div>
+          </div>
         </div>
-
         {!start ? (
           <div className="px-3">
             <span className="btn text-bold">Choose your option ⇩</span>
@@ -214,14 +225,14 @@ class NavBar extends Component {
                   Saved Work Orders
                 </option>
               ) : (
-                <option value="saved">Saved Work Order</option>
+                <option value="saved">Saved Work Orders</option>
               )}
               {chosenOptPending ? (
                 <option selected value="pending">
                   Sent Work Orders
                 </option>
               ) : (
-                <option value="pending">Sent Work Order</option>
+                <option value="pending">Sent Work Orders</option>
               )}
               {/* <label class="mdb-main-label">Blue select</label> */}
               {/* <option value="">Select building</option>
@@ -290,7 +301,7 @@ class NavBar extends Component {
         <div className="container mainPage">
           {!chosenOptSaved && !chosenOptPending ? (
             <div className="row nav-box">
-              <div className="col-sm-4">
+              <div className="col-sm-3">
                 <div className="input-group mb-3">
                   <div className="input-group-prepend">
                     <div className="build input-group-text  text-white">
@@ -311,7 +322,7 @@ class NavBar extends Component {
                   ) : null}
                 </div>
               </div>
-              <div className="col-sm-4">
+              <div className="col-sm-3">
                 <div className="input-group mb-3">
                   <div className="input-group-prepend">
                     <div className="build input-group-text  text-white">
@@ -326,11 +337,27 @@ class NavBar extends Component {
                 </div>
                 {/* <label className="btn btn-secondary ">Workorders</label> */}
               </div>
-              <div className="col-sm-4">
+              <div className="col-sm-3">
                 <div className="input-group mb-3">
                   <div className="input-group-prepend">
                     <div className="build input-group-text  text-white">
                       Square Footage
+                    </div>
+                  </div>
+                  <input
+                    value={this.props.value2}
+                    onChange={this.props.onHandleSquare}
+                    className={`build-input ${this.props.classs}`}
+                  />
+                </div>
+
+                {/* <label className="btn btn-secondary ">Workorders</label> */}
+              </div>
+              <div className="col-sm-3">
+                <div className="input-group mb-3">
+                  <div className="input-group-prepend">
+                    <div className="build input-group-text  text-white">
+                      Levels:
                     </div>
                   </div>
                   <input
