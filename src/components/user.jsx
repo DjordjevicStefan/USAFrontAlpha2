@@ -138,8 +138,12 @@ class User extends Component {
 
     let data = new FormData();
     if (this.state.images[0]) {
+      console.log("izabrao sliku i usao!!");
+
       data.append("image", this.state.images[0]  ,  this.state.images[0].name );
     } else {
+      console.log("bez izabrane slike usao !!");
+      
       data.append("image", "noImage.jpg");
     }
     
@@ -149,7 +153,10 @@ class User extends Component {
 
     const errors = this.validate();
     this.setState({ errors: errors || {} });
+     
+    console.log("error log", errors);
     
+
     if (errors) return;
 
     //// new user submit or edit old one
@@ -157,8 +164,7 @@ class User extends Component {
        
 
     if (result.data.success) {
-      // console.log("otkinuo submit na back dugme forme");
-
+    
       this.handleBack();
     }
     if (result.data.error) {
@@ -174,6 +180,7 @@ class User extends Component {
     delete userCopy.__v;
     delete userCopy.status;
     delete userCopy.region;
+    delete userCopy.image;
 
     const result = Joi.validate(userCopy, this.schema, { abortEarly: false });
     if (!result.error) return null;

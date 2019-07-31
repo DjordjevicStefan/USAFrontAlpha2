@@ -79,7 +79,9 @@ export function saveUser(user,data) {
   data.append("name" , user.name ) ;
   data.append("region" , user.region ) ;
   data.append("status" , "active" ) ;
-
+  
+  console.log("prosao gde treba");
+  
   
   return http.post(process.env.REACT_APP_API_URL + `/admin/editUser`, data, {
     headers : headers 
