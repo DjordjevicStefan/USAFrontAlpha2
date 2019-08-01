@@ -60,7 +60,7 @@
 .user-name {
   height: max-content !important;
   padding: 0px !important;
-  border-radius: 50%;
+  border-radius: 20%;
 }
 .card .user-info {
   margin: 0 auto;
@@ -68,13 +68,15 @@
   width: max-content;
 
   padding: 0px !important;
-  border-radius: 50%;
+  /* border-radius: 20%; */
 }
 .card .user-img {
   width: inherit !important;
   height: inherit !important ;
-  border-radius: 50%;
+  /* border-radius: 50%; */
 }
 .card-user {
-  border-radius: 50% !important;
+  background-color: #23408e !important;
+  /* border-radius: 20% !important; */
+  color: white;
 }

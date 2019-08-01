@@ -248,7 +248,7 @@ class FullRoom extends Form {
       localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
       // localStorage.setItem("jobs", JSON.stringify(this.state.allItems));
 
-      this.setState({ checked });
+      this.setState({ checked, checkedTrue: true });
     } else {
       checked[e.currentTarget.id] = e.target.checked;
       rooms.checked = true;
@@ -269,7 +269,7 @@ class FullRoom extends Form {
         rooms.quantity = value;
       }
 
-      this.setState({ checked });
+      this.setState({ checked, checkedTrue: false });
     }
 
     localStorage.setItem("allItems", JSON.stringify(this.state.allItems));
@@ -311,6 +311,19 @@ class FullRoom extends Form {
 
     this.setState({
       value2: e.target.value
+    });
+  };
+  handleLevels = e => {
+    let value3 = "";
+    let work = JSON.parse(localStorage.getItem("workorder"));
+    // value = workorder.apartmentNumber;
+    work.level = e.target.value;
+    // const workOrder = JSON.parse(localStorage.getItem("workorder"));
+    // workOrder.workorder.apartmentNumber = e.target.value;
+    localStorage.setItem("workorder", JSON.stringify(work));
+
+    this.setState({
+      value3: e.target.value
     });
   };
   // handleLinksTarget = b => {
@@ -417,6 +430,7 @@ class FullRoom extends Form {
   }
 
   render() {
+    console.log(this.state.checkedTrue);
     // console.log(this.state.renderedItems);
 
     // console.log(this.state.data);
@@ -425,6 +439,10 @@ class FullRoom extends Form {
     // //   number=
     // // }
     // console.log();
+
+    let checked = this.state.checked;
+    let checkedTrue = this.state.checkedTrue;
+
     let allItems = JSON.parse(localStorage.getItem("allItems"));
 
     const jobs = JSON.parse(localStorage.getItem("jobs"));
@@ -462,6 +480,7 @@ class FullRoom extends Form {
     // let b = "";
     const workorder = JSON.parse(localStorage.getItem("workorder"));
     const value2 = workorder.squareFeet;
+    const value3 = workorder.level;
     const value = workorder.apartmentNumber;
     // let number = this.state.data[0];
     console.log(this.state);
@@ -472,12 +491,14 @@ class FullRoom extends Form {
             {...this.props}
             value={value}
             value2={value2}
+            value3={value3}
             adress={adress}
             showing={showing}
             classs="disabled"
             build={this.state.build}
             onHandleChange={this.handleChange1}
             onHandleSquare={this.handleSquare}
+            onHandleLevels={this.handleLevels}
             onHandleAptNum={this.handleAptNum}
             onBackButton={this.handleBackButton}
             onFinishedButton={this.handleFinishedButton}
@@ -548,17 +569,19 @@ class FullRoom extends Form {
                     <td className="itemTd">{item.subCategory}</td>
                     <td className="itemTd">${item.price}</td>
                     <td className="itemTd">
-                      <input
-                        disabled={item.checked}
-                        name={item.name}
-                        label="quantity"
-                        onChange={this.handleChange}
-                        value={item.quantity}
-                        className="quantity"
-                        type="number"
-                        min="1"
-                        id={item._id}
-                      />{" "}
+                      {!item.checked ? (
+                        <input
+                          disabled={item.checked}
+                          name={item.name}
+                          label="quantity"
+                          onChange={this.handleChange}
+                          value={item.quantity}
+                          className="quantity"
+                          type="number"
+                          min="1"
+                          id={item._id}
+                        />
+                      ) : null}
                     </td>
 
                     <td className="itemTd">
@@ -583,18 +606,20 @@ class FullRoom extends Form {
                   </tr>
                   <tr>
                     <td className="itemTd" colSpan="6">
-                      <textarea
-                        // cols="38"
-                        // rows="2"
-                        placeholder="Comment"
-                        disabled={item.checked}
-                        onPaste={this.handleChangeArea}
-                        onChange={this.handleChangeArea}
-                        name={item.name}
-                        value={item.comment}
-                        id={item._id}
-                        className="form-control placeholder-input"
-                      />
+                      {!item.checked ? (
+                        <textarea
+                          // cols="38"
+                          // rows="2"
+                          placeholder="Comment"
+                          disabled={item.checked}
+                          onPaste={this.handleChangeArea}
+                          onChange={this.handleChangeArea}
+                          name={item.name}
+                          value={item.comment}
+                          id={item._id}
+                          className="form-control placeholder-input"
+                        />
+                      ) : null}
                     </td>
                   </tr>
                 </tbody>

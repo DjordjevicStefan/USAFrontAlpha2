@@ -341,7 +341,7 @@ class NavBar extends Component {
                 <div className="input-group mb-3">
                   <div className="input-group-prepend">
                     <div className="build input-group-text  text-white">
-                      Square Footage
+                      Square Footage:
                     </div>
                   </div>
                   <input
@@ -361,8 +361,8 @@ class NavBar extends Component {
                     </div>
                   </div>
                   <input
-                    value={this.props.value2}
-                    onChange={this.props.onHandleSquare}
+                    value={this.props.value3}
+                    onChange={this.props.onHandleLevels}
                     className={`build-input ${this.props.classs}`}
                   />
                 </div>

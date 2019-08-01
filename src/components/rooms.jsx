@@ -123,7 +123,12 @@ class Rooms extends Component {
   //   document.location.reload();
   // }
 
-  handleHomeButton() {
+  async handleHomeButton() {
+    const userId = JSON.parse(localStorage.getItem("currentUser"))._id;
+    const response = await axios.get(
+      process.env.REACT_APP_API_URL + `/avatar/${userId}`
+    );
+    console.log(response);
     localStorage.removeItem("jobs");
     localStorage.removeItem("startBtn");
     localStorage.removeItem("building");
@@ -246,6 +251,19 @@ class Rooms extends Component {
       value2: e.target.value
     });
   };
+  handleLevels = e => {
+    let value3 = "";
+    let work = JSON.parse(localStorage.getItem("workorder"));
+    // value = workorder.apartmentNumber;
+    work.level = e.target.value;
+    // const workOrder = JSON.parse(localStorage.getItem("workorder"));
+    // workOrder.workorder.apartmentNumber = e.target.value;
+    localStorage.setItem("workorder", JSON.stringify(work));
+
+    this.setState({
+      value3: e.target.value
+    });
+  };
   handlelogOut() {
     const answer = window.confirm("Are you sure you want to log out?");
     if (answer) {
@@ -265,6 +283,7 @@ class Rooms extends Component {
     let showing = false;
     let value = "";
     let value2 = "";
+    let value3 = "";
     let workorder = JSON.parse(localStorage.getItem("workorder"));
     let isLoading = false;
     let isLoadingFullRoom = true;
@@ -290,6 +309,7 @@ class Rooms extends Component {
       build,
       start,
       value2,
+      value3,
       buildingState,
       isLoading,
       isLoadingFullRoom
@@ -299,6 +319,7 @@ class Rooms extends Component {
   render() {
     let adress = [];
     let value2 = this.state.value2;
+    let value3 = this.state.value3;
     // console.log(typeof this.state.buildingNum);
     let showing = this.state.showing;
     let saved = false;
@@ -360,11 +381,13 @@ class Rooms extends Component {
           // build={build}
           buildingState={this.state.buildingState}
           value2={value2}
+          value3={value3}
           onHandleInput={this.handleInput}
           adress={adress}
           classs=""
           onHandleChange={this.handleChange1}
           onHandleSquare={this.handleSquare}
+          onHandleLevels={this.handleLevels}
           onHandleAptNum={this.handleAptNum}
           onChangeBuildings={() => this.handleChangeBuilding()}
         />
