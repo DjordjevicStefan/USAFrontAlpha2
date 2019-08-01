@@ -124,7 +124,8 @@ class Rooms extends Component {
   // }
 
   async handleHomeButton() {
-    const userId = JSON.parse(localStorage.getItem("currentUser"))._id;
+    // const userId = JSON.parse(localStorage.getItem("currentUser"))._id;
+    const userId = "5d42f45141318e15a443b260";
     const response = await axios.get(
       process.env.REACT_APP_API_URL + `/avatar/${userId}`,
       { responseType: "arraybuffer" }
