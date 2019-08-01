@@ -126,29 +126,41 @@ class Rooms extends Component {
   async handleHomeButton() {
     const userId = JSON.parse(localStorage.getItem("currentUser"))._id;
     const response = await axios.get(
-      process.env.REACT_APP_API_URL + `/avatar/${userId}`
+      process.env.REACT_APP_API_URL + `/avatar/${userId}`,
+      { responseType: "arraybuffer" }
     );
+
     console.log(response);
-    localStorage.removeItem("jobs");
-    localStorage.removeItem("startBtn");
-    localStorage.removeItem("building");
-    localStorage.removeItem("chosenOpt");
-    localStorage.removeItem("isLoadingFullRoom");
-    // localStorage.removeItem("allItems");
+    // this.setState({ img });
+    // console.log(img);
+    const base64 = btoa(
+      new Uint8Array(response.data).reduce(
+        (data, byte) => data + String.fromCharCode(byte),
+        ""
+      )
+    );
+    console.log(base64);
+    this.setState({ source: "data:;base64," + base64 });
+    // localStorage.removeItem("jobs");
+    // localStorage.removeItem("startBtn");
+    // localStorage.removeItem("building");
+    // localStorage.removeItem("chosenOpt");
+    // localStorage.removeItem("isLoadingFullRoom");
+    // // localStorage.removeItem("allItems");
 
-    let work = JSON.parse(localStorage.getItem("workorder"));
-    work.jobs = {};
-    work.buildingNumber = "";
-    work.apartmentNumber = "";
-    work.adress = "";
-    work.squareFeet = "";
-    delete work._id;
+    // let work = JSON.parse(localStorage.getItem("workorder"));
+    // work.jobs = {};
+    // work.buildingNumber = "";
+    // work.apartmentNumber = "";
+    // work.adress = "";
+    // work.squareFeet = "";
+    // delete work._id;
 
-    localStorage.setItem("workorder", JSON.stringify(work));
-    const region = JSON.parse(localStorage.getItem("currentUser")).region;
-    this.setState({ buildingState: false });
-    this.props.history.push(`/rooms/${region}`);
-    document.location.reload();
+    // localStorage.setItem("workorder", JSON.stringify(work));
+    // const region = JSON.parse(localStorage.getItem("currentUser")).region;
+    // this.setState({ buildingState: false });
+    // this.props.history.push(`/rooms/${region}`);
+    // document.location.reload();
   }
   handleBackButton = url => {
     // this.props.history.push("/rooms/" + this.props.match.params.id);
@@ -317,6 +329,7 @@ class Rooms extends Component {
   }
 
   render() {
+    console.log(this.state.source);
     let adress = [];
     let value2 = this.state.value2;
     let value3 = this.state.value3;
@@ -373,7 +386,9 @@ class Rooms extends Component {
 
     return (
       <div className="container main-page">
+        <img className="testImg" src={this.state.source} alt="" />
         <ToastContainer />
+
         <NavBar
           {...this.props}
           showing={showing}
