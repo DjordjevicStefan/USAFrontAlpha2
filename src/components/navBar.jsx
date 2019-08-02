@@ -13,6 +13,25 @@ class NavBar extends Component {
     showing: true
   };
 
+  async componentDidMount() {
+    const userId = "5d42f45141318e15a443b260";
+    const response = await axios.get(
+      process.env.REACT_APP_API_URL + `/avatar/${userId}`,
+      { responseType: "arraybuffer" }
+    );
+
+    console.log(response);
+    // this.setState({ img });
+    // console.log(img);
+    const base64 = btoa(
+      new Uint8Array(response.data).reduce(
+        (data, byte) => data + String.fromCharCode(byte),
+        ""
+      )
+    );
+    console.log(base64);
+    this.setState({ source: "data:;base64," + base64 });
+  }
   handlelogOut() {
     const answer = window.confirm("Are you sure you want to log out?");
     if (answer) {
@@ -189,7 +208,11 @@ class NavBar extends Component {
             <img src={logo} alt="Ben Leeds Logo" />
           </div>
           <div class="card card-user col-4 offset-4">
-            <img src={user} class="card-img-top user-img" alt="..." />
+            <img
+              src={this.state.source}
+              class="card-img-top user-img"
+              alt="..."
+            />
             <div class="card-body user-name">
               <h5 class="card-title">{userName}</h5>
             </div>
