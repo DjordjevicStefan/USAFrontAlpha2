@@ -24,7 +24,31 @@ class FullRoom extends Form {
     build: []
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    // this.refs.iScroll.addEventListener("scroll", () => {
+    //   if (
+    //     this.refs.iScroll.scrollTop + this.refs.iScroll.clientHeight >=
+    //     this.refs.iScroll.scrollHeight
+    //   ) {
+    //     this.loadMoreItems();
+    //   }
+    // });
+  }
+  // loadMoreItems() {
+  //   let renderedItems = [...this.state.renderedItems];
+  //   // console.log("provera", this.state.itemsi);
+  //   // for (var i = 0; i < this.state.itemsi; i++) {
+  //   //   itemsiii.push(this.state.renderedItems[i]);
+  //   // }
+  //   // console.log("renderedItems", renderedItems);
+  //   // this.setState({ loadingState: true });
+  //   // setTimeout(() => {
+  //   // this.setState({ itemsi: this.state.itemsi + 10 });
+
+  //   renderedItems = this.state.renderedItemsExtra;
+  //   this.setState({ renderedItems });
+  //   // }, 3000);
+  // }
   getCurrentRoom = () => {
     return this.props.match.params.id;
   };
@@ -337,9 +361,12 @@ class FullRoom extends Form {
     const value = {};
     const value1 = {};
     const checked = {};
+    const itemsi = 10;
     this.firstInput = React.createRef();
     const rooms = getRooms();
     let renderedItems = [];
+    let renderedItemsExtra = [];
+    let renderedItemsRegular = [];
     let room0 = "";
     let room = "";
     let target = "_blank";
@@ -375,6 +402,14 @@ class FullRoom extends Form {
       room0 = rooms.filter(m => m.id == this.props.match.params.id);
 
       renderedItems = allItems.filter(m => m.room === room0[0].name);
+      // console.log();
+
+      // let itemsiii = [];
+
+      // renderedItemsRegular = renderedItems.filter(m => m.status === "regular");
+      // renderedItemsExtra = renderedItems.filter(m => m.status === "extra");
+      // renderedItems = renderedItemsRegular;
+      // console.log("ALL ITEMS NOVO", renderedItems);
     } else {
       allItems = JSON.parse(localStorage.getItem("allItems"));
 
@@ -412,6 +447,8 @@ class FullRoom extends Form {
       JSON.stringify(isLoadingFullRoom)
     );
     this.state = {
+      renderedItemsExtra,
+      itemsi,
       target,
       room0,
       searchQuery,
@@ -430,7 +467,7 @@ class FullRoom extends Form {
   }
 
   render() {
-    console.log(this.state.checkedTrue);
+    console.log("provera iz rendera", this.state.itemsi);
     // console.log(this.state.renderedItems);
 
     // console.log(this.state.data);
@@ -438,7 +475,6 @@ class FullRoom extends Form {
     // // if (this.state.value==undefined){
     // //   number=
     // // }
-    // console.log();
 
     let checked = this.state.checked;
     let checkedTrue = this.state.checkedTrue;
@@ -486,7 +522,7 @@ class FullRoom extends Form {
     console.log(this.state);
     return (
       <React.Fragment>
-        <div className="container main-page">
+        <div className="container main-page ">
           <NavBar
             {...this.props}
             value={value}
@@ -546,7 +582,11 @@ class FullRoom extends Form {
             onChange={this.handleSearch}
           />
 
-          <div className="rooms  text-center">
+          <div
+            className="rooms  text-center"
+            ref="iScroll"
+            style={{ height: "600px", overflow: "auto" }}
+          >
             <h1 className="lead m-3">{title}</h1>
             <table className="table text-left ">
               <thead>
@@ -569,19 +609,19 @@ class FullRoom extends Form {
                     <td className="itemTd">{item.subCategory}</td>
                     <td className="itemTd">${item.price}</td>
                     <td className="itemTd">
-                      {!item.checked ? (
-                        <input
-                          disabled={item.checked}
-                          name={item.name}
-                          label="quantity"
-                          onChange={this.handleChange}
-                          value={item.quantity}
-                          className="quantity"
-                          type="number"
-                          min="1"
-                          id={item._id}
-                        />
-                      ) : null}
+                      {/* {!item.checked ? ( */}
+                      <input
+                        disabled={item.checked}
+                        name={item.name}
+                        label="quantity"
+                        onChange={this.handleChange}
+                        value={item.quantity}
+                        className="quantity"
+                        type="number"
+                        min="1"
+                        id={item._id}
+                      />
+                      {/* ) : null} */}
                     </td>
 
                     <td className="itemTd">
@@ -624,6 +664,9 @@ class FullRoom extends Form {
                   </tr>
                 </tbody>
               ))}
+              <a href="#" onClick={() => this.loadMoreItems()}>
+                Load
+              </a>
             </table>
           </div>
         </div>
