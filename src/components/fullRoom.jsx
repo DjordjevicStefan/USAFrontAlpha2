@@ -79,6 +79,19 @@ class FullRoom extends Form {
     console.log(data);
     this.props.history.push("/rooms/" + this.props.match.params.m);
   };
+  handleExtraItems() {
+    if (this.state.status == "extra") {
+      this.setState({
+        status: "regular",
+        statusOfExtraItems: "Show Extra Items"
+      });
+    } else {
+      this.setState({
+        status: "extra",
+        statusOfExtraItems: "Back To Regular Items"
+      });
+    }
+  }
   handlelogOut() {
     const answer = window.confirm("Are you sure you want to log out?");
     if (answer) {
@@ -337,19 +350,7 @@ class FullRoom extends Form {
       value2: e.target.value
     });
   };
-  handleLevels = e => {
-    let value3 = "";
-    let work = JSON.parse(localStorage.getItem("workorder"));
-    // value = workorder.apartmentNumber;
-    work.level = e.target.value;
-    // const workOrder = JSON.parse(localStorage.getItem("workorder"));
-    // workOrder.workorder.apartmentNumber = e.target.value;
-    localStorage.setItem("workorder", JSON.stringify(work));
 
-    this.setState({
-      value3: e.target.value
-    });
-  };
   // handleLinksTarget = b => {
   //   b = "_blank";
   //   return b;
@@ -362,6 +363,8 @@ class FullRoom extends Form {
     const value1 = {};
     const checked = {};
     const itemsi = 10;
+    const status = "regular";
+    const statusOfExtraItems = "Show Extra Items";
     this.firstInput = React.createRef();
     const rooms = getRooms();
     let renderedItems = [];
@@ -447,6 +450,8 @@ class FullRoom extends Form {
       JSON.stringify(isLoadingFullRoom)
     );
     this.state = {
+      statusOfExtraItems,
+      status,
       renderedItemsExtra,
       itemsi,
       target,
@@ -475,7 +480,7 @@ class FullRoom extends Form {
     // // if (this.state.value==undefined){
     // //   number=
     // // }
-
+    console.log("status", this.state.status);
     let checked = this.state.checked;
     let checkedTrue = this.state.checkedTrue;
 
@@ -518,6 +523,8 @@ class FullRoom extends Form {
     const value2 = workorder.squareFeet;
     const value3 = workorder.level;
     const value = workorder.apartmentNumber;
+    let status = this.state.status;
+    let statusOfExtraItems = this.state.statusOfExtraItems;
     // let number = this.state.data[0];
     console.log(this.state);
     return (
@@ -584,10 +591,16 @@ class FullRoom extends Form {
 
           <div
             className="rooms  text-center"
-            ref="iScroll"
-            style={{ height: "600px", overflow: "auto" }}
+            // ref="iScroll"
+            // style={{ height: "600px", overflow: "auto" }}
           >
             <h1 className="lead m-3">{title}</h1>
+            <button
+              className="btn btn-primary"
+              onClick={() => this.handleExtraItems()}
+            >
+              {statusOfExtraItems}
+            </button>
             <table className="table text-left ">
               <thead>
                 <tr>
@@ -602,72 +615,77 @@ class FullRoom extends Form {
                   <th className="item">✔</th>
                 </tr>
               </thead>
-              {datas.map(item => (
-                <tbody key={item._id}>
-                  <tr>
-                    <td className="itemTd">{item.name}</td>
-                    <td className="itemTd">{item.subCategory}</td>
-                    <td className="itemTd">${item.price}</td>
-                    <td className="itemTd">
-                      {/* {!item.checked ? ( */}
-                      <input
-                        disabled={item.checked}
-                        name={item.name}
-                        label="quantity"
-                        onChange={this.handleChange}
-                        value={item.quantity}
-                        className="quantity"
-                        type="number"
-                        min="1"
-                        id={item._id}
-                      />
-                      {/* ) : null} */}
-                    </td>
-
-                    <td className="itemTd">
-                      <Link
-                        target={this.state.target}
-                        onClick={e => this.handleLinks(e, item.link)}
-                      >
-                        Link
-                      </Link>
-                    </td>
-                    <td className="itemTd">
-                      <Checkbox
-                        number={this.state.value}
-                        type="checkbox"
-                        className="form-control"
-                        name={item.name}
-                        id={item._id}
-                        checked={item.checked}
-                        onChange={this.handleCheckboxChange}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="itemTd" colSpan="6">
-                      {!item.checked ? (
-                        <textarea
-                          // cols="38"
-                          // rows="2"
-                          placeholder="Comment"
+              {datas.map(item =>
+                item.status === status ? (
+                  <tbody key={item._id}>
+                    <tr>
+                      <td className="itemTd">{item.name}</td>
+                      <td className="itemTd">{item.subCategory}</td>
+                      <td className="itemTd">${item.price}</td>
+                      <td className="itemTd">
+                        {/* {!item.checked ? ( */}
+                        <input
                           disabled={item.checked}
-                          onPaste={this.handleChangeArea}
-                          onChange={this.handleChangeArea}
                           name={item.name}
-                          value={item.comment}
+                          label="quantity"
+                          onChange={this.handleChange}
+                          value={item.quantity}
+                          className="quantity"
+                          type="number"
+                          min="1"
                           id={item._id}
-                          className="form-control placeholder-input"
                         />
-                      ) : null}
-                    </td>
-                  </tr>
-                </tbody>
-              ))}
-              <a href="#" onClick={() => this.loadMoreItems()}>
-                Load
-              </a>
+                        {/* ) : null} */}
+                      </td>
+
+                      <td className="itemTd">
+                        <Link
+                          target={this.state.target}
+                          onClick={e => this.handleLinks(e, item.link)}
+                        >
+                          Link
+                        </Link>
+                      </td>
+                      <td className="itemTd">
+                        <Checkbox
+                          number={this.state.value}
+                          type="checkbox"
+                          className="check-box"
+                          name={item.name}
+                          id={item._id}
+                          checked={item.checked}
+                          onChange={this.handleCheckboxChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colSpan="6">
+                        {!item.checked ? (
+                          <textarea
+                            // cols="38"
+                            // rows="2"
+                            placeholder="Comment"
+                            disabled={item.checked}
+                            onPaste={this.handleChangeArea}
+                            onChange={this.handleChangeArea}
+                            name={item.name}
+                            value={item.comment}
+                            id={item._id}
+                            className="form-control placeholder-input"
+                          />
+                        ) : null}
+                      </td>
+                    </tr>
+                  </tbody>
+                ) : null
+              )}
             </table>
+            <button
+              className="btn btn-primary"
+              onClick={() => this.handleExtraItems()}
+            >
+              Show Extra Items
+            </button>
           </div>
         </div>
       </React.Fragment>

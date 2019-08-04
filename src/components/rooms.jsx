@@ -245,19 +245,7 @@ class Rooms extends Component {
       value2: e.target.value
     });
   };
-  handleLevels = e => {
-    let value3 = "";
-    let work = JSON.parse(localStorage.getItem("workorder"));
-    // value = workorder.apartmentNumber;
-    work.level = e.target.value;
-    // const workOrder = JSON.parse(localStorage.getItem("workorder"));
-    // workOrder.workorder.apartmentNumber = e.target.value;
-    localStorage.setItem("workorder", JSON.stringify(work));
 
-    this.setState({
-      value3: e.target.value
-    });
-  };
   handlelogOut() {
     const answer = window.confirm("Are you sure you want to log out?");
     if (answer) {

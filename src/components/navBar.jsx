@@ -207,7 +207,7 @@ class NavBar extends Component {
           <div className="logoBenLeeds col-12 p-3">
             <img src={logo} alt="Ben Leeds Logo" />
           </div>
-          <div class="card card-user col-4 offset-4">
+          <div class="card card-user col-sm-4 offset-sm-4 ">
             <img
               src={this.state.source}
               class="card-img-top user-img"
@@ -324,7 +324,7 @@ class NavBar extends Component {
         <div className="container mainPage">
           {!chosenOptSaved && !chosenOptPending ? (
             <div className="row nav-box">
-              <div className="col-sm-3">
+              <div className="col-sm-4">
                 <div className="input-group mb-3">
                   <div className="input-group-prepend">
                     <div className="build input-group-text  text-white">
@@ -345,7 +345,7 @@ class NavBar extends Component {
                   ) : null}
                 </div>
               </div>
-              <div className="col-sm-3">
+              <div className="col-sm-4">
                 <div className="input-group mb-3">
                   <div className="input-group-prepend">
                     <div className="build input-group-text  text-white">
@@ -360,7 +360,7 @@ class NavBar extends Component {
                 </div>
                 {/* <label className="btn btn-secondary ">Workorders</label> */}
               </div>
-              <div className="col-sm-3">
+              <div className="col-sm-4">
                 <div className="input-group mb-3">
                   <div className="input-group-prepend">
                     <div className="build input-group-text  text-white">
@@ -376,22 +376,7 @@ class NavBar extends Component {
 
                 {/* <label className="btn btn-secondary ">Workorders</label> */}
               </div>
-              <div className="col-sm-3">
-                <div className="input-group mb-3">
-                  <div className="input-group-prepend">
-                    <div className="build input-group-text  text-white">
-                      Levels:
-                    </div>
-                  </div>
-                  <input
-                    value={this.props.value3}
-                    onChange={this.props.onHandleLevels}
-                    className={`build-input ${this.props.classs}`}
-                  />
-                </div>
 
-                {/* <label className="btn btn-secondary ">Workorders</label> */}
-              </div>
               {this.props.buildingState ? (
                 <div className="col-12">
                   <div class="card text-dark bg-light mb-3">
