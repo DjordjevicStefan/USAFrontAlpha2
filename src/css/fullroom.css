@@ -18,7 +18,10 @@
 .check-box:hover {
   cursor: pointer;
 }
-
+.check-box {
+  width: 30px;
+  height: 30px;
+}
 .quantity {
   width: 40px;
   border-radius: 5px;
