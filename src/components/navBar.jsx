@@ -361,6 +361,7 @@ class NavBar extends Component {
                     </div>
                   </div>
                   <input
+                    disabled={saved ? "true" : null}
                     value={this.props.value}
                     onChange={this.props.onHandleAptNum}
                     className={`build-input ${this.props.classs}`}
@@ -377,6 +378,7 @@ class NavBar extends Component {
                     </div>
                   </div>
                   <input
+                    hidden={saved ? "true" : null}
                     value={this.props.value2}
                     onChange={this.props.onHandleSquare}
                     className={`build-input ${this.props.classs}`}
