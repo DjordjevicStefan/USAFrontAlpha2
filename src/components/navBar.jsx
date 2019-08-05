@@ -20,7 +20,7 @@ class NavBar extends Component {
       { responseType: "arraybuffer" }
     );
 
-    console.log(response);
+    console.log("resonse", response);
     // this.setState({ img });
     // console.log(img);
     const base64 = btoa(
@@ -157,6 +157,7 @@ class NavBar extends Component {
     let chosenOptNew = "";
     let chosenOptSaved = "";
     let chosenOptPending = "";
+    let saved = false;
     let region = JSON.parse(localStorage.getItem("currentUser")).region;
     if (localStorage.getItem("chosenOpt")) {
       let chosenOpt = JSON.parse(localStorage.getItem("chosenOpt"));
@@ -170,13 +171,18 @@ class NavBar extends Component {
         return;
       }
     }
-
+    if (JSON.parse(localStorage.getItem("chosenOpt")) == "saved") {
+      saved = true;
+    }
     console.log(this.props.buildingState);
     if (this.props.buildingState) {
-      building = JSON.parse(localStorage.getItem("building"));
-      managerName = building.managerName;
-      managerEmail = building.managerEmail;
-      managerPhone = building.managerPhone;
+      if (JSON.parse(localStorage.getItem("building")) != null) {
+        building = JSON.parse(localStorage.getItem("building"));
+        managerName = building.managerName;
+        managerEmail = building.managerEmail;
+        managerPhone = building.managerPhone;
+      } else {
+      }
     } else {
     }
 
@@ -333,12 +339,14 @@ class NavBar extends Component {
                   </div>
 
                   <input
+                    disabled={saved ? "true" : null}
                     type="number"
                     min="1"
                     value={this.props.build}
                     className={`build-input ${this.props.classs}`}
                     onChange={this.props.onHandleInput}
                   />
+
                   <br />
                   {this.props.showing ? (
                     <div className={klasa}>{this.props.adress}</div>
@@ -360,6 +368,7 @@ class NavBar extends Component {
                 </div>
                 {/* <label className="btn btn-secondary ">Workorders</label> */}
               </div>
+
               <div className="col-sm-4">
                 <div className="input-group mb-3">
                   <div className="input-group-prepend">
