@@ -176,9 +176,6 @@ class User extends Component {
   validate = () => {
     const userCopy = { ...this.state.user };
      
-
-    
-    
     delete userCopy._id;
     delete userCopy.__v;
     delete userCopy.status;
