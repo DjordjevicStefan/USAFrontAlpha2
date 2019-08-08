@@ -237,9 +237,10 @@ handlePictureUpload = async () => {
       name,
       email,
       password,
-      region,
+      imgPath,
       emailPassword,
       _id: id
+
     } = this.state.user;
 
     return (
@@ -271,6 +272,7 @@ handlePictureUpload = async () => {
           name={name}
           email={email}
           password={password}
+          imgPath={imgPath}
           onRegionChange={this.handleRegionChange}
           onChange={this.handleInputChange}
           onBack={this.handleBack}
