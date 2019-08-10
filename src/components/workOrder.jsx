@@ -279,7 +279,7 @@ export default class WorkOrder extends Component {
     // console.log("jvendor", vendor);
 
     const { data } = await assignJob(clickBtnId, job, vendor, workorder);
-    // console.log("posle assigne",data);
+    console.log("posle assigne",data);
     
     if (data.success) {
       const woAndJobs = this.state.workorder;

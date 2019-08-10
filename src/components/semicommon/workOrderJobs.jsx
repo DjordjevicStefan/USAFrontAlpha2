@@ -147,7 +147,6 @@ export default function WorkOrderJobs(props) {
                   <option>{checkVendorId(job.vendorId)}</option>
                   {sortVendors.map(vendor => (
                     <option value={vendor._id} key={vendor._id}>
-                      {" "}
                       {`Name: ${vendor.name} | `}{" "}
                       {`Profession: ${vendor.profession}`}{" "}
                     </option>
