@@ -15,6 +15,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 export default class WorkOrder extends Component {
   state = {
+    jobs : null ,
     allSentJobs : null ,
     workorder: null,
     allWorkOrders : null ,
@@ -54,6 +55,7 @@ export default class WorkOrder extends Component {
     let allSentJoobs = jobs.filter(job=> job.status === "sent")
 
     this.setState(() => ({
+      jobs : jobs ,
       allSentJoobs : allSentJoobs,
       workorder: workorder,
       allWorkOrders : allWorkOrders,
@@ -277,8 +279,9 @@ export default class WorkOrder extends Component {
     // console.log("wo", workorder);
     // console.log("job", job);
     // console.log("jvendor", vendor);
+    let allJobs = [...this.state.jobs] ;
 
-    const { data } = await assignJob(clickBtnId, job, vendor, workorder);
+    const { data } = await assignJob(clickBtnId, job, vendor, workorder, allJobs);
     console.log("posle assigne",data);
     
     if (data.success) {
