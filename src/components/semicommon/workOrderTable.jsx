@@ -95,7 +95,7 @@ export default class workOrderTable extends Component {
              handleId={handleId}
              returnVendorId={returnVendorId}
              onOk = {onOk}
-             okTriger ={okTriger}
+            //  okTriger ={okTriger}
              onProfessionChange={onProfessionChange}
              professions={professions}
              vendorsWhitSamePro={vendorsWhitSamePro}

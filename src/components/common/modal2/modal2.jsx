@@ -56,8 +56,8 @@ class ModalMy2 extends Component {
     const vendorJobArrey = allSentJoobs.filter(job=> job.vendorId === selVendorId) ; 
     let vendorJobArreySorted = _.orderBy(vendorJobArrey, ["assignmentDate"], ["asc"]);
     
-     console.log("before selected id" , vendorJobArrey);
-     console.log("before selected id" , vendorJobArreySorted);
+    //  console.log("before selected id" , vendorJobArrey);
+    //  console.log("before selected id" , vendorJobArreySorted);
 
     //// mutation of jobs arrey to be able to ad workorder on it as a props
     vendorJobArreySorted.map(job => {
@@ -66,7 +66,7 @@ class ModalMy2 extends Component {
      
     });   
 
-    console.log("after mutation", vendorJobArreySorted);
+    // console.log("after mutation", vendorJobArreySorted);
       
     
     const indexOfLast = this.state.currentPage * this.state.itemsPerPage;
@@ -101,7 +101,7 @@ class ModalMy2 extends Component {
                   </thead>
                   <tbody>
                     {(selVendorId) ? this.popuilateTable(vendorsJobsPaginated) : null  }
-                    {console.log("vednors jobs paginated",vendorsJobsPaginated)}
+                    {/* {console.log("vednors jobs paginated",vendorsJobsPaginated)} */}
                   </tbody>
                 </table>
               </>
